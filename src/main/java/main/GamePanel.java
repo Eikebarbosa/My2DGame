@@ -18,18 +18,18 @@ import tile.TileManager;
  */
 public class GamePanel extends JPanel implements Runnable {
     //Configurações de tela
-    final int originalTileSize = 16;//16x16 tile
-    //16 pixels, da para aumentar
-    //em certas telas, 16 é bem pouco
-    final int scale = 3;
+    final int originalTileSize = 24; // 16x16 tile
+    // 16 pixels, da para aumentar
+    // em certas telas, 16 é bem pouco
+    final int scale = 3; // Adjust the scale to maintain the correct aspect ratio
     
-    public final int tileSize = originalTileSize * scale;//48x48 tile
-    public final int maxScreenCol = 16;//horizontal
-    public final int maxScreenRow = 12;//vertical
-    public final int screenWidth = tileSize * maxScreenCol; //768 pixels
-    public final int screenHeight = tileSize * maxScreenRow; //576 pixels
+    public final int tileSize = originalTileSize * scale; // 48x48 tile
+    public final int maxScreenCol = 16; // horizontal
+    public final int maxScreenRow = 12; // vertical
+    public final int screenWidth = tileSize * maxScreenCol; // 768 pixels
+    public final int screenHeight = tileSize * maxScreenRow; // 576 pixels
     
-    //World settings
+    // World settings
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
     public final int worldWidth = tileSize * maxWorldCol;
