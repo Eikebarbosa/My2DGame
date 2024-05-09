@@ -15,5 +15,3 @@ buildNumber.properties
 .project
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
-
-src/main/java/login/db/ConnectionFactory.java
