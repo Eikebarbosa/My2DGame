@@ -11,6 +11,6 @@ package br.maua.t2.my2dgame;
 public class My2DGame {
 
     public static void main(String[] args) {
-        System.out.println("Hello World?");
+        System.out.println("Hello World!!!!!");
     }
 }
