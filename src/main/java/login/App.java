@@ -2,15 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 
-package br.maua.t2.my2dgame;
+package login;
 
 /**
  *
- * @author keyex
+ * @author schix
  */
-public class My2DGame {
+public class App {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!!!!");
+        System.out.println("Hello World!!");
     }
 }
