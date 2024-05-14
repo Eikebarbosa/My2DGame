@@ -32,10 +32,10 @@ public class Player extends Entity {
         screenY = gp.screenHeight/2 - (gp.tileSize/2);
         
         solidArea = new Rectangle(0, 0, 48, 48);
-        solidArea.x = 8;
-        solidArea.y = 16;
-        solidArea.width = 32;
-        solidArea.height = 32;
+        solidArea.x = 16;
+        solidArea.y = 60;
+        solidArea.width = 8;
+        solidArea.height = 21;
         
         setDefaultValues();
         getPlayerImage();
