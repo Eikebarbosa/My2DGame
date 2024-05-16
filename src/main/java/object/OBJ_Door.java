@@ -19,5 +19,8 @@ public class OBJ_Door extends SuperObject{
         }catch(IOException e){
             e.printStackTrace();
         }
+        
+        //Deixar os itens com colisões
+        collision = true;
     }
 }
