@@ -16,6 +16,7 @@ public class OBJ_Boots extends SuperObject{
         name = "Boots";
         try{
             image = ImageIO.read(getClass().getResourceAsStream("/images/key.png"));
+            //por problemas q eu tive com o sprite da bota, ela está no jogo como uma chave
         }catch(IOException e){
             e.printStackTrace();
         }
