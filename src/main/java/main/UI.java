@@ -7,12 +7,14 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 
+
 /**
  *
  * @author Mateus
  */
 public class UI {
     GamePanel gp;
+    Graphics2D g2;
     Font arial_40, arial_80B;
     public boolean messageOn = false;
     public boolean gameFinished = false;
@@ -29,8 +31,35 @@ public class UI {
         messageOn = true;
     }
     public void draw(Graphics2D g2){
+        this.g2 = g2;
         
-        if(gameFinished == true){
+        g2.setFont(arial_40);
+        g2.setColor(Color.WHITE);
+        
+        if(gp.gameState == gp.playState){
+            
+        }
+        if(gp.gameState == gp.pauseState){
+            drawPauseScreen();
+        }
+    }
+    public void drawPauseScreen(){
+            String text = "Paused";
+            int x = getXforCenteredText(text);
+            
+            
+            int y = gp.screenHeight/2;
+            g2.drawString(text, x, y);
+        }
+    public int getXforCenteredText(String text){
+        int lenght = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+        int x = gp.screenWidth/2 - lenght/2;
+        return x;
+    }
+        
+        
+        //FINAL DO JOGO A SEGUIR(apagado pelo cara do video)
+        /*if(gameFinished == true){
             
             g2.setFont(arial_40);
             g2.setColor(Color.WHITE);
@@ -73,8 +102,9 @@ public class UI {
                 if(messageCounter > 120){
                     messageCounter = 0;
                     messageOn = false;
-            }
-        }  
-    }
-}
+                    }
+                }  
+            }*/
+        
+    
 }

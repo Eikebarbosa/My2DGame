@@ -42,7 +42,7 @@ public class GamePanel extends JPanel implements Runnable {
     int FPS = 60;
     
     TileManager tileM = new TileManager(this);
-    KeyHandler keyH = new KeyHandler();
+    KeyHandler keyH = new KeyHandler(this);
     Sound music = new Sound();
     Sound se = new Sound();
     Thread gameThread;//Mantém o jogo rodando até forçar a parada
@@ -53,6 +53,12 @@ public class GamePanel extends JPanel implements Runnable {
     // entity and object
     public Player player = new Player(this, keyH);
     public SuperObject obj[] = new SuperObject[10];
+    
+    //game state
+    public int gameState;
+    public final int playState = 1;
+    public final int pauseState = 2;
+    
     
     
     
@@ -67,6 +73,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void setupGame(){
         aSetter.setObject();
         playMusic(0);
+        gameState = playState;
     }
     
     public void startGameThread(){
@@ -114,13 +121,24 @@ public class GamePanel extends JPanel implements Runnable {
         
     }
     public void update(){
+        
+        if(gameState == playState){
         player.update();
+        }
+        if(gameState == pauseState){
+            //nada
+        }
     }
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         
         Graphics2D g2 = (Graphics2D)g;
         
+        //debug
+        long drawStart = 0;
+        if(keyH.checkDrawTime == true){
+            drawStart = System.nanoTime();
+        }
         //TILE
         tileM.draw(g2);
         
@@ -137,7 +155,15 @@ public class GamePanel extends JPanel implements Runnable {
         //UI
         ui.draw(g2);
         
-        g2.dispose();
+        //debug
+        if(keyH.checkDrawTime == true){
+            long drawEnd = System.nanoTime();
+            long passed = drawEnd - drawStart;
+            g2.setColor(Color.WHITE);
+            g2.drawString("Draw Time: " + passed, 10, 400);
+            System.out.println("Draw Time: " +passed);
+            g2.dispose();
+        }
     }
     public void playMusic(int i){
         music.setFile(i);
