@@ -40,6 +40,10 @@ public class NPC_OldMan extends Entity {
         }
     }
     public void setAction(){
+        
+        actionLockCounter ++;
+        
+        if(actionLockCounter == 120){
         Random random = new Random();
         int i = random.nextInt(100) + 1; //escolhe um numero de 1 a 100
         
@@ -54,6 +58,9 @@ public class NPC_OldMan extends Entity {
         }
         if(i > 75 && i <= 100){
             direction = "right";
+        }
+         
+        actionLockCounter = 0;
         }
     }
 }
