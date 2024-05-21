@@ -22,6 +22,7 @@ public class NPC_OldMan extends Entity {
         speed = 1;
         
         getImage();
+        setDialogue();
     }
     public void getImage(){
         try {
@@ -38,6 +39,18 @@ public class NPC_OldMan extends Entity {
         }catch(IOException e){
             e.printStackTrace();
         }
+    }
+    public void setDialogue(){
+        
+        //Os dialogos do NPC
+        dialogues[0] = "AH!!";
+        dialogues[1] = "Me desculpe. Eu não te vi ai, Doutora.";
+        dialogues[2] = "Você veio ajudar?";
+        dialogues[3] = "QUE ÓTIMO!! Quanto mais ajuda, melhor. \nVocê precisa entrar lá e salvar o hospital";
+        
+        
+        
+        
     }
     public void setAction(){
         
@@ -62,6 +75,9 @@ public class NPC_OldMan extends Entity {
          
         actionLockCounter = 0;
         }
+    }
+    public void speak(){
+        super.speak();
     }
 }
 
