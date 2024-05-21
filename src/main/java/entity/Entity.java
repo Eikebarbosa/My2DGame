@@ -14,7 +14,7 @@ import main.GamePanel;
  * @author keyex
  */
 public class Entity {
-    
+    //algum comentario extremamente inutil para contar como uma mudança significativa(apagar depois)
     GamePanel gp;
     public int worldX, worldY;
     public int speed;
