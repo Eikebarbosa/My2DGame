@@ -9,6 +9,7 @@ import object.OBJ_Door;
 import object.OBJ_Key;
 import object.OBJ_Boots;
 import entity.NPC_OldMan;
+import entity.SlimeMonster;
 
 /**
  *
@@ -61,6 +62,14 @@ public class AssetSetter {
         gp.npc[0] = new NPC_OldMan(gp);
         gp.npc[0].worldX = gp.tileSize*21;
         gp.npc[0].worldY = gp.tileSize*21;
+    }
+    
+    public void setMonster(){
+        gp.monster[0] = new SlimeMonster(gp);
+        gp.monster[0].worldX = gp.tileSize*21;
+        gp.monster[0].worldY = gp.tileSize*21;
+        
+        
     }
 
 }

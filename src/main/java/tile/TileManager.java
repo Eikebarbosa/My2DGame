@@ -24,7 +24,7 @@ public class TileManager {
     public TileManager(GamePanel gp){
         this.gp = gp;
         
-        tile = new Tile[10];
+        tile = new Tile[13];
         mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
         
         getTileImage();
@@ -65,6 +65,19 @@ public class TileManager {
             tile[5] = new Tile();
             tile[5].image = ImageIO.read(getClass().getResourceAsStream("/images/floor1.png"));
             
+            tile[9] = new Tile();
+            tile[9].image = ImageIO.read(getClass().getResourceAsStream("/images/floor7.png"));
+            tile[9].collision = true;
+            
+            tile[10] = new Tile();
+            tile[10].image = ImageIO.read(getClass().getResourceAsStream("/images/floor6.png"));
+            
+            tile[11] = new Tile();
+            tile[11].image = ImageIO.read(getClass().getResourceAsStream("/images/floor3.png"));
+            tile[11].collision = true;
+            
+            tile[12] = new Tile();
+            tile[12].image = ImageIO.read(getClass().getResourceAsStream("/images/floor2.png"));
             //salvando o mateus
         }catch(IOException e){
             e.printStackTrace();

@@ -37,6 +37,8 @@ public class NewJFrame extends javax.swing.JFrame {
         doctordown1 = new javax.swing.JLabel();
         doctordown2 = new javax.swing.JLabel();
         teste1 = new javax.swing.JLabel();
+        monsterSlime1 = new javax.swing.JLabel();
+        monsterSlime2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -62,16 +64,14 @@ public class NewJFrame extends javax.swing.JFrame {
 
         teste1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/doctordown1teste.png"))); // NOI18N
 
+        monsterSlime1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/greenslime_down_1.png"))); // NOI18N
+
+        monsterSlime2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/greenslime_down_2.png"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(image3Label)
-                .addGap(127, 127, 127)
-                .addComponent(image5Label)
-                .addContainerGap(209, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(218, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -99,6 +99,19 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(imagemLabel)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(image3Label)
+                        .addGap(127, 127, 127)
+                        .addComponent(image5Label))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(56, 56, 56)
+                        .addComponent(monsterSlime1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(monsterSlime2)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,11 +122,15 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addComponent(image7Label)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(56, 56, 56)
-                        .addComponent(imagem2Label))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(66, 66, 66)
-                        .addComponent(image8Label)))
+                        .addComponent(image8Label))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(imagem2Label)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(monsterSlime2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(monsterSlime1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -187,6 +204,8 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel image8Label;
     private javax.swing.JLabel imagem2Label;
     private javax.swing.JLabel imagemLabel;
+    private javax.swing.JLabel monsterSlime1;
+    private javax.swing.JLabel monsterSlime2;
     private javax.swing.JLabel teste1;
     // End of variables declaration//GEN-END:variables
 }
