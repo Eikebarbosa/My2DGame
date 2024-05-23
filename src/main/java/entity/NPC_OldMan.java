@@ -43,7 +43,7 @@ public class NPC_OldMan extends Entity {
     public void setDialogue(){
         
         //Os dialogos do NPC
-        dialogues[0] ="Ah! Você veio ajudar? \n Que ótimo! Quanto mais ajuda, melhor. \nVocê precisa entrar lá e salvar o hospital";
+        dialogues[0] ="Ah! Você veio ajudar? \nQue ótimo! Quanto mais ajuda, melhor. \nVocê precisa entrar lá e salvar o hospital";
         
         
         
