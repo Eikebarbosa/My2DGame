@@ -17,8 +17,19 @@ public class SlimeMonster extends Entity {
     public SlimeMonster(GamePanel gp) {
         super(gp);
         
+        
         direction = "down";
         speed = 1;
+        maxLife = 4;
+        life = maxLife;
+        
+        solidArea.x = 3;
+        solidArea.y = 18;
+        solidArea.width = 42;
+        solidArea.height = 30;
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
+        
         
         getImage();
     }

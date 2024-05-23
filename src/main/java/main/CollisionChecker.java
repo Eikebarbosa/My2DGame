@@ -152,8 +152,11 @@ public class CollisionChecker {
                     case "up":
                         entity.solidArea.y -= entity.speed;
                         if(entity.solidArea.intersects(target[i].solidArea)){
+                                if(target[i] != entity){
                                 entity.collisionOn = true;
                                 index = i;
+                                
+                            }
                         }
                         break;
                             
@@ -163,8 +166,11 @@ public class CollisionChecker {
                     case "down":
                         entity.solidArea.y +=  entity.speed;
                         if(entity.solidArea.intersects(target[i].solidArea)){
+                                if(target[i] != entity){
                                 entity.collisionOn = true;
                                 index = i;
+                                
+                            }
                         }
                         break;
                             
@@ -173,8 +179,11 @@ public class CollisionChecker {
                     case "left":
                         entity.solidArea.x -= entity.speed;
                         if(entity.solidArea.intersects(target[i].solidArea)){
+                            if(target[i] != entity){
                                 entity.collisionOn = true;
                                 index = i;
+                                
+                            }
                         }
                         break;
                             
@@ -183,8 +192,11 @@ public class CollisionChecker {
                     case "right":
                         entity.solidArea.x += entity.speed;
                         if(entity.solidArea.intersects(target[i].solidArea)){
+                            if(target[i] != entity){
                                 entity.collisionOn = true;
                                 index = i;
+                                
+                            }
                         }
                         break;
                             
