@@ -33,7 +33,7 @@ public class TileManager {
     public void getTileImage(){
         try{
             tile[0] = new Tile();
-            tile[0].image = ImageIO.read(getClass().getResourceAsStream("/images/grass01.png"));
+            tile[0].image = ImageIO.read(getClass().getResourceAsStream("/images/floor5.png"));
             
             tile[1] = new Tile();
             tile[1].image = ImageIO.read(getClass().getResourceAsStream("/images/wall1.png"));
@@ -65,7 +65,7 @@ public class TileManager {
             tile[5] = new Tile();
             tile[5].image = ImageIO.read(getClass().getResourceAsStream("/images/floor1.png"));
             
-            
+            //salvando o mateus
         }catch(IOException e){
             e.printStackTrace();
         }
