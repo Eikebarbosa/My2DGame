@@ -19,7 +19,7 @@ public class NPC_OldMan extends Entity {
         super(gp);
         
         direction = "down";
-        speed = 1;
+        speed = 0;
         
         getImage();
         setDialogue();
@@ -27,13 +27,13 @@ public class NPC_OldMan extends Entity {
     public void getImage(){
         try {
             up1 = ImageIO.read(getClass().getResourceAsStream("/npc/oldman_up_1.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/npc/oldman_up_2.png"));
+            up2 = ImageIO.read(getClass().getResourceAsStream("/npc/oldman_up_1.png"));
             down1 = ImageIO.read(getClass().getResourceAsStream("/npc/oldman_down_1.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/npc/oldman_down_2.png"));
+            down2 = ImageIO.read(getClass().getResourceAsStream("/npc/oldman_down_1.png"));
             left1 = ImageIO.read(getClass().getResourceAsStream("/npc/oldman_Left_1.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/npc/oldman_Left_2.png"));
+            left2 = ImageIO.read(getClass().getResourceAsStream("/npc/oldman_Left_1.png"));
             right1 = ImageIO.read(getClass().getResourceAsStream("/npc/oldman_right_1.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/npc/oldman_right_2.png"));
+            right2 = ImageIO.read(getClass().getResourceAsStream("/npc/oldman_right_1.png"));
             
         
         }catch(IOException e){
@@ -43,10 +43,7 @@ public class NPC_OldMan extends Entity {
     public void setDialogue(){
         
         //Os dialogos do NPC
-        dialogues[0] = "AH!!";
-        dialogues[1] = "Me desculpe. Eu não te vi ai, Doutora.";
-        dialogues[2] = "Você veio ajudar?";
-        dialogues[3] = "QUE ÓTIMO!! Quanto mais ajuda, melhor. \nVocê precisa entrar lá e salvar o hospital";
+        dialogues[0] ="Ah! Você veio ajudar? \n Que ótimo! Quanto mais ajuda, melhor. \nVocê precisa entrar lá e salvar o hospital";
         
         
         
@@ -61,16 +58,16 @@ public class NPC_OldMan extends Entity {
         int i = random.nextInt(100) + 1; //escolhe um numero de 1 a 100
         
         if(i <= 25){
-            direction = "up";
+            direction = "down";
         }
         if(i > 25 && i <= 50){
             direction = "down";
         }
         if(i > 50 && i <= 75){
-            direction = "left";
+            direction = "down";
         }
         if(i > 75 && i <= 100){
-            direction = "right";
+            direction = "down";
         }
          
         actionLockCounter = 0;
