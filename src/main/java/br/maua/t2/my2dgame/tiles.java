@@ -33,6 +33,18 @@ public class tiles extends javax.swing.JFrame {
         parede = new javax.swing.JLabel();
         arvore = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        floor1H = new javax.swing.JLabel();
+        floor2H = new javax.swing.JLabel();
+        floor3H = new javax.swing.JLabel();
+        floor4H = new javax.swing.JLabel();
+        floor5H = new javax.swing.JLabel();
+        floor6H = new javax.swing.JLabel();
+        floor7H = new javax.swing.JLabel();
+        floor8H = new javax.swing.JLabel();
+        wall1H = new javax.swing.JLabel();
+        wall2H = new javax.swing.JLabel();
+        wall3H = new javax.swing.JLabel();
+        wall4H = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,26 +62,71 @@ public class tiles extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sand.png"))); // NOI18N
 
+        floor1H.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/floor1.png"))); // NOI18N
+
+        floor2H.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/floor2.png"))); // NOI18N
+
+        floor3H.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/floor3.png"))); // NOI18N
+
+        floor4H.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/floor4.png"))); // NOI18N
+
+        floor5H.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/floor5.png"))); // NOI18N
+
+        floor6H.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/floor6.png"))); // NOI18N
+
+        floor7H.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/floor7.png"))); // NOI18N
+
+        floor8H.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/floor8.png"))); // NOI18N
+
+        wall1H.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/wall1.png"))); // NOI18N
+
+        wall2H.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/wall2.png"))); // NOI18N
+
+        wall3H.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/wall3.png"))); // NOI18N
+
+        wall4H.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/wall4.png"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(73, 73, 73)
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(floor1H, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1))
+                    .addComponent(wall1H, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(arvore)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(arvore, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(floor2H, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(wall2H, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(terra)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(terra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(floor3H, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(wall3H, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(floor4H, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(wall4H, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(agua)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(agua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(floor5H, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(grama)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(grama, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(floor6H, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(parede)
-                .addGap(0, 167, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(parede, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(floor7H, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(floor8H, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 49, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -82,7 +139,23 @@ public class tiles extends javax.swing.JFrame {
                     .addComponent(parede)
                     .addComponent(arvore)
                     .addComponent(jLabel1))
-                .addContainerGap(284, Short.MAX_VALUE))
+                .addGap(50, 50, 50)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(floor8H, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(floor1H, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(floor2H, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(floor3H, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(floor4H, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(floor5H, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(floor6H, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(floor7H, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(wall1H, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(wall2H, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(wall3H, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(wall4H, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap(184, Short.MAX_VALUE))
         );
 
         pack();
@@ -126,10 +199,22 @@ public class tiles extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel agua;
     private javax.swing.JLabel arvore;
+    private javax.swing.JLabel floor1H;
+    private javax.swing.JLabel floor2H;
+    private javax.swing.JLabel floor3H;
+    private javax.swing.JLabel floor4H;
+    private javax.swing.JLabel floor5H;
+    private javax.swing.JLabel floor6H;
+    private javax.swing.JLabel floor7H;
+    private javax.swing.JLabel floor8H;
     private javax.swing.JLabel grama;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel parede;
     private javax.swing.JLabel terra;
+    private javax.swing.JLabel wall1H;
+    private javax.swing.JLabel wall2H;
+    private javax.swing.JLabel wall3H;
+    private javax.swing.JLabel wall4H;
     // End of variables declaration//GEN-END:variables
 }
