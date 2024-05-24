@@ -17,7 +17,7 @@ public class UsuarioDAO {
     
     public boolean existe(Usuario u) throws Exception{
         // 1. especificar o comando SQL (Select)
-        String sql = "SELECT * FROM tbusuario_t2 WHERE login = ? AND senha = ?";
+        String sql = "SELECT * FROM Aluno WHERE nomeAluno = ? AND senhaAluno = ?";
         // 2. estabelecer uma conexão com o banco
         Connection conexao = new ConnectionFactory(). obterConexao();
         // 3. Preparar o comando
