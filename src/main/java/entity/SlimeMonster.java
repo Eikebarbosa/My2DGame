@@ -17,7 +17,7 @@ public class SlimeMonster extends Entity {
     public SlimeMonster(GamePanel gp) {
         super(gp);
         
-        
+        type = 2;
         direction = "down";
         speed = 1;
         maxLife = 4;

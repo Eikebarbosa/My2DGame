@@ -4,7 +4,9 @@
  */
 package entity;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -71,9 +73,21 @@ public class Player extends Entity {
             e.printStackTrace();
         }
     }
+    
+    //caso der errado, coloque todos esses junto com os demais acima
+    public void getPlayerAttackImage() throws IOException{
+            attackUp1 = ImageIO.read(getClass().getResourceAsStream("/images/boy_attack_up1.png"));
+            attackUp2 = ImageIO.read(getClass().getResourceAsStream("/images/boy_attack_up2.png"));
+            attackDown1 = ImageIO.read(getClass().getResourceAsStream("/images/boy_attack_down1.png"));
+            attackDown2 = ImageIO.read(getClass().getResourceAsStream("/images/boy_attack_down2.png"));
+            attackLeft1 = ImageIO.read(getClass().getResourceAsStream("/images/boy_attack_Left1.png"));
+            attackLeft2 = ImageIO.read(getClass().getResourceAsStream("/images/boy_attack_Left2.png"));
+            attackRight1 = ImageIO.read(getClass().getResourceAsStream("/images/boy_attack_right1.png"));
+            attackRight2 = ImageIO.read(getClass().getResourceAsStream("/images/boy_attack_right2.png"));
+    }
     public void update(){
         if (keyH.upPressed == true || keyH.downPressed == true || 
-                keyH.leftPressed == true || keyH.rightPressed == true){
+                keyH.leftPressed == true || keyH.rightPressed == true || keyH.enterPressed == true){
             
             if(keyH.upPressed == true){
             direction = "up";            
@@ -102,9 +116,10 @@ public class Player extends Entity {
          
          //CHECK MONSTER COLLISION
          int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
+         contactMonster(monsterIndex);
          
          //IF COLLISION IS FALSE, PLAYER CAN MOVE
-            if(collisionOn == false){
+            if(collisionOn == false && keyH.enterPressed == false){
                 
                 switch(direction){
                     case "up":
@@ -121,7 +136,8 @@ public class Player extends Entity {
                         break;
                 }
             }
-         
+         gp.keyH.enterPressed = false;
+            
         spriteCounter++;
         if(spriteCounter > 10){
             if(spriteNum == 1){
@@ -134,7 +150,14 @@ public class Player extends Entity {
         }
         }
         
-        
+        //THIS NEED TO BE OUTSIDE OF KEY IF STATEMENT!
+        if(invincible == true){
+            invincibleCounter++;
+            if(invincibleCounter > 60){
+                invincible = false;
+                invincibleCounter = 0;
+            }
+        }
     }
     
     public void pickUpObject(int i){
@@ -185,6 +208,17 @@ public class Player extends Entity {
         gp.keyH.enterPressed = false;
     }
     
+    public void contactMonster(int i){
+        if(i != 999){
+            if(invincible == false){
+                life -= 1;
+                invincible = true;
+                
+                
+            }
+        }
+    }
+    
     public void draw(Graphics2D g2){
         
         BufferedImage image = null;
@@ -226,7 +260,18 @@ public class Player extends Entity {
                 break;
            
         }
+            
+        if(invincible == true){
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
+        }
         g2.drawImage( image, screenX, screenY, 42, 84, null);
         
+        //RESET ALPHA
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+        
+        //DEBUG
+        //g2.setFont(new Font("Arial", Font.PLAIN, 26));
+        //g2.setColor(Color.white);
+        //g2.drawString("Invincible:"+invincibleCounter, 10, 400);
     }
 }

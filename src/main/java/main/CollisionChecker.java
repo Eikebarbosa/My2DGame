@@ -213,8 +213,9 @@ public class CollisionChecker {
         return index;
     }
     
-    public void checkPlayer(Entity entity){
-        //get entity's solid area position
+    public boolean checkPlayer(Entity entity){
+                boolean contactPlayer = false;
+                //get entity's solid area position
                 entity.solidArea.x = entity.worldX + entity.solidArea.x;
                 entity.solidArea.y = entity.worldY + entity.solidArea.y;
                 //get the object's solid area posotion
@@ -226,6 +227,7 @@ public class CollisionChecker {
                         entity.solidArea.y -= entity.speed;
                         if(entity.solidArea.intersects(gp.player.solidArea)){
                                 entity.collisionOn = true;
+                                contactPlayer = true;
                         }
                         break;
                             
@@ -236,6 +238,7 @@ public class CollisionChecker {
                         entity.solidArea.y +=  entity.speed;
                         if(entity.solidArea.intersects(gp.player.solidArea)){
                                 entity.collisionOn = true;
+                                contactPlayer = true;
                         }
                         break;
                             
@@ -245,6 +248,7 @@ public class CollisionChecker {
                         entity.solidArea.x -= entity.speed;
                         if(entity.solidArea.intersects(gp.player.solidArea)){
                                 entity.collisionOn = true;
+                                contactPlayer = true;
                         }
                         break;
                             
@@ -254,6 +258,7 @@ public class CollisionChecker {
                         entity.solidArea.x += entity.speed;
                         if(entity.solidArea.intersects(gp.player.solidArea)){
                                 entity.collisionOn = true;
+                                contactPlayer = true;
                         }
                         break;
                             
@@ -264,6 +269,8 @@ public class CollisionChecker {
                 entity.solidArea.y = entity.solidAreaDefaultY;
                 gp.player.solidArea.x = gp.player.solidAreaDefaultX;
                 gp.player.solidArea.y = gp.player.solidAreaDefaultY;
+                
+                return contactPlayer;
     }
     
 }
