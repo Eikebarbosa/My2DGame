@@ -30,6 +30,7 @@ public class Entity {
     public boolean collisionOn = false;
     public int actionLockCounter = 0;
     public boolean invincible = false;
+    boolean attacking = false;
     public int invincibleCounter = 0;
     String dialogues[] = new String[20];
     int dialogueIndex = 0;
