@@ -308,7 +308,7 @@ public class Player extends Entity {
         if(invincible == true){
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
         }
-        g2.drawImage( image, tempScreenX, tempScreenY, 42, 84, null);
+        g2.drawImage( image, tempScreenX, tempScreenY, 42, 90, null);
         
         //RESET ALPHA
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
