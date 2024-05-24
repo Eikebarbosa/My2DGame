@@ -1,0 +1,70 @@
+CREATE DATABASE IF NOT EXISTS jogo_rpg_vestibular;
+USE jogo_rpg_vestibular;
+CREATE TABLE IF NOT EXISTS Aluno (
+    idAluno INT AUTO_INCREMENT PRIMARY KEY,
+    nomeAluno VARCHAR(255),
+    senhaAluno VARCHAR(255)
+);
+
+CREATE TABLE IF NOT EXISTS Jogo (
+    idJogo INT AUTO_INCREMENT PRIMARY KEY,
+    idAluno INT,
+    FOREIGN KEY (idAluno) REFERENCES Aluno(idAluno)
+);
+
+CREATE TABLE IF NOT EXISTS Pergunta (
+    idPergunta INT AUTO_INCREMENT PRIMARY KEY,
+    textoPergunta TEXT,
+    respostaCorreta VARCHAR(255)
+);
+
+CREATE TABLE IF NOT EXISTS Resposta (
+    idResposta INT AUTO_INCREMENT PRIMARY KEY,
+    idJogo INT,
+    idPergunta INT,
+    respostaDada VARCHAR(255),
+    acertou BOOLEAN,
+    FOREIGN KEY (idJogo) REFERENCES Jogo(idJogo),
+    FOREIGN KEY (idPergunta) REFERENCES Pergunta(idPergunta)
+);
+
+CREATE TABLE IF NOT EXISTS Pontuacao (
+    idPontuacao INT AUTO_INCREMENT PRIMARY KEY,
+    idJogo INT,
+    pontosAcertos INT,
+    pontosErros INT,
+    FOREIGN KEY (idJogo) REFERENCES Jogo(idJogo)
+);
+
+INSERT INTO Pergunta (textoPergunta, respostaCorreta) VALUES
+('Qual foi a primeira vacina criada?\n a- febre amarela\n b- gripe espanhola\n c- variola\n d- peste bubonica', 'c- variola'),
+('Qual célula sanguínea é responsável pelo sistema imunológico?\n a- glóbulo branco\n b- glóbulo vermelho\n c- plaqueta\n d- proteínas', 'a- glóbulo branco'),
+('As vacinas garantem proteção por induzir:\n a- a produção de antígenos\n b- a produção de anticorpos\n c- a produção de histamina\n d- a produção de heparina', 'b- a produção de anticorpos'),
+('Qual dessas não possui vacina para uso humano?\n a- febre amarela\n b- sarampo\n c- tétano\n d- leptospirose', 'd- leptospirose'),
+('Os leucócitos capazes de produzir anticorpos são os:\n a- linfócitos T.\n b- neutrófilos.\n c- macrófagos.\n d- linfócitos B.', 'd- linfócitos B.'),
+('A vacina nos garante:\n a- imunização passiva\n b- imunização ativa\n c- imunização imediata\n d- imunização prolongada', 'b- imunização ativa'),
+('Uma substância composta por anticorpos contra determinado antígeno pode ser denominada de:\n a- vacina\n b- soro\n c- antibiótico\n d- anti-histamínico', 'b- soro'),
+('O sistema imunológico humano apresenta como função primordial a defesa do organismo. Uma das formas de proteção é a produção de _______________ , proteínas que reagem de forma específica com agentes estranhos denominados genericamente de _______________.\n Marque a alternativa que completa adequadamente os espaços acima:\n a- anticorpos e leucócitos.\n b- leucócitos e anticorpos.\n c- anticorpos e antígenos.\n d- antígenos e anticorpos.\n e- leucócitos e antígenos.', 'c- anticorpos e antígenos'),
+('Algumas células, como os macrófagos, são capazes de englobar e digerir organismos invasores, um processo conhecido por:\n a- plasmocitose.\n b- apoptose.\n c- pinocitose.\n d- fagocitose.', 'd- fagocitose'),
+('A produção de anticorpos pelos linfócitos B ocorre após essas células diferenciarem-se em:\n a- Plasmodium.\n b- Plasmídeos.\n c- Plastídios.\n d- Plasmócitos.', 'd- Plasmócitos'),
+('(FCMSC-SP/2019-2) Um homem foi picado por uma jararaca e procurou auxílio médico em um hospital. Para inibir o efeito das toxinas contidas no veneno da serpente, o médico indicou para esse homem\n A- soro terapêutico.\n B- vacina polivalente.\n C- antibiótico.\n D- antirretroviral.', 'A- soro terapêutico'),
+('(UFJF) Um indivíduo, ao ser picado por uma cobra venenosa, deverá ser tratado com soro antiofídico, porque o mesmo contém\n A- anticorpos específicos para as toxinas do veneno de cobra.\n B- toxinas atenuadas do veneno de cobra que irão induzir a produção de anticorpos.\n C- enzimas proteolíticas que irão destruir o veneno de cobra.\n D- células responsáveis pela resposta imune.', 'A- anticorpos específicos para as toxinas do veneno de cobra'),
+('(Fuvest-SP) Um coelho recebeu, pela primeira vez, a injeção de uma toxina bacteriana e manifestou a resposta imunitária produzindo a antitoxina (anticorpo). Se após certo tempo for aplicada uma segunda injeção da toxina no animal, espera-se que ele\n a- não resista a essa segunda dose.\n b- demore mais tempo para produzir a antitoxina.\n c- produza a antitoxina mais rapidamente.\n d- não produza mais a antitoxina por estar imunizado.', 'c- produza a antitoxina mais rapidamente'),
+('(Cesmac/Fejal-AL) Na imunização ativa, o antígeno é introduzido em um organismo e provoca a fabricação de anticorpos. Na imunização passiva, o anticorpo é fabricado fora do organismo a ser imunizado e introduzido pronto. É exemplo de imunização ativa:\n a- aplicação de vacina, como a vacina tríplice.\n b- aplicação de um soro, como o antiofídico.\n c- imunização do bebê por meio do aleitamento materno.\n d- imunização do feto com a passagem de anticorpos pela placenta.', 'a- aplicação de vacina, como a vacina tríplice.'),
+('(UNICAMP - 2022 - 1ª fase - Caderno R) Vacinar-se é um ato necessário para proteção individual e coletiva. Até o momento, quatro vacinas contra o novo coronavírus (SARS-CoV-2) receberam autorização da Agência Nacional de Vigilância Sanitária (Anvisa) para uso no Brasil e podem apresentar biotecnologia distinta para promover a resposta imune do organismo.\n Assinale a alternativa que apresenta corretamente a relação entre o princípio tecnológico da vacina e a resposta imune induzida no organismo vacinado.\n A- O DNA sintético induz a produção da proteína spike do SARS-CoV-2, o que estimula a produção de antígenos pelo sistema imune.\n B- O adenovírus, como um vetor viral replicante, carrega o gene da proteína spike do SARS-CoV-2 e induz a produção de anticorpos pelo sistema imune.\n C- A partícula viral ativa do SARS-CoV-2 possui no capsídeo a proteína spike, que induz a produção de antígenos pelo sistema imune.\n D- O RNAm sintético fornece instruções ao organismo para a produção da proteína spike do SARS-CoV-2, o que estimula a produção de anticorpos pelo sistema imune.', 'D- O RNAm sintético fornece instruções ao organismo para a produção da proteína spike do SARS-CoV-2, o que estimula a produção de anticorpos pelo sistema imune');
+
+DELETE FROM Pergunta
+WHERE idPergunta BETWEEN 16 AND 30;
+
+SELECT * FROM Pergunta;
+
+INSERT INTO Aluno(nomeAluno, senhaAluno) VALUES
+('admin', 'admin');
+
+SELECT * FROM Aluno;
+
+DELETE FROM `Aluno`
+WHERE `nomeAluno` = 'admin';
+
+INSERT INTO `Aluno`(nomeAluno, senhaAluno) VALUES
+('Joao', 'joao123');
