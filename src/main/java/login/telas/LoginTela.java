@@ -7,6 +7,7 @@ package login.telas;
 import login.db.UsuarioDAO;
 import login.modelo.Usuario;
 import javax.swing.JOptionPane;
+import main.Main;
 
 /**
  *
@@ -150,9 +151,11 @@ public class LoginTela extends javax.swing.JFrame {
         usuario.setSenha(senha);
         var dao = new UsuarioDAO();
         if(dao.existe(usuario)){
-
+            new Main();
+            this.dispose();
         }
         else{
+           
 
         }
       }  
