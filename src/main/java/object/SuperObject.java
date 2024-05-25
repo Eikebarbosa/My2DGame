@@ -4,6 +4,7 @@
  */
 package object;
 
+import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -35,5 +36,11 @@ public class SuperObject {
                 
                 g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
             }
+        boolean invincible = false;
+            if(invincible == true){
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
+        }
+            
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
     }
 }

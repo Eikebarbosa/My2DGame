@@ -26,6 +26,7 @@ public class Entity {
     public int spriteCounter = 0;
     public int spriteNum = 1;
     public Rectangle solidArea = new Rectangle(0,0,48,48);
+    public Rectangle attackArea = new Rectangle(0, 0, 0, 0);
     public int solidAreaDefaultX, solidAreaDefaultY;
     public boolean collisionOn = false;
     public int actionLockCounter = 0;
@@ -41,6 +42,7 @@ public class Entity {
     public int life;
     
     public Entity(GamePanel gp){
+        this.attackArea = new Rectangle(0, 0, 0, 0);
         this.gp = gp;
     }
     public void draw(Graphics2D g2){
@@ -167,8 +169,17 @@ public class Entity {
         }
 
                 }
+        if(invincible == true){
+            invincibleCounter++;
+                if(invincibleCounter > 40){
+                    invincible = false;
+                    invincibleCounter = 0;
             }
-    
+        }
+            }
+
+ 
+
     
 }
 
