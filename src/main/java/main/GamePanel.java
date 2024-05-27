@@ -62,6 +62,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int playState = 1;
     public final int pauseState = 2;
     public final int dialogueState = 3;
+    public final int gameOverState = 4;
     
     
     
@@ -82,10 +83,16 @@ public class GamePanel extends JPanel implements Runnable {
         playMusic(0);
         gameState = playState;
     }
+    public void retry(){
+        player.setDefaultPositions();
+        player.restoreLife();
+    }
     
     public void startGameThread(){
         gameThread = new Thread(this);
         gameThread.start();
+        aSetter.setNPC();
+        aSetter.setMonster();
     }
 
     @Override

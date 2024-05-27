@@ -61,6 +61,18 @@ public class Player extends Entity {
         maxLife = 6;
         life = maxLife;
     }
+    
+    public void setDefaultPositions(){
+        worldX = gp.tileSize * 45;
+        worldY = gp.tileSize * 47;
+        direction = "down";
+    }
+    public void restoreLife(){
+        life = maxLife;
+        invincible = false;
+           
+    }
+    
     public void getPlayerImage(){
         try {
             up1 = ImageIO.read(getClass().getResourceAsStream("/images/doctorup1.png"));
@@ -171,6 +183,10 @@ public class Player extends Entity {
                 invincible = false;
                 invincibleCounter = 0;
             }
+        }
+        
+        if(life <= 0){
+            gp.gameState = gp.gameOverState;
         }
     }
     public void attacking(){

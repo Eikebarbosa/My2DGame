@@ -76,6 +76,13 @@ public class KeyHandler implements KeyListener{
                 gp.gameState = gp.playState;
             }
         }
+        //GAME OVER STATE
+        else if(gp.gameState == gp.gameOverState){
+            if (code == KeyEvent.VK_ENTER){
+                gp.gameState = gp.playState;
+                gp.retry();
+            }
+        }
     }
 
     @Override
@@ -94,6 +101,13 @@ public class KeyHandler implements KeyListener{
             rightPressed = false;
         }
         
+    }
+    
+    public void gameOverState(int code){
+        if(code == KeyEvent.VK_ENTER){
+            gp.gameState = gp.playState;
+            gp.retry();
+        }
     }
     
     
