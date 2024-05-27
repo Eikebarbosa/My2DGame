@@ -45,7 +45,7 @@ public class Entity {
     public int life;
     
     public Entity(GamePanel gp){
-        this.attackArea = new Rectangle(0, 0, 70, 70);
+        this.attackArea = new Rectangle(0, 0, 0, 0);
         this.gp = gp;
     }
     public void draw(Graphics2D g2){
@@ -94,7 +94,7 @@ public class Entity {
                 }
                 
                 //monster hp bar
-                if(type == 2){
+                if(type == 2 && life != maxLife){
                     hpBarOn = true;
                     double oneScale = (double)gp.tileSize/maxLife;
                     double hpBarValue = oneScale*life;
