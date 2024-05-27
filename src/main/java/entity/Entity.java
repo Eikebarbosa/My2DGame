@@ -4,6 +4,7 @@
  */
 package entity;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -14,7 +15,7 @@ import main.GamePanel;
  * @author keyex
  */
 public class Entity {
-    //algum comentario extremamente inutil para contar como uma mudança significativa(apagar depois)
+    
     GamePanel gp;
     public int worldX, worldY;
     public int speed;
@@ -25,8 +26,8 @@ public class Entity {
     
     public int spriteCounter = 0;
     public int spriteNum = 1;
-    public Rectangle solidArea = new Rectangle(0,0,48,48);
-    public Rectangle attackArea = new Rectangle(0, 0, 0, 0);
+    public Rectangle solidArea = new Rectangle(0,0,40,40);
+    public Rectangle attackArea = new Rectangle(0, 0, 70, 70);
     public int solidAreaDefaultX, solidAreaDefaultY;
     public boolean collisionOn = false;
     public int actionLockCounter = 0;
@@ -36,13 +37,15 @@ public class Entity {
     String dialogues[] = new String[20];
     int dialogueIndex = 0;
     public int type;//0 = player, 1 = npc, 2 = monster
+    boolean hpBarOn = false;
+    int hpBarCounter = 0;
     
     //character status
     public int maxLife;
     public int life;
     
     public Entity(GamePanel gp){
-        this.attackArea = new Rectangle(0, 0, 0, 0);
+        this.attackArea = new Rectangle(0, 0, 70, 70);
         this.gp = gp;
     }
     public void draw(Graphics2D g2){
@@ -89,6 +92,29 @@ public class Entity {
                 if(spriteNum == 2){
                     image = right2;
                 }
+                
+                //monster hp bar
+                if(type == 2){
+                    hpBarOn = true;
+                    double oneScale = (double)gp.tileSize/maxLife;
+                    double hpBarValue = oneScale*life;
+                    
+                    g2.setColor(new Color(35, 35, 35));
+                    g2.fillRect(screenX-1, screenY-16, gp.tileSize + 2, 12);
+                    
+                    g2.setColor(new Color(255, 0, 30));
+                    g2.fillRect(screenX, screenY - 15, (int) hpBarValue, 10);
+                    
+                    hpBarCounter++;
+                    
+                    if(hpBarCounter > 6000){
+                        hpBarCounter = 0;
+                        hpBarOn = false;
+                    }
+                    
+                }
+                
+                
                 
                 break;
            

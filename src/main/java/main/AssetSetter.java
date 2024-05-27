@@ -98,10 +98,10 @@ public class AssetSetter {
         gp.monster[7].worldY = gp.tileSize*30;
         
         gp.monster[8] = new SlimeMonster(gp);
-        gp.monster[8].worldX = gp.tileSize*26;
-        gp.monster[8].worldY = gp.tileSize*28;
+        gp.monster[8].worldX = gp.tileSize*45;
+        gp.monster[8].worldY = gp.tileSize*41;
         
-        gp.monster[9] = new SlimeMonster(gp);
+        /*gp.monster[9] = new SlimeMonster(gp);
         gp.monster[9].worldX = gp.tileSize*26;
         gp.monster[9].worldY = gp.tileSize*26;
         
@@ -109,9 +109,9 @@ public class AssetSetter {
         gp.monster[10].worldX = gp.tileSize*26;
         gp.monster[10].worldY = gp.tileSize*27;
         
-        gp.monster[8] = new SlimeMonster(gp);
-        gp.monster[8].worldX = gp.tileSize*27;
-        gp.monster[8].worldY = gp.tileSize*28;
+        gp.monster[11] = new SlimeMonster(gp);
+        gp.monster[11].worldX = gp.tileSize*27;
+        gp.monster[11].worldY = gp.tileSize*28;*/
         
         
         
