@@ -12,11 +12,11 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import javax.swing.JOptionPane;
 public class ConnectionFactory {
-       private String host = "";
-       private String port = "";
-       private String db = "";
-       private String user = "";
-       private String password = "";
+    private String host = "projetointegrador-doctoradventure-projetointegrador-doctoradven.b.aivencloud.com";
+    private String port = "12130";
+    private String db = "jogo_rpg_vestibular";
+    private String user = "avnadmin";
+    private String password = "AVNS_Qqwd2N6oriltREahe_2";
        
        // 4 partes: tipo de retorno, nome, lista de parâmetros, corpo
        public  Connection obterConexao( ){
