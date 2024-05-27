@@ -137,7 +137,8 @@ public class LoginTela extends javax.swing.JFrame {
     }//GEN-LAST:event_loginTextFieldActionPerformed
 
     private void criarContaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_criarContaButtonActionPerformed
-        // TODO add your handling code here:
+        new CadastrarTela().setVisible(true);
+        dispose();
     }//GEN-LAST:event_criarContaButtonActionPerformed
 
     private void entrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entrarButtonActionPerformed
