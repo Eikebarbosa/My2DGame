@@ -156,7 +156,7 @@ public class LoginTela extends javax.swing.JFrame {
             this.dispose();
         }
         else{
-           JOptionPane.showMessageDialog(null, "Conta não existente, crie uma e tente novamente mais tarde!");
+           JOptionPane.showMessageDialog(null, "Conta não existente, crie uma e tente novamente!");
 
         }
       }  
@@ -176,6 +176,7 @@ public class LoginTela extends javax.swing.JFrame {
     } else {
         senhaPasswordField.setEchoChar('*'); // Ocultar a senha
     }
+      
     }//GEN-LAST:event_senhaToggleButtonActionPerformed
 
     /**
