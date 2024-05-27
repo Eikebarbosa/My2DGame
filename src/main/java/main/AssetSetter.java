@@ -27,20 +27,20 @@ public class AssetSetter {
         gp.obj[0].worldY = 7 * gp.tileSize;
         
         gp.obj[1] = new OBJ_Key();
-        gp.obj[1].worldX = 23 * gp.tileSize;
-        gp.obj[1].worldY = 40 * gp.tileSize;
+        gp.obj[1].worldX = 48 * gp.tileSize;
+        gp.obj[1].worldY = 41 * gp.tileSize;
         
-        //gp.obj[2] = new OBJ_Door();
-        //gp.obj[2].worldX = 37 * gp.tileSize;
-        //gp.obj[2].worldY = 7 * gp.tileSize;
+        gp.obj[2] = new OBJ_Door();
+        gp.obj[2].worldX = 39 * gp.tileSize;
+        gp.obj[2].worldY = 45 * gp.tileSize;
         
         gp.obj[3] = new OBJ_Door();
-        gp.obj[3].worldX = 10 * gp.tileSize;
-        gp.obj[3].worldY = 11 * gp.tileSize;
+        gp.obj[3].worldX = 39 * gp.tileSize;
+        gp.obj[3].worldY = 44 * gp.tileSize;
         
         gp.obj[4] = new OBJ_Door();
-        gp.obj[4].worldX = 23 * gp.tileSize;
-        gp.obj[4].worldY = 40 * gp.tileSize;
+        gp.obj[4].worldX = 39 * gp.tileSize;
+        gp.obj[4].worldY = 43* gp.tileSize;
         
         //gp.obj[5] = new OBJ_Chest();
         //gp.obj[5].worldX = 8 * gp.tileSize;
@@ -50,9 +50,9 @@ public class AssetSetter {
         //gp.obj[6].worldX = 12 * gp.tileSize;
         //gp.obj[6].worldY = 22 * gp.tileSize;
         
-        gp.obj[7] = new OBJ_Chest();
-        gp.obj[7].worldX = 10 * gp.tileSize;
-        gp.obj[7].worldY = 7 * gp.tileSize;
+        //gp.obj[7] = new OBJ_Chest();
+        //gp.obj[7].worldX = 10 * gp.tileSize;
+        //gp.obj[7].worldY = 7 * gp.tileSize;
         
         gp.obj[8] = new OBJ_Boots();
         gp.obj[8].worldX = 37 * gp.tileSize;
@@ -60,18 +60,61 @@ public class AssetSetter {
     }
     public void setNPC(){
         gp.npc[0] = new NPC_OldMan(gp);
-        gp.npc[0].worldX = gp.tileSize*21;
-        gp.npc[0].worldY = gp.tileSize*21;
+        gp.npc[0].worldX = gp.tileSize*40;
+        gp.npc[0].worldY = gp.tileSize*42;
     }
     
     public void setMonster(){
         gp.monster[0] = new SlimeMonster(gp);
         gp.monster[0].worldX = gp.tileSize*23;
-        gp.monster[0].worldY = gp.tileSize*23;
+        gp.monster[0].worldY = gp.tileSize*26;
         
         gp.monster[1] = new SlimeMonster(gp);
         gp.monster[1].worldX = gp.tileSize*23;
         gp.monster[1].worldY = gp.tileSize*24;
+        
+        gp.monster[2] = new SlimeMonster(gp);
+        gp.monster[2].worldX = gp.tileSize*23;
+        gp.monster[2].worldY = gp.tileSize*25;
+        
+        gp.monster[3] = new SlimeMonster(gp);
+        gp.monster[3].worldX = gp.tileSize*23;
+        gp.monster[3].worldY = gp.tileSize*27;
+        
+        gp.monster[4] = new SlimeMonster(gp);
+        gp.monster[4].worldX = gp.tileSize*23;
+        gp.monster[4].worldY = gp.tileSize*28;
+        
+        gp.monster[5] = new SlimeMonster(gp);
+        gp.monster[5].worldX = gp.tileSize*23;
+        gp.monster[5].worldY = gp.tileSize*29;
+        
+        gp.monster[6] = new SlimeMonster(gp);
+        gp.monster[6].worldX = gp.tileSize*23;
+        gp.monster[6].worldY = gp.tileSize*30;
+        
+        gp.monster[7] = new SlimeMonster(gp);
+        gp.monster[7].worldX = gp.tileSize*24;
+        gp.monster[7].worldY = gp.tileSize*30;
+        
+        gp.monster[8] = new SlimeMonster(gp);
+        gp.monster[8].worldX = gp.tileSize*26;
+        gp.monster[8].worldY = gp.tileSize*28;
+        
+        gp.monster[9] = new SlimeMonster(gp);
+        gp.monster[9].worldX = gp.tileSize*26;
+        gp.monster[9].worldY = gp.tileSize*26;
+        
+        gp.monster[10] = new SlimeMonster(gp);
+        gp.monster[10].worldX = gp.tileSize*26;
+        gp.monster[10].worldY = gp.tileSize*27;
+        
+        gp.monster[8] = new SlimeMonster(gp);
+        gp.monster[8].worldX = gp.tileSize*27;
+        gp.monster[8].worldY = gp.tileSize*28;
+        
+        
+        
     }
 
 }

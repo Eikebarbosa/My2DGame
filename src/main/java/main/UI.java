@@ -48,7 +48,7 @@ public class UI {
         this.g2 = g2;
         
         g2.setFont(arial_40);
-        g2.setColor(Color.WHITE);
+        g2.setColor(Color.BLACK);
         
         //PLAY STATE
         if(gp.gameState == gp.playState){

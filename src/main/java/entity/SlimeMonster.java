@@ -19,7 +19,7 @@ public class SlimeMonster extends Entity {
         
         type = 2;
         direction = "down";
-        speed = 1;
+        speed = 2;
         maxLife = 4;
         life = maxLife;
         
