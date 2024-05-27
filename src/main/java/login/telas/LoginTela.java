@@ -152,16 +152,17 @@ public class LoginTela extends javax.swing.JFrame {
         usuario.setSenha(senha);
         var dao = new UsuarioDAO();
         if(dao.existe(usuario)){
-            new Main();
+            new Main().iniciarJogo();
             this.dispose();
         }
         else{
-           
+           JOptionPane.showMessageDialog(null, "Conta não existente, crie uma e tente novamente mais tarde!");
 
         }
       }  
       catch(Exception e){
-          
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "falhou");
       }
     }//GEN-LAST:event_entrarButtonActionPerformed
 

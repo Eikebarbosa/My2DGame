@@ -11,7 +11,9 @@
      * @author keyex
      */
     public class Main {
-        public static void main(String[] args) {
+        
+        public void iniciarJogo(){
+        
             JFrame window = new JFrame();
             window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             window.setResizable(false);
@@ -27,6 +29,8 @@
 
             gamePanel.setupGame();
             gamePanel.startGameThread();
+        }
+        public static void main(String[] args) {
 
         }
 
