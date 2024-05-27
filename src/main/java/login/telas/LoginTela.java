@@ -20,6 +20,7 @@ public class LoginTela extends javax.swing.JFrame {
      */
     public LoginTela() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
