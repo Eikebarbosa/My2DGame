@@ -4,6 +4,7 @@
  */
 package main;
 
+import entity.BossFinal;
 import entity.MON_SkeletonLord;
 import object.OBJ_Chest;
 import object.OBJ_Door;
@@ -63,6 +64,10 @@ public class AssetSetter {
         gp.npc[0] = new NPC_OldMan(gp);
         gp.npc[0].worldX = gp.tileSize*40;
         gp.npc[0].worldY = gp.tileSize*42;
+        
+        gp.npc[1] = new BossFinal(gp);
+        gp.npc[1].worldX = gp.tileSize*42;
+        gp.npc[1].worldY = gp.tileSize*45;
     }
     
     public void setMonster(){

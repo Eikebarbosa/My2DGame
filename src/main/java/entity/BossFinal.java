@@ -11,37 +11,26 @@ import main.GamePanel;
 
 /**
  *
- * @author Mateus
+ * @author keyex
  */
-public class MON_SkeletonLord extends Entity {
-    
-    
-    public MON_SkeletonLord(GamePanel gp){
+public class BossFinal extends Entity{  
+    public BossFinal(GamePanel gp) {
         super(gp);
-        this.gp = gp;
         
-        
-        type = 2;
         direction = "down";
         speed = 0;
-        maxLife = 50;
-        life = maxLife;
-        
-        int size = gp.tileSize;
-        solidArea.x = 28;
-        solidArea.y = 20;
-        solidArea.width = 40;
-        solidArea.height = 44;
+        solidArea.x = 20;//hitbox 
+        //solidArea.y = ;
+        solidArea.width = 70;
+        solidArea.height = 70;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
-        attackArea.width = 48;
-        attackArea.height = 48;
         
         getImage();
-        getAttackImage();
+        setDialogue();
     }
     public void getImage(){
-         try {
+        try {
             up1 = ImageIO.read(getClass().getResourceAsStream("/images/skeletonlord_up_1.png"));
             up2 = ImageIO.read(getClass().getResourceAsStream("/images/skeletonlord_up_2.png"));
             down1 = ImageIO.read(getClass().getResourceAsStream("/images/skeletonlord_down_1.png"));
@@ -56,22 +45,14 @@ public class MON_SkeletonLord extends Entity {
             e.printStackTrace();
         }
     }
-    
-    public void getAttackImage(){ 
-        try {
-            //attackUp1 = ImageIO.read(getClass().getResourceAsStream("/images/skeletonlord_attack_up_1.png"));
-            //attackUp2 = ImageIO.read(getClass().getResourceAsStream("/images/skeletonlord_attack_up_2.png"));
-            //attackDown1 = ImageIO.read(getClass().getResourceAsStream("/images/skeletonlord_attack_down_1.png"));
-            //attackDown2 = ImageIO.read(getClass().getResourceAsStream("/images/skeletonlord_attack_down_2.png"));
-            attackLeft1 = ImageIO.read(getClass().getResourceAsStream("/images/skeletonlord_attack_Left_1.png"));
-            attackLeft2 = ImageIO.read(getClass().getResourceAsStream("/images/skeletonlord_attack_Left_2.png"));
-            //attackRight1 = ImageIO.read(getClass().getResourceAsStream("/images/skeletonlord_attack_right_1.png"));
-            //attackRight2 = ImageIO.read(getClass().getResourceAsStream("/images/skeletonlord_attack_right_2.png"));
-            
+    public void setDialogue(){
         
-        }catch(IOException e){
-            e.printStackTrace();
-        }
+        //Os dialogos do NPC
+        dialogues[0] ="Você ousa me desafiar? \nVOCÊ\nNÃO\nÉ\nPAREO";
+        
+        
+        
+        
     }
     public void setAction(){
         
@@ -82,20 +63,22 @@ public class MON_SkeletonLord extends Entity {
         int i = random.nextInt(100) + 1; //escolhe um numero de 1 a 100
         
         if(i <= 25){
-            direction = "up";
+            direction = "down";
         }
         if(i > 25 && i <= 50){
             direction = "down";
         }
         if(i > 50 && i <= 75){
-            direction = "left";
+            direction = "down";
         }
         if(i > 75 && i <= 100){
-            direction = "right";
+            direction = "down";
         }
          
         actionLockCounter = 0;
         }
     }
-    
+    public void speak(){
+        super.speak();
+    }
 }
