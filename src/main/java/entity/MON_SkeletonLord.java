@@ -5,6 +5,7 @@
 package entity;
 
 import java.io.IOException;
+import java.util.Random;
 import javax.imageio.ImageIO;
 import main.GamePanel;
 
@@ -14,14 +15,13 @@ import main.GamePanel;
  */
 public class MON_SkeletonLord extends Entity {
     
-    GamePanel gp;
-    public static final String monName = "Skeleton Lord";
     
     public MON_SkeletonLord(GamePanel gp){
         super(gp);
         this.gp = gp;
         
         type = 2;
+        direction = "down";
         speed = 1;
         maxLife = 50;
         life = maxLife;
@@ -70,6 +70,31 @@ public class MON_SkeletonLord extends Entity {
         
         }catch(IOException e){
             e.printStackTrace();
+        }
+    }
+    
+    public void setAction(){
+        
+        actionLockCounter ++;
+        
+        if(actionLockCounter == 120){
+        Random random = new Random();
+        int i = random.nextInt(100) + 1; //escolhe um numero de 1 a 100
+        
+        if(i <= 25){
+            direction = "up";
+        }
+        if(i > 25 && i <= 50){
+            direction = "down";
+        }
+        if(i > 50 && i <= 75){
+            direction = "left";
+        }
+        if(i > 75 && i <= 100){
+            direction = "right";
+        }
+         
+        actionLockCounter = 0;
         }
     }
     

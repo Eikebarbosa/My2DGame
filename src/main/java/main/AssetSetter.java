@@ -102,9 +102,9 @@ public class AssetSetter {
         gp.monster[8].worldX = gp.tileSize*45;
         gp.monster[8].worldY = gp.tileSize*41;
         
-         gp.monster[8] = new MON_SkeletonLord(gp);
-        gp.monster[8].worldX = gp.tileSize*46;
-        gp.monster[8].worldY = gp.tileSize*43;
+        gp.monster[9] = new MON_SkeletonLord(gp);
+        gp.monster[9].worldX = gp.tileSize*43;
+        gp.monster[9].worldY = gp.tileSize*44;
         
         /*gp.monster[9] = new SlimeMonster(gp);
         gp.monster[9].worldX = gp.tileSize*26;
