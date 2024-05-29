@@ -78,7 +78,7 @@ public class LoginTela extends javax.swing.JFrame {
 
         jLabel1.setText("Não tem login?");
 
-        senhaToggleButton.setIcon(new javax.swing.ImageIcon("C:\\Users\\schix\\Downloads\\olhotoggle46px.png")); // NOI18N
+        senhaToggleButton.setText("👁️");
         senhaToggleButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         senhaToggleButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -148,7 +148,7 @@ public class LoginTela extends javax.swing.JFrame {
         var login = loginTextField.getText();
         //2. Pegar a senha
         var senha = new String (senhaPasswordField.getPassword());
-        var usuario = new Usuario();
+        var usuario = new Usuario(login, senha);
         usuario.setLogin(login);
         usuario.setSenha(senha);
         var dao = new UsuarioDAO();

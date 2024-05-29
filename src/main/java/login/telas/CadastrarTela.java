@@ -4,6 +4,11 @@
  */
 package login.telas;
 
+import login.db.UsuarioDAO;
+import login.modelo.Usuario;
+import javax.swing.JOptionPane;
+import main.Main;
+
 /**
  *
  * @author Rodrigo Perri
@@ -16,6 +21,12 @@ public class CadastrarTela extends javax.swing.JFrame {
     public CadastrarTela() {
         initComponents();
         setLocationRelativeTo(null);
+        jPanel1 = new javax.swing.JPanel();
+        CriarLogin = new javax.swing.JTextField();
+        jPasswordField1 = new javax.swing.JPasswordField();
+        CriarConta = new javax.swing.JButton();
+        VoltarTelaLogin = new javax.swing.JButton();
+        VerSenhaButton = new javax.swing.JToggleButton();
     }
 
     /**
@@ -28,27 +39,38 @@ public class CadastrarTela extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        CriarLogin = new javax.swing.JTextField();
         jPasswordField1 = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
+        CriarConta = new javax.swing.JButton();
+        VoltarTelaLogin = new javax.swing.JButton();
+        VerSenhaButton = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 204));
 
-        jTextField1.setBorder(javax.swing.BorderFactory.createTitledBorder("Crie o login:"));
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        CriarLogin.setBorder(javax.swing.BorderFactory.createTitledBorder("Crie o login:"));
+        CriarLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                CriarLoginActionPerformed(evt);
             }
         });
 
         jPasswordField1.setBorder(javax.swing.BorderFactory.createTitledBorder("Crie a senha::"));
 
-        jButton1.setText("Aceitar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        CriarConta.setText("Aceitar");
+
+        VoltarTelaLogin.setText("Voltar");
+        VoltarTelaLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                VoltarParaLogin(evt);
+            }
+        });
+
+        VerSenhaButton.setText("👁️");
+        VerSenhaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VerSenhaButtonActionPerformed(evt);
             }
         });
 
@@ -57,26 +79,35 @@ public class CadastrarTela extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(249, 249, 249)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(200, 200, 200)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 225, Short.MAX_VALUE))
+                    .addComponent(CriarLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(VerSenhaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 169, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(249, 249, 249)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(VoltarTelaLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CriarConta, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(142, Short.MAX_VALUE)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(CriarLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(VerSenhaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(118, 118, 118))
+                .addComponent(CriarConta, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(VoltarTelaLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(65, 65, 65))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -92,14 +123,26 @@ public class CadastrarTela extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void CriarLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CriarLoginActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_CriarLoginActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void VoltarParaLogin(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VoltarParaLogin
         new LoginTela().setVisible(true);
         dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_VoltarParaLogin
+
+    private void VerSenhaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerSenhaButtonActionPerformed
+        if (VerSenhaButton.isSelected()) {
+            jPasswordField1.setEchoChar((char) 0); // Mostrar a senha
+        } else {
+            jPasswordField1.setEchoChar('*'); // Ocultar a senha
+        }
+    }//GEN-LAST:event_VerSenhaButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -137,9 +180,11 @@ public class CadastrarTela extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton CriarConta;
+    private javax.swing.JTextField CriarLogin;
+    private javax.swing.JToggleButton VerSenhaButton;
+    private javax.swing.JButton VoltarTelaLogin;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

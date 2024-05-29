@@ -47,5 +47,8 @@ public class Usuario {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-    
+    public Usuario(String login, String senha) {
+        this.login = login;
+        this.senha = senha;
+    }
 }

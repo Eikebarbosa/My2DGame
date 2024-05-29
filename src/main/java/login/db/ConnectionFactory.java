@@ -42,4 +42,8 @@ public class ConnectionFactory {
                System.out.println("Não foi possivel conectar ;-;");
            
     }
+
+    Connection obtemConexao() {
+        throw new UnsupportedOperationException("Não obteve conexão."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
