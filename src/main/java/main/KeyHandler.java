@@ -83,6 +83,11 @@ public class KeyHandler implements KeyListener{
                 gp.retry();
             }
         }
+        else if (gp.gameState == gp.quizState) {
+            if (code == KeyEvent.VK_1 || code == KeyEvent.VK_2 || code == KeyEvent.VK_3 || code == KeyEvent.VK_4) {
+                gp.quizScreen.nextQuestion();
+            }
+        }
     }
 
     @Override

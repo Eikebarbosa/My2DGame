@@ -269,14 +269,20 @@ public class Player extends Entity {
         if(gp.keyH.enterPressed == true){
             
             if(i != 999){
-                gp.gameState = gp.dialogueState;
-                gp.npc[i].speak();   
+                if (gp.npc[i] instanceof BossFinal) {
+                    gp.quizScreen.isActive = true;
+                    gp.gameState = gp.quizState;
+                    }
+                else{
+                    gp.gameState = gp.dialogueState;
+                    gp.npc[i].speak();   
+                    }
             }
             else{
                 attacking = true;
             }
             
-        }
+        }       
         
        // gp.keyH.enterPressed = false;
     }

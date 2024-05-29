@@ -15,6 +15,7 @@ import java.util.Set;
 import javax.swing.JPanel;
 import object.SuperObject;
 import tile.TileManager;
+import main.QuizScreen;
 
 /**
  *
@@ -50,6 +51,8 @@ public class GamePanel extends JPanel implements Runnable {
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
     public UI ui = new UI(this);
+    public QuizScreen quizScreen = new QuizScreen(this);
+
     
     // entity and object
     public Player player = new Player(this, keyH);
@@ -63,6 +66,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int pauseState = 2;
     public final int dialogueState = 3;
     public final int gameOverState = 4;
+    public final int quizState = 5;
     
     
     
@@ -153,7 +157,9 @@ public class GamePanel extends JPanel implements Runnable {
         }   
         if(gameState == pauseState){
             //nada
-        }
+        } else if (gameState == quizState) {
+        // Handle quiz updates if needed
+    }
     }
     public void paintComponent(Graphics g){
         super.paintComponent(g);
@@ -193,6 +199,9 @@ public class GamePanel extends JPanel implements Runnable {
         
         //UI
         ui.draw(g2);
+        
+        //quiz
+        quizScreen.draw(g2);
         
         //debug
         if(keyH.checkDrawTime == true){
