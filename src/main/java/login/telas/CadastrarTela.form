@@ -44,6 +44,14 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="249" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="VoltarTelaLogin" min="-2" pref="113" max="-2" attributes="0"/>
+                      <Component id="CriarContaV2" min="-2" pref="113" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="200" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="CriarLogin" min="-2" pref="213" max="-2" attributes="0"/>
@@ -54,14 +62,6 @@
                       </Group>
                   </Group>
                   <EmptySpace min="0" pref="169" max="32767" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="249" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="VoltarTelaLogin" min="-2" pref="113" max="-2" attributes="0"/>
-                      <Component id="CriarConta" min="-2" pref="113" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -76,7 +76,7 @@
                       <Component id="VerSenhaButton" alignment="3" min="-2" pref="42" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="CriarConta" min="-2" pref="45" max="-2" attributes="0"/>
+                  <Component id="CriarContaV2" min="-2" pref="45" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="VoltarTelaLogin" min="-2" pref="47" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
@@ -101,18 +101,24 @@
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="Crie a senha::"/>
+                <TitledBorder title="Crie a senha:"/>
               </Border>
             </Property>
           </Properties>
+          <AccessibilityProperties>
+            <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="CriarSenhaU"/>
+          </AccessibilityProperties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CriarSenhaActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="CriarConta">
+        <Component class="javax.swing.JButton" name="CriarContaV2">
           <Properties>
             <Property name="text" type="java.lang.String" value="Aceitar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CriarContaV2ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="VoltarTelaLogin">
           <Properties>

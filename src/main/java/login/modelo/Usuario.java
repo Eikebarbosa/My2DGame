@@ -15,6 +15,11 @@ public class Usuario {
     private String senha;
     private int tipo;
     
+    
+    public Usuario() {
+        
+    }
+    
     //getter
     public int getTipo(){
         return tipo;

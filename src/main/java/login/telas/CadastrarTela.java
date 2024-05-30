@@ -125,32 +125,31 @@ public class CadastrarTela extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     private void CriarLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CriarLoginActionPerformed
         // TODO add your handling code here:
-//  try {
-//                     //* Recuperar os valores inseridos nas caixas de texto
-//         String login = CriarLogin.getText();
-//         String senha = new String(CriarSenha.getPassword()); // Recuperar a senha como uma String
-
-//                     //* Criar um novo usuário
-//         Usuario novoUsuario = new Usuario();
-//         novoUsuario.setLogin(login);
-//         novoUsuario.setSenha(senha);
-
-//                     //* Inserir no banco de dados
-//         UsuarioDAO dao = new UsuarioDAO();
-//         dao.inserir(novoUsuario);
-
-//                     //* Exibir mensagem de sucesso
-//         JOptionPane.showMessageDialog(this, "Usuário cadastrado com sucesso!");
-
-//     } catch (Exception e) {
-//                     //* Tratar exceções e exibir mensagem de erro
-//         e.printStackTrace();
-//         JOptionPane.showMessageDialog(this, "Erro ao cadastrar usuário: " + e.getMessage());
-//     }
     }//GEN-LAST:event_CriarLoginActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       
+   try {
+                     //* Recuperar os valores inseridos nas caixas de texto
+         String login = CriarLogin.getText();
+         String senha = new String(CriarSenha.getPassword()); // Recuperar a senha como uma String
+
+                     //* Criar um novo usuário
+         Usuario novoUsuario = new Usuario();
+         novoUsuario.setLogin(login);
+         novoUsuario.setSenha(senha);
+
+                     //* Inserir no banco de dados
+         UsuarioDAO dao = new UsuarioDAO();
+         dao.inserir(novoUsuario);
+
+                     //* Exibir mensagem de sucesso
+         JOptionPane.showMessageDialog(this, "Usuário cadastrado com sucesso!");
+
+     } catch (Exception e) {
+                     //* Tratar exceções e exibir mensagem de erro
+         e.printStackTrace();
+         JOptionPane.showMessageDialog(this, "Erro ao cadastrar usuário: " + e.getMessage());
+     }   
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void VoltarParaLogin(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VoltarParaLogin
