@@ -155,6 +155,7 @@ public class LoginTela extends javax.swing.JFrame {
             
             new AdminTela().setVisible(true);
             this.dispose();
+            return;
         }
         
         var usuario = new Usuario(login, senha);
