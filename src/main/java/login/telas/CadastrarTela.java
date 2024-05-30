@@ -28,7 +28,7 @@ public class CadastrarTela extends javax.swing.JFrame {
         VoltarTelaLogin = new javax.swing.JButton();
         VerSenhaButton = new javax.swing.JToggleButton();
     }
-
+    private javax.swing.JPasswordField CriarSenha;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -125,6 +125,28 @@ public class CadastrarTela extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     private void CriarLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CriarLoginActionPerformed
         // TODO add your handling code here:
+//  try {
+//                     //* Recuperar os valores inseridos nas caixas de texto
+//         String login = CriarLogin.getText();
+//         String senha = new String(CriarSenha.getPassword()); // Recuperar a senha como uma String
+
+//                     //* Criar um novo usuário
+//         Usuario novoUsuario = new Usuario();
+//         novoUsuario.setLogin(login);
+//         novoUsuario.setSenha(senha);
+
+//                     //* Inserir no banco de dados
+//         UsuarioDAO dao = new UsuarioDAO();
+//         dao.inserir(novoUsuario);
+
+//                     //* Exibir mensagem de sucesso
+//         JOptionPane.showMessageDialog(this, "Usuário cadastrado com sucesso!");
+
+//     } catch (Exception e) {
+//                     //* Tratar exceções e exibir mensagem de erro
+//         e.printStackTrace();
+//         JOptionPane.showMessageDialog(this, "Erro ao cadastrar usuário: " + e.getMessage());
+//     }
     }//GEN-LAST:event_CriarLoginActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -137,10 +159,10 @@ public class CadastrarTela extends javax.swing.JFrame {
     }//GEN-LAST:event_VoltarParaLogin
 
     private void VerSenhaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerSenhaButtonActionPerformed
-        if (VerSenhaButton.isSelected()) {
-            jPasswordField1.setEchoChar((char) 0); // Mostrar a senha
-        } else {
-            jPasswordField1.setEchoChar('*'); // Ocultar a senha
+    if (VerSenhaButton.isSelected()) {
+        CriarSenha.setEchoChar((char) 0); // Mostrar a senha
+    } else {
+        CriarSenha.setEchoChar('*'); // Ocultar a senha
         }
     }//GEN-LAST:event_VerSenhaButtonActionPerformed
 

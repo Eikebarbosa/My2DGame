@@ -14,7 +14,6 @@ import java.sql.ResultSet;
  * @author schix
  */
 public class UsuarioDAO {
-
     public boolean existe(Usuario u) throws Exception {
         // 1. Especificar o comando SQL (Select)
         String sql = "SELECT * FROM Aluno WHERE nomeAluno = ? AND senhaAluno = ?";
@@ -44,29 +43,25 @@ public class UsuarioDAO {
         return achou;
     }
 
-    public void inserir(String nomeAluno, String senhaAluno) throws Exception{
-        // 1: Definir o comando SQL
-        String sql = "INSERT INTO Aluno(nomeAluno, senhaAluno) VALUES (?, ?)";
-        // 2: Abrir uma conexão
-        ConnectionFactory factory = new ConnectionFactory();
-        try (Connection c = factory.obtemConexao()) {
-            // 3: Pré compilar o comando
-            PreparedStatement ps = c.prepareStatement(sql);
-            
-            // 4: Preencher os dados faltantes
-            ps.setString(1, nomeAluno);
-            ps.setString(2, senhaAluno);
-            
-            // 5: Executar o comando
-            ps.execute();
-        }
-    }
-
-    public void inserir(Usuario novoUsuario) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public void inserirUsuario(Usuario usuario) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void inserir(Usuario u) throws Exception {
+        // 1. Especificar o comando SQL (Insert)
+        String sql = "INSERT INTO Aluno (nomeAluno, senhaAluno) VALUES (?, ?)";
+        
+        // 2. Estabelecer uma conexão com o banco
+        Connection conexao = new ConnectionFactory().obterConexao();
+        
+        // 3. Preparar o comando
+        PreparedStatement ps = conexao.prepareStatement(sql);
+        
+        // 4. Substituir os eventuais placeholders
+        ps.setString(1, u.getLogin());
+        ps.setString(2, u.getSenha());
+        
+        // 5. Executar o comando
+        ps.executeUpdate();
+        
+        // 6. Fechar a conexão
+        ps.close();
+        conexao.close();
     }
 }

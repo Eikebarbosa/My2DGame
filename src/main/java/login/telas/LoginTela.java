@@ -33,6 +33,7 @@ public class LoginTela extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
+        button1 = new java.awt.Button();
         loginTextField = new javax.swing.JTextField();
         senhaPasswordField = new javax.swing.JPasswordField();
         cancelarButton = new javax.swing.JButton();
@@ -42,6 +43,8 @@ public class LoginTela extends javax.swing.JFrame {
         senhaToggleButton = new javax.swing.JToggleButton();
 
         jLabel2.setText("jLabel2");
+
+        button1.setLabel("button1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -217,6 +220,7 @@ public class LoginTela extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private java.awt.Button button1;
     private javax.swing.JButton cancelarButton;
     private javax.swing.JButton criarContaButton;
     private javax.swing.JButton entrarButton;
