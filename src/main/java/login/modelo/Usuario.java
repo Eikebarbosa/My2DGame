@@ -9,51 +9,25 @@ package login.modelo;
  * @author schix
  */
 public class Usuario {
-    // cod, login, senha e tipo
-    private int codigo;
-    private String login;
-    private String senha;
-    private int tipo;
-    
-    
-    public Usuario() {
-        
-    }
-    
-    //getter
-    public int getTipo(){
-        return tipo;
-    }
-    //setter
-    public void setTipo(int tipo){
-       this.tipo = tipo;
-    }
 
+    protected final int codigo;
+    protected final String login, senha;
+
+    public Usuario(String login, String senha) {
+        this.codigo = 0;
+        this.login = login;
+        this.senha = senha;
+    }
+    
     public int getCodigo() {
         return codigo;
     }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
-
+    
     public String getLogin() {
         return login;
     }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
+    
     public String getSenha() {
         return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-    public Usuario(String login, String senha) {
-        this.login = login;
-        this.senha = senha;
     }
 }

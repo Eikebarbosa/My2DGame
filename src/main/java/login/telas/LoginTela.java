@@ -147,13 +147,17 @@ public class LoginTela extends javax.swing.JFrame {
     private void entrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entrarButtonActionPerformed
 
       try{
-        //1. Pegar o login digitado pelo usuário
         var login = loginTextField.getText();
-        //2. Pegar a senha
         var senha = new String (senhaPasswordField.getPassword());
+        
+        if (login.equalsIgnoreCase("admin") && senha.equalsIgnoreCase("admin")) {
+            JOptionPane.showMessageDialog(null, "Seja bem-vindo ao painel admin!");
+            
+            new AdminTela().setVisible(true);
+            this.dispose();
+        }
+        
         var usuario = new Usuario(login, senha);
-        usuario.setLogin(login);
-        usuario.setSenha(senha);
         var dao = new UsuarioDAO();
         if(dao.existe(usuario)){
             new Main().iniciarJogo();

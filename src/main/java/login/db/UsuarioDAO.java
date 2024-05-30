@@ -44,24 +44,15 @@ public class UsuarioDAO {
     }
 
     public void inserir(Usuario u) throws Exception {
-        // 1. Especificar o comando SQL (Insert)
-        String sql = "INSERT INTO Aluno (nomeAluno, senhaAluno) VALUES (?, ?)";
-        
-        // 2. Estabelecer uma conexão com o banco
         Connection conexao = new ConnectionFactory().obterConexao();
-        
-        // 3. Preparar o comando
-        PreparedStatement ps = conexao.prepareStatement(sql);
-        
-        // 4. Substituir os eventuais placeholders
-        ps.setString(1, u.getLogin());
-        ps.setString(2, u.getSenha());
-        
-        // 5. Executar o comando
-        ps.executeUpdate();
-        
-        // 6. Fechar a conexão
-        ps.close();
-        conexao.close();
+        try (PreparedStatement statement = conexao.prepareStatement("INSERT INTO Aluno (idAluno, nomeAluno, senhaAluno) VALUES (?, ?, ?)")) {
+            statement.setInt(1, u.getCodigo());
+            statement.setString(2, u.getLogin());
+            statement.setString(3, u.getSenha());
+
+            statement.executeUpdate();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 }
