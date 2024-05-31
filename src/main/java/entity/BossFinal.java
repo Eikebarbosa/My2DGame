@@ -6,8 +6,12 @@ package entity;
 
 import java.io.IOException;
 import java.util.Random;
+
 import javax.imageio.ImageIO;
+
 import main.GamePanel;
+import java.awt.image.BufferedImage;
+import java.awt.Graphics2D;
 
 /**
  *
@@ -31,19 +35,67 @@ public class BossFinal extends Entity{
     }
     public void getImage(){
         try {
-            up1 = ImageIO.read(getClass().getResourceAsStream("/images/skeletonlord_up_1.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/images/skeletonlord_up_2.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/images/skeletonlord_down_1.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/images/skeletonlord_down_2.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/images/skeletonlord_Left_1.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/images/skeletonlord_Left_2.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/images/skeletonlord_right_1.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/images/skeletonlord_right_2.png"));
+            up1 = ImageIO.read(getClass().getResourceAsStream("/images/boss.png"));
+            up2 = ImageIO.read(getClass().getResourceAsStream("/images/boss.png"));
+            down1 = ImageIO.read(getClass().getResourceAsStream("/images/boss.png"));
+            down2 = ImageIO.read(getClass().getResourceAsStream("/images/boss.png"));
+            left1 = ImageIO.read(getClass().getResourceAsStream("/images/boss.png"));
+            left2 = ImageIO.read(getClass().getResourceAsStream("/images/boss.png"));
+            right1 = ImageIO.read(getClass().getResourceAsStream("/images/boss.png"));
+            right2 = ImageIO.read(getClass().getResourceAsStream("/images/boss.png"));
             
         
         }catch(IOException e){
             e.printStackTrace();
         }
+    }
+
+    public void Resize(){
+        
+    }
+
+    public void draw(Graphics2D g2){
+        BufferedImage image = null;
+
+        switch(direction) {
+            case "up" -> {
+                if (spriteNum == 1) {
+                    image = up1;
+                }
+                if (spriteNum == 2) {
+                    image = up2;
+                }
+            }
+            case "down" -> {
+                if (spriteNum == 1) {
+                    image = down1;
+                }
+                if (spriteNum == 2) {
+                    image = down2;
+                }
+            }
+            case "left" -> {
+                if (spriteNum == 1) {
+                    image = left1;
+                }
+                if (spriteNum == 2) {
+                    image = left2;
+                }
+            }
+            case "right" -> {
+                if (spriteNum == 1) {
+                    image = right1;
+                }
+                if (spriteNum == 2) {
+                    image = right2;
+                }
+            }
+        }
+        
+        int screenX = worldX - gp.player.worldX + gp.player.screenX;
+        int screenY = worldY - gp.player.worldY + gp.player.screenY;
+    
+        g2.drawImage(image, screenX, screenY, 150, 210, null);
     }
     public void setDialogue(){
         

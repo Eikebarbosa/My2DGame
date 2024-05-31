@@ -6,7 +6,9 @@ package entity;
 
 import java.io.IOException;
 import java.util.Random;
+
 import javax.imageio.ImageIO;
+
 import main.GamePanel;
 
 /**
@@ -35,14 +37,14 @@ public class SlimeMonster extends Entity {
     }
     public void getImage(){
         try {
-            up1 = ImageIO.read(getClass().getResourceAsStream("/images/greenslime_down_1.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/images/greenslime_down_2.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/images/greenslime_down_1.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/images/greenslime_down_2.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/images/greenslime_down_1.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/images/greenslime_down_2.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/images/greenslime_down_1.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/images/greenslime_down_2.png"));
+            up1 = ImageIO.read(getClass().getResourceAsStream("/images/slime1.png"));
+            up2 = ImageIO.read(getClass().getResourceAsStream("/images/slime2.png"));
+            down1 = ImageIO.read(getClass().getResourceAsStream("/images/slime1.png"));
+            down2 = ImageIO.read(getClass().getResourceAsStream("/images/slime2.png"));
+            left1 = ImageIO.read(getClass().getResourceAsStream("/images/slime1.png"));
+            left2 = ImageIO.read(getClass().getResourceAsStream("/images/slime2.png"));
+            right1 = ImageIO.read(getClass().getResourceAsStream("/images/slime1.png"));
+            right2 = ImageIO.read(getClass().getResourceAsStream("/images/slime2.png"));
             
         
         }catch(IOException e){

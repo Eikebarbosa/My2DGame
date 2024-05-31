@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.util.Random;
 import javax.imageio.ImageIO;
 import main.GamePanel;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 
 /**
  *
@@ -32,20 +34,65 @@ public class NPC_OldMan extends Entity {
     }
     public void getImage(){
         try {
-            up1 = ImageIO.read(getClass().getResourceAsStream("/npc/oldman_up_1.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/npc/oldman_up_1.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/npc/oldman_down_1.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/npc/oldman_down_1.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/npc/oldman_Left_1.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/npc/oldman_Left_1.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/npc/oldman_right_1.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/npc/oldman_right_1.png"));
+            up1 = ImageIO.read(getClass().getResourceAsStream("/npc/gotinha1.png"));
+            up2 = ImageIO.read(getClass().getResourceAsStream("/npc/gotinha1.png"));
+            down1 = ImageIO.read(getClass().getResourceAsStream("/npc/gotinha1.png"));
+            down2 = ImageIO.read(getClass().getResourceAsStream("/npc/gotinha1.png"));
+            left1 = ImageIO.read(getClass().getResourceAsStream("/npc/gotinha1.png"));
+            left2 = ImageIO.read(getClass().getResourceAsStream("/npc/gotinha1.png"));
+            right1 = ImageIO.read(getClass().getResourceAsStream("/npc/gotinha1.png"));
+            right2 = ImageIO.read(getClass().getResourceAsStream("/npc/gotinha1.png"));
             
         
         }catch(IOException e){
             e.printStackTrace();
         }
     }
+
+    public void draw(Graphics2D g2){
+        BufferedImage image = null;
+
+        switch(direction) {
+            case "up" -> {
+                if (spriteNum == 1) {
+                    image = up1;
+                }
+                if (spriteNum == 2) {
+                    image = up2;
+                }
+            }
+            case "down" -> {
+                if (spriteNum == 1) {
+                    image = down1;
+                }
+                if (spriteNum == 2) {
+                    image = down2;
+                }
+            }
+            case "left" -> {
+                if (spriteNum == 1) {
+                    image = left1;
+                }
+                if (spriteNum == 2) {
+                    image = left2;
+                }
+            }
+            case "right" -> {
+                if (spriteNum == 1) {
+                    image = right1;
+                }
+                if (spriteNum == 2) {
+                    image = right2;
+                }
+            }
+        }
+        
+        int screenX = worldX - gp.player.worldX + gp.player.screenX;
+        int screenY = worldY - gp.player.worldY + gp.player.screenY;
+    
+        g2.drawImage(image, screenX, screenY, 42, 90, null);
+    }
+
     public void setDialogue(){
         
         //Os dialogos do NPC

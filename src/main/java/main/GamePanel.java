@@ -4,18 +4,17 @@
  */
 package main;
 
-import entity.Entity;
-import entity.Player;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.util.HashSet;
-import java.util.Set;
+
 import javax.swing.JPanel;
+
+import entity.Entity;
+import entity.Player;
 import object.SuperObject;
 import tile.TileManager;
-import main.QuizScreen;
 
 /**
  *
