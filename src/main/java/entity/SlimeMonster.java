@@ -27,10 +27,10 @@ public class SlimeMonster extends Entity {
         maxLife = 2;
         life = maxLife;
         
-        solidArea.x = 5;
-        solidArea.y = 20;
-        solidArea.width = 45;
-        solidArea.height = 35;
+        solidArea.x = 10;
+        solidArea.y = 46;
+        solidArea.width = 82;
+        solidArea.height = 44;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
         
