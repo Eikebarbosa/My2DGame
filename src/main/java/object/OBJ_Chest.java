@@ -7,16 +7,19 @@ package object;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
+import main.GamePanel;
+
 /**
  *
  * @author keyex
  */
 public class OBJ_Chest extends SuperObject {
-    public OBJ_Chest(){
+    public OBJ_Chest(GamePanel gp) {
+        super(gp);
         name = "Chest";
-        try{
+        try {
             image = ImageIO.read(getClass().getResourceAsStream("/images/chest.png"));
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

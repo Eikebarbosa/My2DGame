@@ -20,24 +20,24 @@ import main.GamePanel;
 public class SlimeMonster extends Entity {
     public SlimeMonster(GamePanel gp) {
         super(gp);
-        
         type = 2;
         direction = "down";
         speed = 2;
         maxLife = 2;
         life = maxLife;
-        
+        spriteY = 16;
+
         solidArea.x = 10;
-        solidArea.y = 46;
-        solidArea.width = 82;
-        solidArea.height = 44;
+        solidArea.y = 50;
+        solidArea.width = 55;
+        solidArea.height = 40;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
-        
-        
+
         getImage();
     }
-    public void getImage(){
+
+    public void getImage() {
         try {
             up1 = ImageIO.read(getClass().getResourceAsStream("/images/slime1.png"));
             up2 = ImageIO.read(getClass().getResourceAsStream("/images/slime2.png"));
@@ -47,82 +47,38 @@ public class SlimeMonster extends Entity {
             left2 = ImageIO.read(getClass().getResourceAsStream("/images/slime2.png"));
             right1 = ImageIO.read(getClass().getResourceAsStream("/images/slime1.png"));
             right2 = ImageIO.read(getClass().getResourceAsStream("/images/slime2.png"));
-            
-        
-        }catch(IOException e){
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void draw(Graphics2D g2){
-        BufferedImage image = null;
+    public void setAction() {
 
-        switch(direction) {
-            case "up" -> {
-                if (spriteNum == 1) {
-                    image = up1;
-                }
-                if (spriteNum == 2) {
-                    image = up2;
-                }
+        actionLockCounter++;
+
+        if (actionLockCounter == 120) {
+            Random random = new Random();
+            int i = random.nextInt(100) + 1; // escolhe um numero de 1 a 100
+
+            if (i <= 25) {
+                direction = "up";
             }
-            case "down" -> {
-                if (spriteNum == 1) {
-                    image = down1;
-                }
-                if (spriteNum == 2) {
-                    image = down2;
-                }
+            if (i > 25 && i <= 50) {
+                direction = "down";
             }
-            case "left" -> {
-                if (spriteNum == 1) {
-                    image = left1;
-                }
-                if (spriteNum == 2) {
-                    image = left2;
-                }
+            if (i > 50 && i <= 75) {
+                direction = "left";
             }
-            case "right" -> {
-                if (spriteNum == 1) {
-                    image = right1;
-                }
-                if (spriteNum == 2) {
-                    image = right2;
-                }
+            if (i > 75 && i <= 100) {
+                direction = "right";
             }
+
+            actionLockCounter = 0;
         }
-        
-        int screenX = worldX - gp.player.worldX + gp.player.screenX;
-        int screenY = worldY - gp.player.worldY + gp.player.screenY;
-    
-        g2.drawImage(image, screenX, screenY, 100, 100, null);
     }
 
-    public void setAction(){
-        
-        actionLockCounter ++;
-        
-        if(actionLockCounter == 120){
-        Random random = new Random();
-        int i = random.nextInt(100) + 1; //escolhe um numero de 1 a 100
-        
-        if(i <= 25){
-            direction = "up";
-        }
-        if(i > 25 && i <= 50){
-            direction = "down";
-        }
-        if(i > 50 && i <= 75){
-            direction = "left";
-        }
-        if(i > 75 && i <= 100){
-            direction = "right";
-        }
-         
-        actionLockCounter = 0;
-        }
-    }
-    public void speak(){
+    public void speak() {
         super.speak();
     }
 }

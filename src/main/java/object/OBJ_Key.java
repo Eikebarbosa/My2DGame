@@ -8,16 +8,19 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
+import main.GamePanel;
+
 /**
  *
  * @author keyex
  */
 public class OBJ_Key extends SuperObject {
-    public OBJ_Key(){
+    public OBJ_Key(GamePanel gp) {
+        super(gp);
         name = "Key";
-        try{
+        try {
             image = ImageIO.read(getClass().getResourceAsStream("/images/key.png"));
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

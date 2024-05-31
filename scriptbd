@@ -68,3 +68,6 @@ WHERE `nomeAluno` = 'admin';
 
 INSERT INTO `Aluno`(nomeAluno, senhaAluno) VALUES
 ('Joao', 'joao123');
+
+ALTER TABLE Aluno
+ADD COLUMN recorde INT;

@@ -7,20 +7,23 @@ package object;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
+import main.GamePanel;
+
 /**
  *
  * @author keyex
  */
-public class OBJ_Door extends SuperObject{
-    public OBJ_Door(){
+public class OBJ_Door extends SuperObject {
+    public OBJ_Door(GamePanel gp) {
+        super(gp);
         name = "Door";
-        try{
+        try {
             image = ImageIO.read(getClass().getResourceAsStream("/images/door_iron.png"));
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        
-        //Deixar os itens com colisões
+
+        // Deixar os itens com colisões
         collision = true;
     }
 }

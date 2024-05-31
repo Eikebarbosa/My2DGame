@@ -14,18 +14,16 @@ import main.GamePanel;
  * @author Mateus
  */
 public class OBJ_Heart extends SuperObject {
-    GamePanel gp;
-    
-    public OBJ_Heart(GamePanel gp){
-        this.gp = gp;
+
+    public OBJ_Heart(GamePanel gp) {
+        super(gp);
         name = "Heart";
-        try{
+        try {
             image = ImageIO.read(getClass().getResourceAsStream("/images/heart_full.png"));
             image2 = ImageIO.read(getClass().getResourceAsStream("/images/heart_half.png"));
             image3 = ImageIO.read(getClass().getResourceAsStream("/images/heart_blank.png"));
-            
-            
-        }catch(IOException e){
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

@@ -4,6 +4,8 @@
  */
 package entity;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
 import javax.imageio.ImageIO;
@@ -16,23 +18,24 @@ import java.awt.image.BufferedImage;
  * @author Mateus
  */
 public class NPC_OldMan extends Entity {
-    
+
     public NPC_OldMan(GamePanel gp) {
         super(gp);
-        
+
         direction = "down";
         speed = 0;
-        solidArea.x = 20;//hitbox 
-        //solidArea.y = ;
+        spriteWidth = 42;
+        spriteHeight = 90;
         solidArea.width = 70;
         solidArea.height = 70;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
-        
+
         getImage();
         setDialogue();
     }
-    public void getImage(){
+
+    public void getImage() {
         try {
             up1 = ImageIO.read(getClass().getResourceAsStream("/npc/gotinha1.png"));
             up2 = ImageIO.read(getClass().getResourceAsStream("/npc/gotinha1.png"));
@@ -42,17 +45,16 @@ public class NPC_OldMan extends Entity {
             left2 = ImageIO.read(getClass().getResourceAsStream("/npc/gotinha1.png"));
             right1 = ImageIO.read(getClass().getResourceAsStream("/npc/gotinha1.png"));
             right2 = ImageIO.read(getClass().getResourceAsStream("/npc/gotinha1.png"));
-            
-        
-        }catch(IOException e){
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void draw(Graphics2D g2){
+    public void draw(Graphics2D g2) {
         BufferedImage image = null;
 
-        switch(direction) {
+        switch (direction) {
             case "up" -> {
                 if (spriteNum == 1) {
                     image = up1;
@@ -86,51 +88,46 @@ public class NPC_OldMan extends Entity {
                 }
             }
         }
-        
+
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
         int screenY = worldY - gp.player.worldY + gp.player.screenY;
-    
+
         g2.drawImage(image, screenX, screenY, 42, 90, null);
     }
 
-    public void setDialogue(){
-        
-        //Os dialogos do NPC
-        dialogues[0] ="Ah! Você veio ajudar? \nQue ótimo! Quanto mais ajuda, melhor. \nVocê precisa entrar lá e salvar o hospital";
-        
-        
-        
-        
+    public void setDialogue() {
+
+        // Os dialogos do NPC
+        dialogues[0] = "Ah! Você veio ajudar? \nQue ótimo! Quanto mais ajuda, melhor. \nVocê precisa entrar lá e salvar o hospital! \nPara derrotar os inimigos no caminho, \npressione: ENTER";
+
     }
-    public void setAction(){
-        
-        actionLockCounter ++;
-        
-        if(actionLockCounter == 120){
-        Random random = new Random();
-        int i = random.nextInt(100) + 1; //escolhe um numero de 1 a 100
-        
-        if(i <= 25){
-            direction = "down";
-        }
-        if(i > 25 && i <= 50){
-            direction = "down";
-        }
-        if(i > 50 && i <= 75){
-            direction = "down";
-        }
-        if(i > 75 && i <= 100){
-            direction = "down";
-        }
-         
-        actionLockCounter = 0;
+
+    public void setAction() {
+
+        actionLockCounter++;
+
+        if (actionLockCounter == 120) {
+            Random random = new Random();
+            int i = random.nextInt(100) + 1; // escolhe um numero de 1 a 100
+
+            if (i <= 25) {
+                direction = "down";
+            }
+            if (i > 25 && i <= 50) {
+                direction = "down";
+            }
+            if (i > 50 && i <= 75) {
+                direction = "down";
+            }
+            if (i > 75 && i <= 100) {
+                direction = "down";
+            }
+
+            actionLockCounter = 0;
         }
     }
-    public void speak(){
+
+    public void speak() {
         super.speak();
     }
 }
-
-    
-    
-
