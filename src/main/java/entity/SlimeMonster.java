@@ -4,6 +4,8 @@
  */
 package entity;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
 
@@ -51,6 +53,51 @@ public class SlimeMonster extends Entity {
             e.printStackTrace();
         }
     }
+
+    public void draw(Graphics2D g2){
+        BufferedImage image = null;
+
+        switch(direction) {
+            case "up" -> {
+                if (spriteNum == 1) {
+                    image = up1;
+                }
+                if (spriteNum == 2) {
+                    image = up2;
+                }
+            }
+            case "down" -> {
+                if (spriteNum == 1) {
+                    image = down1;
+                }
+                if (spriteNum == 2) {
+                    image = down2;
+                }
+            }
+            case "left" -> {
+                if (spriteNum == 1) {
+                    image = left1;
+                }
+                if (spriteNum == 2) {
+                    image = left2;
+                }
+            }
+            case "right" -> {
+                if (spriteNum == 1) {
+                    image = right1;
+                }
+                if (spriteNum == 2) {
+                    image = right2;
+                }
+            }
+        }
+        
+        int screenX = worldX - gp.player.worldX + gp.player.screenX;
+        int screenY = worldY - gp.player.worldY + gp.player.screenY;
+    
+        g2.drawImage(image, screenX, screenY, 100, 100, null);
+    }
+
     public void setAction(){
         
         actionLockCounter ++;
