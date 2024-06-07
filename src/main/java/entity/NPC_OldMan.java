@@ -24,75 +24,33 @@ public class NPC_OldMan extends Entity {
 
         direction = "down";
         speed = 0;
-        spriteWidth = 42;
-        spriteHeight = 90;
-        solidArea.width = 70;
-        solidArea.height = 70;
+        spriteX = 6;
+        spriteY = -7;
+        spriteScale = 3;
+        solidArea.width = gp.tileSize;
+        solidArea.height = gp.tileSize;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
 
         getImage();
         setDialogue();
+        sprite = resolveImage();
     }
 
     public void getImage() {
         try {
-            up1 = ImageIO.read(getClass().getResourceAsStream("/npc/gotinha1.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/npc/gotinha1.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/npc/gotinha1.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/npc/gotinha1.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/npc/gotinha1.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/npc/gotinha1.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/npc/gotinha1.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/npc/gotinha1.png"));
+            walkingSprites[0] = ImageIO.read(getClass().getResourceAsStream("/npc/gotinha1.png"));
+            walkingSprites[1] = ImageIO.read(getClass().getResourceAsStream("/npc/gotinha1.png"));
+            walkingSprites[2] = ImageIO.read(getClass().getResourceAsStream("/npc/gotinha1.png"));
+            walkingSprites[3] = ImageIO.read(getClass().getResourceAsStream("/npc/gotinha1.png"));
+            walkingSprites[4] = ImageIO.read(getClass().getResourceAsStream("/npc/gotinha1.png"));
+            walkingSprites[5] = ImageIO.read(getClass().getResourceAsStream("/npc/gotinha1.png"));
+            walkingSprites[6] = ImageIO.read(getClass().getResourceAsStream("/npc/gotinha1.png"));
+            walkingSprites[7] = ImageIO.read(getClass().getResourceAsStream("/npc/gotinha1.png"));
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public void draw(Graphics2D g2) {
-        BufferedImage image = null;
-
-        switch (direction) {
-            case "up" -> {
-                if (spriteNum == 1) {
-                    image = up1;
-                }
-                if (spriteNum == 2) {
-                    image = up2;
-                }
-            }
-            case "down" -> {
-                if (spriteNum == 1) {
-                    image = down1;
-                }
-                if (spriteNum == 2) {
-                    image = down2;
-                }
-            }
-            case "left" -> {
-                if (spriteNum == 1) {
-                    image = left1;
-                }
-                if (spriteNum == 2) {
-                    image = left2;
-                }
-            }
-            case "right" -> {
-                if (spriteNum == 1) {
-                    image = right1;
-                }
-                if (spriteNum == 2) {
-                    image = right2;
-                }
-            }
-        }
-
-        int screenX = worldX - gp.player.worldX + gp.player.screenX;
-        int screenY = worldY - gp.player.worldY + gp.player.screenY;
-
-        g2.drawImage(image, screenX, screenY, 42, 90, null);
     }
 
     public void setDialogue() {
