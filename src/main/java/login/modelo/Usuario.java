@@ -10,14 +10,18 @@ package login.modelo;
  */
 public class Usuario {
 
-    protected final int codigo, recorde;
-    protected final String login, senha;
+    private final int codigo, recorde;
+    private final String login, senha;
 
-    public Usuario(String login, String senha, int recorde) {
-        this.codigo = 0;
+    public Usuario(int codigo, String login, String senha, int recorde) {
+        this.codigo = codigo;
         this.login = login;
         this.senha = senha;
         this.recorde = recorde;
+    }
+
+    public Usuario(String login, String senha, int recorde) {
+        this(0, login, senha, recorde);
     }
 
     public int getRecorde() {
