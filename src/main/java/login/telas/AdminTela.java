@@ -5,14 +5,9 @@
 package login.telas;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,14 +15,17 @@ import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.BoxLayout;
 import javax.swing.JDialog;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import login.db.QuestionDAO;
+import login.db.UsuarioDAO;
+import login.modelo.Question;
+import login.modelo.Usuario;
 
 /**
  *
@@ -35,22 +33,63 @@ import login.db.QuestionDAO;
  */
 public class AdminTela extends javax.swing.JFrame {
 
+    String addDialogHeader = "Exemplo de enunciado\nA - Exemplo de Resposta\nB - Exemplo de Resposta";
+    String addDialogAnswer = "A";
+
+    public static void main(String[] args) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new AdminTela().setVisible(true);
+            }
+        });
+    }
+
     public AdminTela() {
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (Exception ex) {
+            java.util.logging.Logger.getLogger(LoginTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
         // Configurando a janela principal
         setTitle("Painel Admin");
-        setSize(700, 500);
+        setSize(800, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        JLabel status = new JLabel(" ");
-        DefaultTableModel model = new DefaultTableModel(new Object[] { "Pergunta", "Resposta" }, 0);
-        Map<String, String> map = QuestionDAO.getQuestions();
+        JTabbedPane tabbedPane = new JTabbedPane();
+        tabbedPane.addTab("Perguntas", questionsScreen());
+        tabbedPane.addTab("Recordes", highscoreScreen());
 
-        for (Map.Entry<String, String> entry : map.entrySet()) {
-            model.addRow(new Object[] { entry.getKey(), entry.getValue() });
+        setContentPane(tabbedPane);
+    }
+
+    public JPanel questionsScreen() {
+        JPanel panel = new JPanel(new BorderLayout());
+        DefaultTableModel model = new DefaultTableModel(new Object[] { "Pergunta", "Resposta" }, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        List<Question> questions = QuestionDAO.getQuestions();
+
+        for (Question question : questions) {
+            try {
+                question.validated();
+            } catch (Exception e) {
+                question = new Question(question.getId(), "(INVÁLIDA) " + question.getHeader(), question.getOptions(),
+                        question.getCorrectAnswer());
+            }
+            model.addRow(new Object[] { question.toRawText(), question.getCorrectOption() });
         }
 
         JTable table = new JTable(model);
+
         JScrollPane scrollPane = new JScrollPane(table);
 
         JPanel buttonPanel = new JPanel();
@@ -59,7 +98,7 @@ public class AdminTela extends javax.swing.JFrame {
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                addButtonAction(model);
+                showAddQuestionScreen(model, questions);
             }
         });
 
@@ -70,10 +109,8 @@ public class AdminTela extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 int selectedRow = table.getSelectedRow();
                 if (selectedRow != -1) {
-                    String key = model.getValueAt(selectedRow, 0).toString();
-
                     model.removeRow(selectedRow);
-                    removeButtonAction(key);
+                    QuestionDAO.delete(questions.get(selectedRow).getId());
                 } else {
                     JOptionPane.showMessageDialog(null, "Selecione uma linha para remover.");
                 }
@@ -84,11 +121,11 @@ public class AdminTela extends javax.swing.JFrame {
         removeAllButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                for (int i = 0; i < map.size(); i++)
+                for (int i = 0; i < questions.size(); i++)
                     model.removeRow(0);
 
-                for (Entry<String, String> entry : map.entrySet()) {
-                    removeButtonAction(entry.getKey());
+                for (Question question : questions) {
+                    QuestionDAO.delete(question.getId());
                 }
             }
         });
@@ -97,11 +134,32 @@ public class AdminTela extends javax.swing.JFrame {
         buttonPanel.add(removeButton);
         buttonPanel.add(removeAllButton);
 
-        add(scrollPane, BorderLayout.CENTER);
-        add(buttonPanel, BorderLayout.SOUTH);
+        panel.add(scrollPane, BorderLayout.CENTER);
+        panel.add(buttonPanel, BorderLayout.SOUTH);
+
+        return panel;
     }
 
-    public void addButtonAction(DefaultTableModel model) {
+    public JScrollPane highscoreScreen() {
+        DefaultTableModel model = new DefaultTableModel(new Object[] { "Aluno", "Recorde" }, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        List<Usuario> usuarios = UsuarioDAO.getAll();
+
+        for (Usuario usuario : usuarios) {
+            model.addRow(new Object[] { usuario.getLogin(), usuario.getRecorde() });
+        }
+
+        JTable table = new JTable(model);
+        JScrollPane scrollPane = new JScrollPane(table);
+
+        return scrollPane;
+    }
+
+    public void showAddQuestionScreen(DefaultTableModel model, List<Question> questions) {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
 
@@ -122,6 +180,9 @@ public class AdminTela extends javax.swing.JFrame {
 
         JLabel answerLabel = new JLabel("Resposta:");
         answerLabel.setBorder(border);
+
+        keyField.setText(addDialogHeader);
+        valueField.setText(addDialogAnswer);
 
         answerLabel.setAlignmentX(CENTER_ALIGNMENT);
         panel.add(answerLabel);
@@ -145,17 +206,22 @@ public class AdminTela extends javax.swing.JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                String key = keyField.getText();
-                String value = valueField.getText();
+                addDialogHeader = keyField.getText();
+                addDialogAnswer = valueField.getText();
 
-                if (!key.isEmpty() && !value.isEmpty()) {
-                    if (QuestionDAO.exists(key)) {
+                if (!addDialogHeader.isEmpty() && !addDialogAnswer.isEmpty()) {
+                    if (QuestionDAO.existsByRawText(addDialogHeader)) {
                         JOptionPane.showMessageDialog(null, "Já possui essa pergunta no banco de dados.");
                         return;
                     }
 
-                    insertQuestion(key, value);
-                    model.addRow(new Object[] { key, value });
+                    try {
+                        questions.add(QuestionDAO
+                                .insert(new Question(0, addDialogHeader, addDialogAnswer).validated()));
+                        model.addRow(new Object[] { addDialogHeader, addDialogAnswer });
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(dialog, ex.getMessage());
+                    }
                 } else {
                     JOptionPane.showMessageDialog(null, "Por favor, preencha ambos os campos.");
                 }
@@ -176,24 +242,5 @@ public class AdminTela extends javax.swing.JFrame {
         dialog.setSize(650, 450);
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
-    }
-
-    public void createAddPanel() {
-    }
-
-    public void insertQuestion(String key, String value) {
-        QuestionDAO.insert(key, value);
-    }
-
-    public void removeButtonAction(String row) {
-        QuestionDAO.delete(row);
-    }
-
-    public static void main(String[] args) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AdminTela().setVisible(true);
-            }
-        });
     }
 }
