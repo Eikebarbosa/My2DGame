@@ -50,6 +50,7 @@ public class GamePanel extends JPanel implements Runnable {
     int FPS = 60;
 
     public Usuario user;
+    public int recorde;
     TileManager tileM = new TileManager(this);
     public KeyHandler keyH = new KeyHandler(this);
     Sound music = new Sound();
@@ -80,6 +81,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public GamePanel(Usuario user) {
         this.user = user;
+        this.recorde = user.getRecorde();
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
