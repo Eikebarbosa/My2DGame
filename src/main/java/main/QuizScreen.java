@@ -15,11 +15,12 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 import login.db.QuestionDAO;
+import login.modelo.Question;
 
 public class QuizScreen {
     GamePanel gp;
-    List<String[]> questions = new ArrayList<>();
-    List<List<String[]>> options = new ArrayList<>();
+    List<String[]> questionsHeader = new ArrayList<>();
+    List<List<String[]>> questionsOptions = new ArrayList<>();
     List<Integer> correctAnswers = new ArrayList<>();
     public int[] selectedAnswers;
 
@@ -29,43 +30,16 @@ public class QuizScreen {
 
     public QuizScreen(GamePanel gp) {
         this.gp = gp;
-        for (Map.Entry<String, String> entry : QuestionDAO.getQuestions().entrySet()) {
-            String[] split = entry.getKey().split("\\r?\\n");
-            for (int i = 0; i < split.length; i++) {
-                split[i] = split[i].trim();
+        for (Question question : QuestionDAO.getQuestions()) {
+            this.questionsHeader.add(wrap(question.getHeader(), 100));
+            this.correctAnswers.add(question.getCorrectAnswer());
+            List<String[]> questionOption = new ArrayList<>();
+            for (String option : question.getOptions()) {
+                questionOption.add(wrap(option, 100));
             }
-
-            char lastAnswerLetter = Character.toUpperCase(split[split.length - 1].charAt(0));
-            int countAnswers = switch (lastAnswerLetter) {
-                case 'E' -> 5;
-                default -> 4;
-            };
-
-            String question = split[0];
-            for (int i = 1; i < split.length - countAnswers; i++) {
-                question += "\n" + split[i];
-            }
-            this.questions.add(wrap(question, 100));
-
-            char answer = Character.toUpperCase(entry.getValue().trim().charAt(0));
-            switch (answer) {
-                case 'A' -> this.correctAnswers.add(0);
-                case 'B' -> this.correctAnswers.add(1);
-                case 'C' -> this.correctAnswers.add(2);
-                case 'D' -> this.correctAnswers.add(3);
-                case 'E' -> this.correctAnswers.add(4);
-                default -> throw new RuntimeException(
-                        "A questão #" + split[0].substring(0, 10)
-                                + "... não tem uma resposta que comece com as letras A, B, C, D ou E.");
-            }
-
-            List<String[]> questionOptions = new ArrayList<>();
-            for (int i = split.length - countAnswers; i < split.length; i++) {
-                questionOptions.add(wrap(split[i], 100));
-            }
-            options.add(questionOptions);
+            questionsOptions.add(questionOption);
         }
-        selectedAnswers = new int[questions.size()];
+        selectedAnswers = new int[questionsHeader.size()];
     }
 
     public void draw(Graphics2D g2) {
@@ -79,7 +53,7 @@ public class QuizScreen {
             g2.setFont(new Font("Arial", Font.BOLD, 35));
 
             String missionLabel = "DERROTE GEHRMAN, O PRIMEIRO VÍRUS!";
-            String questionLabel = "Questão " + currentQuestion + "/" + questions.size();
+            String questionLabel = "Questão " + currentQuestion + "/" + questionsHeader.size();
 
             g2.setColor(Color.BLACK);
             g2.drawString(missionLabel, 235 + 2, 100 + 2);
@@ -95,14 +69,14 @@ public class QuizScreen {
 
             g2.setFont(new Font("Arial", Font.BOLD, 18));
             // Draw question
-            String[] lines = questions.get(currentQuestion);
+            String[] lines = questionsHeader.get(currentQuestion);
             for (int i = 0; i < lines.length; i++) {
                 int lineSpacing = (i * 35);
                 g2.drawString(lines[i], 100, 150 + lineSpacing);
             }
 
             // Draw options
-            List<String[]> questionOptions = options.get(currentQuestion);
+            List<String[]> questionOptions = questionsOptions.get(currentQuestion);
             int lineCount = 0;
             for (int i = 0; i < questionOptions.size(); i++) {
                 if (showAnswers) {
@@ -132,7 +106,6 @@ public class QuizScreen {
     }
 
     public int countCorrect() {
-        System.out.println(correctAnswers);
         int count = 0;
         for (int i = 0; i < selectedAnswers.length; i++) {
             if (correctAnswers.get(i) == selectedAnswers[i]) {
@@ -143,8 +116,9 @@ public class QuizScreen {
     }
 
     public void nextQuestion() {
+        System.out.println(correctAnswers);
         currentQuestion++;
-        if (currentQuestion >= questions.size()) {
+        if (currentQuestion >= questionsHeader.size()) {
             currentQuestion = 0;
             isActive = false;
             if (gp.gameState == gp.answersState) {
