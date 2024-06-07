@@ -7,6 +7,7 @@ package main;
 import javax.swing.JFrame;
 
 import login.modelo.Usuario;
+import login.telas.LoginTela;
 
 /**
  *
@@ -14,7 +15,11 @@ import login.modelo.Usuario;
  */
 public class Main {
 
-    public void iniciarJogo(Usuario user) {
+    public static void main(String args[]) {
+        LoginTela.main(args);
+    }
+
+    public static void iniciarJogo(Usuario user) {
 
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -31,10 +36,6 @@ public class Main {
 
         gamePanel.setupGame();
         gamePanel.startGameThread();
-    }
-
-    public static void main(String[] args) {
-
     }
 
 }
