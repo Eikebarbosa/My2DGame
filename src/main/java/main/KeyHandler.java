@@ -61,6 +61,10 @@ public class KeyHandler implements KeyListener {
                     checkDrawTime = false;
                 }
             }
+            if (code == KeyEvent.VK_P) {
+                System.out.println("(" + ((int) (gp.player.worldX / gp.tileSize)) + ", "
+                        + ((int) (gp.player.worldY / gp.tileSize)) + ")");
+            }
         }
         // PAUSE STATE
         else if (gp.gameState == gp.pauseState) {
