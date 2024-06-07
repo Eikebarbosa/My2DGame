@@ -20,29 +20,31 @@ public class Entity {
     public GamePanel gp;
     public int worldX, worldY;
     public int speed;
-
-    public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
-    public BufferedImage attackUp1, attackUp2, attackDown1, attackDown2, attackLeft1, attackLeft2, attackRight1,
-            attackRight2;
-    public String direction;
-
-    public String name;
     public int signumDirectionX;
     public int signumDirectionY;
+    public String direction;
+
+    public BufferedImage sprite;
+    public BufferedImage[] walkingSprites = new BufferedImage[8], attackSprites = new BufferedImage[8];
+    public BufferedImage onFreezeSprite;
+
     public int spriteCounter = 0;
     public int spriteNum = 1;
-    public int spriteWidth;
-    public int spriteHeight;
+    public float spriteScale = 1f;
     public int spriteX;
     public int spriteY;
-    public Rectangle solidArea = new Rectangle(0, 0, 40, 40);
-    public Rectangle attackArea = new Rectangle(0, 0, 70, 70);
+
+    public String name;
+    public Rectangle solidArea = new Rectangle(0, 0, 0, 0);
+    public Rectangle attackArea;
     public int solidAreaDefaultX, solidAreaDefaultY;
     public boolean collisionOn = false;
     public int actionLockCounter = 0;
+    public boolean freezed;
+    public int freezedCounter;
     public boolean invincible = false;
     protected boolean entityHandleSpriteDrawing = true;
-    boolean attacking = false;
+    public int attackDelayCounter;
     public int invincibleCounter = 0;
     String dialogues[] = new String[20];
     int dialogueIndex = 0;
@@ -55,48 +57,6 @@ public class Entity {
     public Entity(GamePanel gp) {
         this.attackArea = new Rectangle(0, 0, 0, 0);
         this.gp = gp;
-        this.spriteWidth = gp.tileSize;
-        this.spriteHeight = gp.tileSize;
-    }
-
-    public BufferedImage resolveImage() {
-        BufferedImage image = null;
-        switch (direction) {
-            case "up":
-                if (spriteNum == 1) {
-                    image = up1;
-                }
-                if (spriteNum == 2) {
-                    image = up2;
-
-                }
-                break;
-            case "down":
-                if (spriteNum == 1) {
-                    image = down1;
-                }
-                if (spriteNum == 2) {
-                    image = down2;
-                }
-                break;
-            case "left":
-                if (spriteNum == 1) {
-                    image = left1;
-                }
-                if (spriteNum == 2) {
-                    image = left2;
-                }
-                break;
-            case "right":
-                if (spriteNum == 1) {
-                    image = right1;
-                }
-                if (spriteNum == 2) {
-                    image = right2;
-                }
-                break;
-        }
-        return image;
     }
 
     public void draw(Graphics2D g2) {
@@ -110,14 +70,16 @@ public class Entity {
 
             // name label
             if (name != null) {
-                g2.setFont(new Font("Arial", Font.BOLD, 12));
+                g2.setFont(new Font("Arial", Font.BOLD, 16));
                 int lenght = (int) g2.getFontMetrics().getStringBounds(name, g2).getWidth();
-                int x = spriteWidth / 2 - lenght / 2;
+                int x = (int) (sprite.getWidth() * spriteScale) / 2 - lenght / 2;
 
                 g2.setColor(Color.black);
-                g2.drawString(name, screenX + x, screenY - 20);
+                g2.drawString(name, (int) (screenX + spriteX * spriteScale) + x + 2,
+                        (int) (screenY + spriteY * spriteScale) - 19);
                 g2.setColor(Color.white);
-                g2.drawString(name, screenX + x + 1, screenY - 19);
+                g2.drawString(name, (int) (screenX + spriteX * spriteScale) + x,
+                        (int) (screenY + spriteY * spriteScale) - 19);
             }
 
             // hp bar
@@ -132,18 +94,39 @@ public class Entity {
                 g2.fillRect(screenX, screenY - 15, (int) hpBarValue, 10);
             }
 
-            // DEBUG: HitBox drawing
+            if (entityHandleSpriteDrawing) {
+                if (freezed) {
+                    sprite = onFreezeSprite;
+                } else {
+                    sprite = resolveImage();
+                }
+                g2.setColor(Color.white);
+                g2.drawImage(sprite, (int) (screenX + spriteX * spriteScale), (int) (screenY + spriteY * spriteScale),
+                        (int) (sprite.getWidth() * spriteScale),
+                        (int) (sprite.getHeight() * spriteScale), null);
+            }
+
             /*
+             * // DEBUG: Attack HitBox drawing
+             * g2.setColor(new Color(0, 0, 255, 100));
+             * 
+             * g2.fillRect(
+             * screenX + solidArea.x + solidArea.width / 2 + (solidArea.width / 2 +
+             * attackArea.width / 2)
+             * signumDirectionX
+             * + attackArea.width / -2,
+             * screenY + solidArea.y + solidArea.height / 2 + (solidArea.height / 2 +
+             * attackArea.height /
+             * 2) * signumDirectionY
+             * + attackArea.height / -2,
+             * attackArea.width,
+             * attackArea.height);
+             * 
+             * // DEBUG: HitBox drawing
              * g2.setColor(new Color(255, 0, 0, 100));
              * g2.fillRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width,
              * solidArea.height);
              */
-
-            if (entityHandleSpriteDrawing) {
-                BufferedImage image = resolveImage();
-                g2.setColor(Color.white);
-                g2.drawImage(image, screenX + spriteX, screenY + spriteY, spriteWidth, spriteHeight, null);
-            }
         }
 
     }
@@ -178,37 +161,24 @@ public class Entity {
     public void update() {
         setAction();
 
-        collisionOn = false;
-        gp.cChecker.checkTile(this);
-        gp.cChecker.checkObject(this, false);
-        gp.cChecker.checkEntity(this, gp.npc);
-        gp.cChecker.checkEntity(this, gp.monster);
-        boolean contactPlayer = gp.cChecker.checkPlayer(this);
-
-        if (this.type == 2 && contactPlayer == true) {
-            if (gp.player.invincible == false) {
-                // we can give damage
-                gp.player.life -= 1;
-                gp.player.invincible = true;
+        if (freezedCounter > 0) {
+            freezedCounter--;
+            if (freezedCounter == 0) {
+                freezed = false;
             }
         }
-        // IF COLLISION IS FALSE, PLAYER CAN MOVE
-        if (collisionOn == false) {
 
-            switch (direction) {
-                case "up":
-                    worldY -= speed;
-                    break;
-                case "down":
-                    worldY += speed;
-                    break;
-                case "left":
-                    worldX -= speed;
-                    break;
-                case "right":
-                    worldX += speed;
-                    break;
+        if (attackDelayCounter > 0) {
+            if (attackDelayCounter > 30) {
+                spriteNum = 2;
+            } else {
+                spriteNum = 1;
             }
+            attackDelayCounter--;
+        }
+
+        if (attackDelayCounter == 0) {
+
             spriteCounter++;
             if (spriteCounter > 10) {
                 if (spriteNum == 1) {
@@ -218,7 +188,32 @@ public class Entity {
                 }
                 spriteCounter = 0;
             }
+        }
 
+        collisionOn = false;
+        gp.cChecker.checkTile(this);
+        gp.cChecker.checkObject(this, false);
+        gp.cChecker.checkEntity(this, gp.npc);
+        gp.cChecker.checkEntity(this, gp.monster);
+
+        // IF COLLISION IS FALSE, MONSTER CAN MOVE
+        if (collisionOn == false) {
+            if (!freezed && attackDelayCounter == 0) {
+                switch (direction) {
+                    case "up":
+                        worldY -= speed;
+                        break;
+                    case "down":
+                        worldY += speed;
+                        break;
+                    case "left":
+                        worldX -= speed;
+                        break;
+                    case "right":
+                        worldX += speed;
+                        break;
+                }
+            }
         }
         if (invincible == true) {
             invincibleCounter++;
@@ -227,6 +222,37 @@ public class Entity {
                 invincibleCounter = 0;
             }
         }
+    }
+
+    public void damage(int damage) {
+        if (invincible == false) {
+            this.life -= damage;
+        }
+    }
+
+    public static BufferedImage redImage(BufferedImage bImage) {
+        BufferedImage brighter = new BufferedImage(bImage.getWidth(), bImage.getHeight(), bImage.getType());
+        for (int x = 0; x < bImage.getWidth(); x++) {
+            for (int y = 0; y < bImage.getHeight(); y++) {
+                Color col = new Color(bImage.getRGB(x, y), true);
+                col = new Color(Math.min(col.getRed() + 50, 255), col.getGreen(), col.getBlue(), col.getAlpha());
+                brighter.setRGB(x, y, col.getRGB());
+            }
+        }
+        return brighter;
+    }
+
+    public BufferedImage resolveImage() {
+        int dir = switch (direction) {
+            case "up" -> 0;
+            case "down" -> 2;
+            case "left" -> 4;
+            case "right" -> 6;
+            default -> 0;
+        };
+        int spr = dir + spriteNum - 1;
+        var attackSpr = attackSprites[spr];
+        return attackDelayCounter > 0 && attackSpr != null ? attackSpr : walkingSprites[spr];
     }
 
 }

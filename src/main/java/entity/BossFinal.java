@@ -4,8 +4,6 @@
  */
 package entity;
 
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
 
@@ -13,8 +11,6 @@ import javax.imageio.ImageIO;
 
 import login.db.UsuarioDAO;
 import main.GamePanel;
-import java.awt.image.BufferedImage;
-import java.awt.Graphics2D;
 
 /**
  *
@@ -37,8 +33,7 @@ public class BossFinal extends Entity {
         direction = "down";
         speed = 0;
         type = 1;
-        spriteWidth = 150;
-        spriteHeight = 210;
+        spriteScale = 4;
         solidArea.width = 150;
         solidArea.height = 210;
         solidAreaDefaultX = solidArea.x;
@@ -46,18 +41,19 @@ public class BossFinal extends Entity {
 
         getImage();
         setDialogue();
+        sprite = resolveImage();
     }
 
     public void getImage() {
         try {
-            up1 = ImageIO.read(getClass().getResourceAsStream("/images/boss.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/images/boss.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/images/boss.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/images/boss.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/images/boss.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/images/boss.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/images/boss.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/images/boss.png"));
+            walkingSprites[0] = ImageIO.read(getClass().getResourceAsStream("/images/boss.png"));
+            walkingSprites[1] = ImageIO.read(getClass().getResourceAsStream("/images/boss.png"));
+            walkingSprites[2] = ImageIO.read(getClass().getResourceAsStream("/images/boss.png"));
+            walkingSprites[3] = ImageIO.read(getClass().getResourceAsStream("/images/boss.png"));
+            walkingSprites[4] = ImageIO.read(getClass().getResourceAsStream("/images/boss.png"));
+            walkingSprites[5] = ImageIO.read(getClass().getResourceAsStream("/images/boss.png"));
+            walkingSprites[6] = ImageIO.read(getClass().getResourceAsStream("/images/boss.png"));
+            walkingSprites[7] = ImageIO.read(getClass().getResourceAsStream("/images/boss.png"));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -94,6 +90,7 @@ public class BossFinal extends Entity {
                 try {
                     int recorde = UsuarioDAO.getRecorde(gp.user.getCodigo());
                     if (recorde < correctAnswers) {
+                        gp.recorde = recorde;
                         UsuarioDAO.setRecorde(gp.user.getCodigo(), correctAnswers);
                     }
                 } catch (Exception e) {

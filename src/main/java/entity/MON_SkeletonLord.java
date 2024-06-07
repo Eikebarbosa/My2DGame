@@ -15,21 +15,30 @@ import main.GamePanel;
  */
 public class MON_SkeletonLord extends Entity {
 
+    boolean evolved;
+    int directionTimer;
+
     public MON_SkeletonLord(GamePanel gp) {
+        this(gp, false);
+    }
+
+    public MON_SkeletonLord(GamePanel gp, boolean evolved) {
         super(gp);
         this.gp = gp;
+        this.evolved = true;
+        directionTimer = evolved ? 55 : 75;
 
-        name = "Esqueleto";
+        name = evolved ? "Esqueleto (lvl 2)" : "Esqueleto (lvl 1)";
         type = 2;
         direction = "down";
-        speed = 3;
-        maxLife = 4;
+        speed = evolved ? 5 : 3;
+        maxLife = evolved ? 6 : 4;
         life = maxLife;
 
-        solidArea.x = 8;
-        solidArea.y = 8;
-        solidArea.width = 50;
-        solidArea.height = 60;
+        spriteScale = 3;
+        solidArea.x = 16;
+        solidArea.width = 70;
+        solidArea.height = 95;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
         attackArea.width = 48;
@@ -37,69 +46,100 @@ public class MON_SkeletonLord extends Entity {
 
         getImage();
         getAttackImage();
+        sprite = resolveImage();
     }
 
     public void getImage() {
+        String phase = evolved ? "phase2_" : "";
         try {
-            up1 = ImageIO.read(getClass().getResourceAsStream("/images/skeletonlord_up_1.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/images/skeletonlord_up_2.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/images/skeletonlord_down_1.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/images/skeletonlord_down_2.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/images/skeletonlord_left_1.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/images/skeletonlord_left_2.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/images/skeletonlord_right_1.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/images/skeletonlord_right_2.png"));
-
+            walkingSprites[0] = ImageIO
+                    .read(getClass().getResourceAsStream("/images/skeletonlord_" + phase + "up_1.png"));
+            walkingSprites[1] = ImageIO
+                    .read(getClass().getResourceAsStream("/images/skeletonlord_" + phase + "up_2.png"));
+            walkingSprites[2] = ImageIO
+                    .read(getClass().getResourceAsStream("/images/skeletonlord_" + phase + "down_1.png"));
+            walkingSprites[3] = ImageIO
+                    .read(getClass().getResourceAsStream("/images/skeletonlord_" + phase + "down_2.png"));
+            walkingSprites[4] = ImageIO
+                    .read(getClass().getResourceAsStream("/images/skeletonlord_" + phase + "left_1.png"));
+            walkingSprites[5] = ImageIO
+                    .read(getClass().getResourceAsStream("/images/skeletonlord_" + phase + "left_2.png"));
+            walkingSprites[6] = ImageIO
+                    .read(getClass().getResourceAsStream("/images/skeletonlord_" + phase + "right_1.png"));
+            walkingSprites[7] = ImageIO
+                    .read(getClass().getResourceAsStream("/images/skeletonlord_" + phase + "right_2.png"));
+            onFreezeSprite = Entity.redImage(walkingSprites[2]);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void getAttackImage() {
+        String phase = evolved ? "phase2_" : "";
         try {
-            // attackUp1 =
-            // ImageIO.read(getClass().getResourceAsStream("/images/skeletonlord_attack_up_1.png"));
-            // attackUp2 =
-            // ImageIO.read(getClass().getResourceAsStream("/images/skeletonlord_attack_up_2.png"));
-            // attackDown1 =
-            // ImageIO.read(getClass().getResourceAsStream("/images/skeletonlord_attack_down_1.png"));
-            // attackDown2 =
-            // ImageIO.read(getClass().getResourceAsStream("/images/skeletonlord_attack_down_2.png"));
-            attackLeft1 = ImageIO.read(getClass().getResourceAsStream("/images/skeletonlord_attack_left_1.png"));
-            attackLeft2 = ImageIO.read(getClass().getResourceAsStream("/images/skeletonlord_attack_left_2.png"));
-            // attackRight1 =
-            // ImageIO.read(getClass().getResourceAsStream("/images/skeletonlord_attack_right_1.png"));
-            // attackRight2 =
-            // ImageIO.read(getClass().getResourceAsStream("/images/skeletonlord_attack_right_2.png"));
-
+            attackSprites[0] = ImageIO
+                    .read(getClass().getResourceAsStream("/images/skeletonlord_" + phase + "attack_up_1.png"));
+            attackSprites[1] = ImageIO
+                    .read(getClass().getResourceAsStream("/images/skeletonlord_" + phase + "attack_up_2.png"));
+            attackSprites[2] = ImageIO
+                    .read(getClass().getResourceAsStream("/images/skeletonlord_" + phase + "attack_down_1.png"));
+            attackSprites[3] = ImageIO
+                    .read(getClass().getResourceAsStream("/images/skeletonlord_" + phase + "attack_down_2.png"));
+            attackSprites[4] = ImageIO
+                    .read(getClass().getResourceAsStream("/images/skeletonlord_" + phase + "attack_left_1.png"));
+            attackSprites[5] = ImageIO
+                    .read(getClass().getResourceAsStream("/images/skeletonlord_" + phase + "attack_left_2.png"));
+            attackSprites[6] = ImageIO
+                    .read(getClass().getResourceAsStream("/images/skeletonlord_" + phase + "attack_right_1.png"));
+            attackSprites[7] = ImageIO
+                    .read(getClass().getResourceAsStream("/images/skeletonlord_" + phase + "attack_right_2.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void setAction() {
-
-        actionLockCounter++;
-
-        if (actionLockCounter == 75) {
-            Random random = new Random();
-            int i = random.nextInt(100) + 1; // escolhe um numero de 1 a 100
-
-            if (i <= 25) {
-                direction = "up";
+        if (attackDelayCounter > 0) {
+            switch (direction) {
+                case "up" -> {
+                    spriteY = -32;
+                }
+                case "left" -> {
+                    spriteX = -32;
+                }
             }
-            if (i > 25 && i <= 50) {
-                direction = "down";
-            }
-            if (i > 50 && i <= 75) {
-                direction = "left";
-            }
-            if (i > 75 && i <= 100) {
-                direction = "right";
-            }
+        } else {
+            spriteX = 0;
+            spriteY = 0;
+            actionLockCounter++;
 
-            actionLockCounter = 0;
+            if (actionLockCounter == directionTimer) {
+                Random random = new Random();
+                int i = random.nextInt(100) + 1; // escolhe um numero de 1 a 100
+
+                if (i <= 25) {
+                    direction = "up";
+                }
+                if (i > 25 && i <= 50) {
+                    direction = "down";
+                }
+                if (i > 50 && i <= 75) {
+                    direction = "left";
+                }
+                if (i > 75 && i <= 100) {
+                    direction = "right";
+                }
+
+                actionLockCounter = 0;
+            }
         }
+    }
+
+    @Override
+    public void damage(int damage) {
+        super.damage(damage);
+        freezed = true;
+        freezedCounter = 60;
     }
 
 }
