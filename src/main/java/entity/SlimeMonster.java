@@ -25,36 +25,36 @@ public class SlimeMonster extends Entity {
         speed = 2;
         maxLife = 2;
         life = maxLife;
-        spriteY = 16;
 
+        spriteScale = 2.5f;
         solidArea.x = 10;
-        solidArea.y = 50;
-        solidArea.width = 55;
+        solidArea.y = 40;
+        solidArea.width = 65;
         solidArea.height = 40;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
 
         getImage();
+        sprite = resolveImage();
     }
 
     public void getImage() {
         try {
-            up1 = ImageIO.read(getClass().getResourceAsStream("/images/slime1.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/images/slime2.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/images/slime1.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/images/slime2.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/images/slime1.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/images/slime2.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/images/slime1.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/images/slime2.png"));
-
+            walkingSprites[0] = ImageIO.read(getClass().getResourceAsStream("/images/slime1.png"));
+            walkingSprites[1] = ImageIO.read(getClass().getResourceAsStream("/images/slime2.png"));
+            walkingSprites[2] = ImageIO.read(getClass().getResourceAsStream("/images/slime1.png"));
+            walkingSprites[3] = ImageIO.read(getClass().getResourceAsStream("/images/slime2.png"));
+            walkingSprites[4] = ImageIO.read(getClass().getResourceAsStream("/images/slime1.png"));
+            walkingSprites[5] = ImageIO.read(getClass().getResourceAsStream("/images/slime2.png"));
+            walkingSprites[6] = ImageIO.read(getClass().getResourceAsStream("/images/slime1.png"));
+            walkingSprites[7] = ImageIO.read(getClass().getResourceAsStream("/images/slime2.png"));
+            onFreezeSprite = Entity.redImage(walkingSprites[2]);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void setAction() {
-
         actionLockCounter++;
 
         if (actionLockCounter == 120) {
@@ -78,7 +78,10 @@ public class SlimeMonster extends Entity {
         }
     }
 
-    public void speak() {
-        super.speak();
+    @Override
+    public void damage(int damage) {
+        super.damage(damage);
+        freezed = true;
+        freezedCounter = 60;
     }
 }
