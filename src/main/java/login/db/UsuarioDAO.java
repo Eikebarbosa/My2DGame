@@ -8,89 +8,130 @@ import login.modelo.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author schix
  */
 public class UsuarioDAO {
-    public static boolean existe(Usuario u) throws Exception {
-        // 1. Especificar o comando SQL (Select)
+    public static Usuario authenticate(String login, String senha) {
         String sql = "SELECT * FROM Aluno WHERE nomeAluno = ? AND senhaAluno = ?";
+        Usuario usuario = null;
 
-        // 2. Estabelecer uma conexão com o banco
-        Connection conexao = new ConnectionFactory().obterConexao();
+        try (Connection conexao = new ConnectionFactory().obterConexao();
+                PreparedStatement ps = conexao.prepareStatement(sql);) {
+            ps.setString(1, login);
+            ps.setString(2, senha);
 
-        // 3. Preparar o comando
-        PreparedStatement ps = conexao.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
 
-        // 4. Substituir os eventuais placeholders
-        ps.setString(1, u.getLogin());
-        ps.setString(2, u.getSenha());
+            if (rs.next()) {
+                usuario = new Usuario(
+                        rs.getInt("idAluno"),
+                        rs.getString("nomeAluno"),
+                        rs.getString("senhaAluno"),
+                        rs.getInt("recorde"));
+            }
 
-        // 5. Executar
-        ResultSet rs = ps.executeQuery();
-
-        // 6. Lidar com o resultado
-        boolean achou = rs.next();
-
-        // 7. Fechar a conexão
-        rs.close();
-        ps.close();
-        conexao.close();
-
-        // 8. Responder se existe ou não
-        return achou;
-    }
-
-    public static int getRecorde(int codigo) throws Exception {
-        String sql = "SELECT * FROM Aluno WHERE idAluno = ?";
-
-        Connection conexao = new ConnectionFactory().obterConexao();
-        PreparedStatement ps = conexao.prepareStatement(sql);
-
-        ps.setInt(1, codigo);
-        ResultSet rs = ps.executeQuery();
-
-        int recorde = 0;
-        if (rs.next()) {
-            recorde = rs.getInt("recorde");
+            rs.close();
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
         }
 
-        rs.close();
-        ps.close();
-        conexao.close();
+        return usuario;
+    }
+
+    public static Usuario getByLogin(String login) {
+        String sql = "SELECT * FROM Aluno WHERE nomeAluno = ?";
+        Usuario usuario = null;
+
+        try (Connection conexao = new ConnectionFactory().obterConexao();
+                PreparedStatement ps = conexao.prepareStatement(sql);) {
+            ps.setString(1, login);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                usuario = new Usuario(
+                        rs.getInt("idAluno"),
+                        rs.getString("nomeAluno"),
+                        rs.getString("senhaAluno"),
+                        rs.getInt("recorde"));
+            }
+
+            rs.close();
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+
+        return usuario;
+    }
+
+    public static List<Usuario> getAll() {
+        List<Usuario> all = new ArrayList<>();
+        try (Connection conexao = new ConnectionFactory().obterConexao();
+                PreparedStatement ps = conexao.prepareStatement("SELECT * FROM Aluno");
+                ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                all.add(new Usuario(
+                        rs.getInt("idAluno"),
+                        rs.getString("nomeAluno"),
+                        rs.getString("senhaAluno"),
+                        rs.getInt("recorde")));
+            }
+
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+        return all;
+    }
+
+    public static int getRecorde(int codigo) {
+        String sql = "SELECT * FROM Aluno WHERE idAluno = ?";
+        int recorde = 0;
+
+        try (Connection conexao = new ConnectionFactory().obterConexao();
+                PreparedStatement ps = conexao.prepareStatement(sql)) {
+            ps.setInt(1, codigo);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                recorde = rs.getInt("recorde");
+            }
+
+            rs.close();
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
 
         return recorde;
     }
 
-    public static void setRecorde(int codigo, int recorde) throws Exception {
+    public static void setRecorde(int codigo, int recorde) {
         String sql = "UPDATE Aluno SET recorde = ? WHERE idAluno = ?";
+        try (Connection conexao = new ConnectionFactory().obterConexao();
+                PreparedStatement ps = conexao.prepareStatement(sql)) {
+            ps.setInt(1, recorde);
+            ps.setInt(2, codigo);
+            ps.executeUpdate();
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
 
-        Connection conexao = new ConnectionFactory().obterConexao();
-        PreparedStatement ps = conexao.prepareStatement(sql);
-
-        ps.setInt(1, recorde);
-        ps.setInt(2, codigo);
-        ps.executeUpdate();
-
-        ps.close();
-        conexao.close();
     }
 
-    public static void inserir(Usuario u) throws Exception {
-        Connection conexao = new ConnectionFactory().obterConexao();
-        try (PreparedStatement statement = conexao
-                .prepareStatement("INSERT INTO Aluno (idAluno, nomeAluno, senhaAluno, recorde) VALUES (?, ?, ?, ?)")) {
-            statement.setInt(1, u.getCodigo());
-            statement.setString(2, u.getLogin());
-            statement.setString(3, u.getSenha());
-            statement.setInt(4, u.getRecorde());
-
-            statement.executeUpdate();
+    public static void inserir(Usuario user) {
+        var sql = "INSERT INTO Aluno (nomeAluno, senhaAluno, recorde) VALUES (?, ?, ?)";
+        try (Connection conexao = new ConnectionFactory().obterConexao();
+                PreparedStatement ps = conexao.prepareStatement(sql)) {
+            ps.setString(2, user.getLogin());
+            ps.setString(3, user.getSenha());
+            ps.setInt(4, user.getRecorde());
+            ps.executeUpdate();
         } catch (Exception ex) {
-            ex.printStackTrace();
+            throw new RuntimeException(ex);
         }
-        conexao.close();
     }
 }
