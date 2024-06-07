@@ -13,10 +13,28 @@ import main.Main;
  */
 public class CadastrarTela extends javax.swing.JFrame {
 
+    public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new CadastrarTela().setVisible(true);
+            }
+        });
+    }
+
     /**
      * Creates new form LoginTela
      */
     public CadastrarTela() {
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (Exception ex) {
+            java.util.logging.Logger.getLogger(LoginTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
         initComponents();
         setLocationRelativeTo(null);
     }
@@ -29,7 +47,6 @@ public class CadastrarTela extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
-
         jLabel2 = new javax.swing.JLabel();
         button1 = new java.awt.Button();
         loginTextField = new javax.swing.JTextField();
@@ -158,17 +175,25 @@ public class CadastrarTela extends javax.swing.JFrame {
         System.out.println("12131");
 
         try {
-            Usuario usuario = new Usuario(loginTextField.getText(), new String(senhaPasswordField.getPassword()), 0);
+            var login = loginTextField.getText();
+            var usuario = UsuarioDAO.getByLogin(login);
 
-            if (UsuarioDAO.existe(usuario)) {
+            if (usuario != null) {
                 JOptionPane.showMessageDialog(this, "Já possui um login com essas credenciais!");
                 return;
             }
+
+            var senha = new String(senhaPasswordField.getPassword());
+
+            usuario = new Usuario(login, senha, 0);
+
             UsuarioDAO.inserir(usuario);
+
             new LoginTela().setVisible(true);
             this.dispose();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Erro ao tentar registrar: " + e.getMessage());
+        } catch (RuntimeException re) {
+            re.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Erro ao tentar registrar: " + re.getMessage());
         }
     }
 
@@ -184,46 +209,6 @@ public class CadastrarTela extends javax.swing.JFrame {
             senhaPasswordField.setEchoChar('*'); // Ocultar a senha
         }
 
-    }
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        // <editor-fold defaultstate="collapsed" desc=" Look and feel setting code
-        // (optional) ">
-        /*
-         * If Nimbus (introduced in Java SE 6) is not available, stay with the default
-         * look and feel.
-         * For details see
-         * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        // </editor-fold>
-        // </editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CadastrarTela().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify
