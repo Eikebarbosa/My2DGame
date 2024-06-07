@@ -54,16 +54,17 @@ public class UI {
         if (gp.gameState == gp.playState) {
             drawMessage(message);
             drawPlayerLife();
+            drawPlayerHighcore();
         }
         // CUTSCENE
         if (gp.gameState == gp.cutSceneState) {
             drawMessage(message);
-            drawPlayerLife();
         }
         /// PAUSE STATE
         if (gp.gameState == gp.pauseState) {
             drawPlayerLife();
             drawPauseScreen();
+            drawPlayerHighcore();
         }
         // DIALOGUE STATE
         if (gp.gameState == gp.dialogueState) {
@@ -107,6 +108,20 @@ public class UI {
             i++;
             x += gp.tileSize;
         }
+    }
+
+    public void drawPlayerHighcore() {
+        var string = "Recorde: " + gp.recorde;
+
+        g2.setFont(arial_40);
+        // shadow
+        g2.setColor(Color.black);
+        int x = gp.screenWidth - gp.tileSize * 4;
+        int y = gp.screenHeight - gp.tileSize * 11;
+        g2.drawString(string, x, y);
+        // main
+        g2.setColor(Color.white);
+        g2.drawString(string, x - 4, y - 4);
     }
 
     public void drawPauseScreen() {
@@ -200,10 +215,17 @@ public class UI {
         g2.setColor(Color.white);
         g2.drawString(bigText, x - 4, y - 4);
 
+        // recorde
+        var recordeString = "Recorde: " + gp.recorde;
+        g2.setFont(g2.getFont().deriveFont(40f));
+        x = getXforCenteredText(recordeString, g2);
+        y += gp.tileSize * 1;
+        g2.drawString(recordeString, x, y);
+
         // retry
         g2.setFont(g2.getFont().deriveFont(50f));
         x = getXforCenteredText(smallText, g2);
-        y += gp.tileSize * 4;
+        y += gp.tileSize * 3;
         g2.drawString(smallText, x, y);
 
     }
