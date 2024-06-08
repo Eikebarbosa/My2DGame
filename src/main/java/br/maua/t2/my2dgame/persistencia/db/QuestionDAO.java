@@ -24,9 +24,10 @@ public class QuestionDAO {
         Connection connection = new ConnectionFactory().obterConexao();
 
         try (PreparedStatement statement = connection.prepareStatement(
-                "INSERT INTO Pergunta (textoPergunta, respostaCorreta) VALUES (?, ?)")) {
-            statement.setString(2, question.toRawText());
-            statement.setString(3, question.getCorrectOption());
+                "INSERT INTO Pergunta (textoPergunta, respostaCorreta) VALUES (?, ?)",
+                Statement.RETURN_GENERATED_KEYS)) {
+            statement.setString(1, question.toRawText());
+            statement.setString(2, question.getCorrectOption());
 
             int affectedRows = statement.executeUpdate();
 
