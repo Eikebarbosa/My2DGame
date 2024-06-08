@@ -4,14 +4,10 @@
  */
 package entity;
 
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
 import javax.imageio.ImageIO;
 import main.GamePanel;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 
 /**
  *
@@ -19,8 +15,8 @@ import java.awt.image.BufferedImage;
  */
 public class NPC_OldMan extends Entity {
 
-    public NPC_OldMan(GamePanel gp) {
-        super(gp);
+    public NPC_OldMan(GamePanel gp, int x, int y) {
+        super(gp, x, y);
 
         direction = "down";
         speed = 0;
