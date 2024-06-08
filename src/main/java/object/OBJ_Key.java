@@ -4,7 +4,6 @@
  */
 package object;
 
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
@@ -15,8 +14,8 @@ import main.GamePanel;
  * @author keyex
  */
 public class OBJ_Key extends SuperObject {
-    public OBJ_Key(GamePanel gp) {
-        super(gp);
+    public OBJ_Key(GamePanel gp, int x, int y) {
+        super(gp, x, y);
         name = "Key";
         try {
             image = ImageIO.read(getClass().getResourceAsStream("/images/key.png"));
