@@ -32,7 +32,7 @@ public class UI {
         arial_80B = new Font("Arial", Font.BOLD, 80);
 
         // create hud object
-        SuperObject heart = new OBJ_Heart(gp);
+        SuperObject heart = new OBJ_Heart(gp, 0, 0);
         heart_full = heart.image;
         heart_half = heart.image2;
         heart_blank = heart.image3;
