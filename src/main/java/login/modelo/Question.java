@@ -1,8 +1,5 @@
 package login.modelo;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Question {
 
 	private final int id;
