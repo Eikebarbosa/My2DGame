@@ -23,6 +23,7 @@ public class Entity {
     public int signumDirectionX;
     public int signumDirectionY;
     public String direction;
+    public int group = -1;
 
     public BufferedImage sprite;
     public BufferedImage[] walkingSprites = new BufferedImage[8], attackSprites = new BufferedImage[8];
@@ -33,6 +34,8 @@ public class Entity {
     public float spriteScale = 1f;
     public int spriteX;
     public int spriteY;
+    public int spriteOffsetX;
+    public int spriteOffsetY;
 
     public String name;
     public Rectangle solidArea = new Rectangle(0, 0, 0, 0);
@@ -54,9 +57,11 @@ public class Entity {
     public int maxLife;
     public int life;
 
-    public Entity(GamePanel gp) {
+    public Entity(GamePanel gp, int x, int y) {
         this.attackArea = new Rectangle(0, 0, 0, 0);
         this.gp = gp;
+        this.worldX = x * gp.tileSize;
+        this.worldY = y * gp.tileSize;
     }
 
     public void draw(Graphics2D g2) {
@@ -68,30 +73,35 @@ public class Entity {
                 worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
                 worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
 
+            int spriteVisualWidth = (int) (walkingSprites[0].getWidth() * spriteScale);
+
             // name label
             if (name != null) {
                 g2.setFont(new Font("Arial", Font.BOLD, 16));
                 int lenght = (int) g2.getFontMetrics().getStringBounds(name, g2).getWidth();
-                int x = (int) (sprite.getWidth() * spriteScale) / 2 - lenght / 2;
+                int x = (spriteVisualWidth / 2 - lenght / 2) + spriteX;
 
                 g2.setColor(Color.black);
                 g2.drawString(name, (int) (screenX + spriteX * spriteScale) + x + 2,
-                        (int) (screenY + spriteY * spriteScale) - 19);
+                        (int) (screenY + spriteY * spriteScale) - 22);
                 g2.setColor(Color.white);
                 g2.drawString(name, (int) (screenX + spriteX * spriteScale) + x,
-                        (int) (screenY + spriteY * spriteScale) - 19);
+                        (int) (screenY + spriteY * spriteScale) - 22);
             }
 
             // hp bar
             if (type != 0 && life != maxLife) {
-                double oneScale = (double) gp.tileSize / maxLife;
-                double hpBarValue = oneScale * life;
+                double oneScale = spriteVisualWidth / maxLife;
+                int hpBarValue = (int) (oneScale * life);
+
+                int x = (int) (screenX + spriteY * spriteScale);
+                int y = (int) (screenY + spriteY * spriteScale);
 
                 g2.setColor(new Color(35, 35, 35));
-                g2.fillRect(screenX - 1, screenY - 16, gp.tileSize + 2, 12);
+                g2.fillRect(x, y - 19, spriteVisualWidth - 2, 14);
 
                 g2.setColor(new Color(255, 0, 30));
-                g2.fillRect(screenX, screenY - 15, (int) hpBarValue, 10);
+                g2.fillRect(x - 1, y - 18, hpBarValue - 4, 12);
             }
 
             if (entityHandleSpriteDrawing) {
@@ -101,7 +111,8 @@ public class Entity {
                     sprite = resolveImage();
                 }
                 g2.setColor(Color.white);
-                g2.drawImage(sprite, (int) (screenX + spriteX * spriteScale), (int) (screenY + spriteY * spriteScale),
+                g2.drawImage(sprite, (int) (screenX + (spriteX + spriteOffsetX) * spriteScale),
+                        (int) (screenY + (spriteY + spriteOffsetY) * spriteScale),
                         (int) (sprite.getWidth() * spriteScale),
                         (int) (sprite.getHeight() * spriteScale), null);
             }
@@ -122,11 +133,13 @@ public class Entity {
              * attackArea.width,
              * attackArea.height);
              * 
+             * 
              * // DEBUG: HitBox drawing
              * g2.setColor(new Color(255, 0, 0, 100));
              * g2.fillRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width,
              * solidArea.height);
              */
+
         }
 
     }
@@ -192,7 +205,7 @@ public class Entity {
 
         collisionOn = false;
         gp.cChecker.checkTile(this);
-        gp.cChecker.checkObject(this, false);
+        gp.cChecker.checkObject(this);
         gp.cChecker.checkEntity(this, gp.npc);
         gp.cChecker.checkEntity(this, gp.monster);
 
@@ -253,6 +266,26 @@ public class Entity {
         int spr = dir + spriteNum - 1;
         var attackSpr = attackSprites[spr];
         return attackDelayCounter > 0 && attackSpr != null ? attackSpr : walkingSprites[spr];
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
+        signumDirectionX = 0;
+        signumDirectionY = 0;
+        switch (direction) {
+            case "up" -> {
+                signumDirectionY = -1;
+            }
+            case "down" -> {
+                signumDirectionY = 1;
+            }
+            case "left" -> {
+                signumDirectionX = -1;
+            }
+            case "right" -> {
+                signumDirectionX = 1;
+            }
+        }
     }
 
 }
