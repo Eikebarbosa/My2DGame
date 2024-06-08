@@ -9,9 +9,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Pattern;
 
 import login.db.QuestionDAO;
@@ -30,7 +28,8 @@ public class QuizScreen {
 
     public QuizScreen(GamePanel gp) {
         this.gp = gp;
-        for (Question question : QuestionDAO.getQuestions()) {
+        for (Question unvalidadedQuestion : QuestionDAO.getQuestions()) {
+            Question question = unvalidadedQuestion.validated();
             this.questionsHeader.add(wrap(question.getHeader(), 100));
             this.correctAnswers.add(question.getCorrectAnswer());
             List<String[]> questionOption = new ArrayList<>();
