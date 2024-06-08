@@ -5,7 +5,6 @@
 package login.telas;
 
 import login.db.UsuarioDAO;
-import login.modelo.Usuario;
 import javax.swing.JOptionPane;
 import main.Main;
 
