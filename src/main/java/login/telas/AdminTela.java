@@ -140,7 +140,7 @@ public class AdminTela extends javax.swing.JFrame {
         return panel;
     }
 
-    public JScrollPane highscoreScreen() {
+    public JPanel highscoreScreen() {
         DefaultTableModel model = new DefaultTableModel(new Object[] { "Aluno", "Recorde" }, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -154,9 +154,46 @@ public class AdminTela extends javax.swing.JFrame {
         }
 
         JTable table = new JTable(model);
+
+        JPanel buttonPanel = new JPanel();
+
+        // Botão para remover a linha selecionada
+        JButton resetButton = new JButton("Resetar");
+        resetButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = table.getSelectedRow();
+                if (selectedRow != -1) {
+                    model.setValueAt(0, selectedRow, 1);
+                    UsuarioDAO.setRecorde(usuarios.get(selectedRow).getCodigo(), 0);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Selecione uma linha para resetar.");
+                }
+            }
+        });
+
+        JButton resetAllButton = new JButton("Resetar tudo");
+        resetAllButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for (int i = 0; i < usuarios.size(); i++) {
+                    model.setValueAt(0, i, 1);
+                    UsuarioDAO.setRecorde(usuarios.get(i).getCodigo(), 0);
+                }
+            }
+        });
+
+        buttonPanel.add(resetButton);
+        buttonPanel.add(resetAllButton);
+
         JScrollPane scrollPane = new JScrollPane(table);
 
-        return scrollPane;
+        JPanel panel = new JPanel();
+
+        panel.add(scrollPane, BorderLayout.CENTER);
+        panel.add(buttonPanel, BorderLayout.SOUTH);
+
+        return panel;
     }
 
     public void showAddQuestionScreen(DefaultTableModel model, List<Question> questions) {
