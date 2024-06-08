@@ -85,7 +85,7 @@ public class Question {
 
 		String[] options = new String[countAnswers];
 		for (int i = 0; i < options.length; i++) {
-			options[i] = split[split.length - i - 1];
+			options[i] = split[split.length - countAnswers + i];
 		}
 
 		return new Question(id, header, options, correctAnswer);
