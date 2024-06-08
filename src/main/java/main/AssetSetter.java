@@ -8,6 +8,7 @@ import entity.BossFinal;
 import entity.MON_SkeletonLord;
 import object.OBJ_Door;
 import object.OBJ_Key;
+import object.OBJ_SpawnPoint;
 import object.OBJ_Boots;
 import entity.NPC_OldMan;
 import entity.SlimeMonster;
@@ -23,109 +24,98 @@ public class AssetSetter {
         this.gp = gp;
     }
 
+    public void addSpawnPoint(int x, int y) {
+        if (gp.spawnPoint.worldX / gp.tileSize != x && gp.spawnPoint.worldY / gp.tileSize != y) {
+            gp.obj.add(new OBJ_SpawnPoint(gp, x, y));
+        }
+    }
+
     public void setObject() {
-        // definindo aonde a chave vai ficar no mundo.
-        gp.obj[0] = new OBJ_Key(gp);
-        gp.obj[0].worldX = 23 * gp.tileSize;
-        gp.obj[0].worldY = 7 * gp.tileSize;
 
-        gp.obj[1] = new OBJ_Key(gp);
-        gp.obj[1].worldX = 48 * gp.tileSize;
-        gp.obj[1].worldY = 41 * gp.tileSize;
+        gp.obj.add(new OBJ_Key(gp, 48, 42));
 
-        gp.obj[2] = new OBJ_Door(gp);
-        gp.obj[2].worldX = 39 * gp.tileSize;
-        gp.obj[2].worldY = 45 * gp.tileSize;
+        gp.obj.add(new OBJ_Door(gp, 39, 45, 0));
+        gp.obj.add(new OBJ_Door(gp, 39, 44, 0));
+        gp.obj.add(new OBJ_Door(gp, 39, 43, 0));
+        // addSpawnPoint(38, 44);
 
-        gp.obj[3] = new OBJ_Door(gp);
-        gp.obj[3].worldX = 39 * gp.tileSize;
-        gp.obj[3].worldY = 44 * gp.tileSize;
+        gp.obj.add(new OBJ_Door(gp, 33, 34, 1));
+        gp.obj.add(new OBJ_Door(gp, 33, 35, 1));
+        gp.obj.add(new OBJ_Door(gp, 33, 36, 1));
+        addSpawnPoint(31, 35);
 
-        gp.obj[4] = new OBJ_Door(gp);
-        gp.obj[4].worldX = 39 * gp.tileSize;
-        gp.obj[4].worldY = 43 * gp.tileSize;
+        gp.obj.add(new OBJ_Door(gp, 19, 42, 2));
+        gp.obj.add(new OBJ_Door(gp, 19, 43, 2));
+        gp.obj.add(new OBJ_Door(gp, 19, 44, 2));
+        addSpawnPoint(17, 43);
 
-        // gp.obj[5] = new OBJ_Chest();
-        // gp.obj[5].worldX = 8 * gp.tileSize;
-        // gp.obj[5].worldY = 28 * gp.tileSize;
+        gp.obj.add(new OBJ_Door(gp, 14, 32, 3));
+        gp.obj.add(new OBJ_Door(gp, 15, 32, 3));
+        gp.obj.add(new OBJ_Door(gp, 16, 32, 3));
+        gp.obj.add(new OBJ_Door(gp, 17, 32, 3));
+        gp.obj.add(new OBJ_Door(gp, 18, 32, 3));
+        addSpawnPoint(16, 30);
 
-        // gp.obj[6] = new OBJ_Chest();
-        // gp.obj[6].worldX = 12 * gp.tileSize;
-        // gp.obj[6].worldY = 22 * gp.tileSize;
+        gp.obj.add(new OBJ_Door(gp, 18, 21, 4));
+        gp.obj.add(new OBJ_Door(gp, 17, 21, 4));
+        gp.obj.add(new OBJ_Door(gp, 16, 21, 4));
+        gp.obj.add(new OBJ_Door(gp, 15, 21, 4));
+        gp.obj.add(new OBJ_Door(gp, 14, 21, 4));
+        addSpawnPoint(16, 19);
 
-        // gp.obj[7] = new OBJ_Chest();
-        // gp.obj[7].worldX = 10 * gp.tileSize;
-        // gp.obj[7].worldY = 7 * gp.tileSize;
+        gp.obj.add(new OBJ_Door(gp, 18, 8, 5));
+        gp.obj.add(new OBJ_Door(gp, 17, 8, 5));
+        gp.obj.add(new OBJ_Door(gp, 16, 8, 5));
+        gp.obj.add(new OBJ_Door(gp, 15, 8, 5));
+        gp.obj.add(new OBJ_Door(gp, 14, 8, 5));
+        addSpawnPoint(16, 6);
 
-        gp.obj[8] = new OBJ_Boots(gp);
-        gp.obj[8].worldX = 37 * gp.tileSize;
-        gp.obj[8].worldY = 42 * gp.tileSize;
+        gp.obj.add(new OBJ_Door(gp, 30, 3, 6));
+        gp.obj.add(new OBJ_Door(gp, 30, 4, 6));
+        gp.obj.add(new OBJ_Door(gp, 30, 5, 6));
+        gp.obj.add(new OBJ_Door(gp, 30, 6, 6));
+        gp.obj.add(new OBJ_Door(gp, 30, 7, 6));
+
+        gp.obj.add(new OBJ_Boots(gp, 37, 42));
     }
 
     public void setNPC() {
-        gp.npc[0] = new NPC_OldMan(gp);
-        gp.npc[0].worldX = gp.tileSize * 40;
-        gp.npc[0].worldY = gp.tileSize * 42;
+        gp.npc.add(new NPC_OldMan(gp, 40, 42));
 
-        gp.npc[1] = new BossFinal(gp);
-        gp.npc[1].worldX = gp.tileSize * 40;
-        gp.npc[1].worldY = gp.tileSize * 14;
+        gp.npc.add(new BossFinal(gp, 40, 14));
     }
 
     public void setMonster() {
-        gp.monster[0] = new SlimeMonster(gp);
-        gp.monster[0].worldX = gp.tileSize * 23;
-        gp.monster[0].worldY = gp.tileSize * 26;
 
-        gp.monster[1] = new SlimeMonster(gp);
-        gp.monster[1].worldX = gp.tileSize * 23;
-        gp.monster[1].worldY = gp.tileSize * 24;
+        gp.monster.add(new SlimeMonster(gp, 35, 35, 0));
+        gp.monster.add(new SlimeMonster(gp, 35, 37, 0));
+        gp.monster.add(new SlimeMonster(gp, 35, 39, 0));
+        gp.monster.add(new SlimeMonster(gp, 37, 39, 0));
 
-        gp.monster[2] = new SlimeMonster(gp);
-        gp.monster[2].worldX = gp.tileSize * 23;
-        gp.monster[2].worldY = gp.tileSize * 25;
+        gp.monster.add(new SlimeMonster(gp, 28, 39, 1));
+        gp.monster.add(new SlimeMonster(gp, 23, 43, 1));
+        gp.monster.add(new SlimeMonster(gp, 30, 43, 1));
+        gp.monster.add(new MON_SkeletonLord(gp, 22, 37, 1));
+        gp.monster.add(new SlimeMonster(gp, 28, 41, 1));
 
-        gp.monster[3] = new SlimeMonster(gp);
-        gp.monster[3].worldX = gp.tileSize * 23;
-        gp.monster[3].worldY = gp.tileSize * 27;
+        gp.monster.add(new SlimeMonster(gp, 15, 44, 2));
+        gp.monster.add(new SlimeMonster(gp, 15, 36, 2));
+        gp.monster.add(new SlimeMonster(gp, 14, 38, 2));
 
-        gp.monster[4] = new SlimeMonster(gp);
-        gp.monster[4].worldX = gp.tileSize * 23;
-        gp.monster[4].worldY = gp.tileSize * 28;
+        gp.monster.add(new SlimeMonster(gp, 23, 24, 3));
+        gp.monster.add(new SlimeMonster(gp, 23, 26, 3));
+        gp.monster.add(new MON_SkeletonLord(gp, 23, 28, 3));
+        gp.monster.add(new SlimeMonster(gp, 23, 30, 3));
+        gp.monster.add(new SlimeMonster(gp, 15, 25, 3));
+        gp.monster.add(new SlimeMonster(gp, 17, 23, 3));
 
-        gp.monster[5] = new SlimeMonster(gp);
-        gp.monster[5].worldX = gp.tileSize * 23;
-        gp.monster[5].worldY = gp.tileSize * 29;
+        gp.monster.add(new SlimeMonster(gp, 14, 18, 4));
+        gp.monster.add(new SlimeMonster(gp, 17, 16, 4));
+        gp.monster.add(new MON_SkeletonLord(gp, 15, 13, 4));
+        gp.monster.add(new MON_SkeletonLord(gp, 17, 10, 4));
 
-        gp.monster[6] = new SlimeMonster(gp);
-        gp.monster[6].worldX = gp.tileSize * 23;
-        gp.monster[6].worldY = gp.tileSize * 30;
-
-        gp.monster[7] = new SlimeMonster(gp);
-        gp.monster[7].worldX = gp.tileSize * 24;
-        gp.monster[7].worldY = gp.tileSize * 30;
-
-        gp.monster[8] = new SlimeMonster(gp);
-        gp.monster[8].worldX = gp.tileSize * 45;
-        gp.monster[8].worldY = gp.tileSize * 41;
-
-        gp.monster[9] = new MON_SkeletonLord(gp, true);
-        gp.monster[9].worldX = gp.tileSize * 43;
-        gp.monster[9].worldY = gp.tileSize * 44;
-
-        /*
-         * gp.monster[9] = new SlimeMonster(gp);
-         * gp.monster[9].worldX = gp.tileSize*26;
-         * gp.monster[9].worldY = gp.tileSize*26;
-         * 
-         * gp.monster[10] = new SlimeMonster(gp);
-         * gp.monster[10].worldX = gp.tileSize*26;
-         * gp.monster[10].worldY = gp.tileSize*27;
-         * 
-         * gp.monster[11] = new SlimeMonster(gp);
-         * gp.monster[11].worldX = gp.tileSize*27;
-         * gp.monster[11].worldY = gp.tileSize*28;
-         */
+        gp.monster.add(new MON_SkeletonLord(gp, 25, 5, 5, true));
+        gp.monster.add(new MON_SkeletonLord(gp, 27, 4, 5, true));
 
     }
 
