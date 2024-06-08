@@ -24,8 +24,8 @@ public class BossFinal extends Entity {
     boolean bossDefeated;
     boolean onFinish;
 
-    public BossFinal(GamePanel gp) {
-        super(gp);
+    public BossFinal(GamePanel gp, int x, int y) {
+        super(gp, x, y);
         gp.boss = this;
         maxLife = 25;
         life = maxLife;
@@ -86,20 +86,19 @@ public class BossFinal extends Entity {
 
             int correctAnswers = gp.quizScreen.countCorrect();
 
-            var thread = new Thread(() -> {
-                try {
-                    int recorde = UsuarioDAO.getRecorde(gp.user.getCodigo());
-                    if (recorde < correctAnswers) {
-                        gp.recorde = recorde;
+            if (gp.recorde < correctAnswers) {
+                gp.recorde = correctAnswers;
+                var thread = new Thread(() -> {
+                    try {
                         UsuarioDAO.setRecorde(gp.user.getCodigo(), correctAnswers);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            });
-            thread.start();
+                });
+                thread.start();
+            }
 
-            if (correctAnswers >= 9) {
+            if (correctAnswers >= (int) (gp.quizScreen.selectedAnswers.length * 0.60)) {
                 dialogueIndex = 1;
                 bossDefeated = true;
             } else {
@@ -117,7 +116,6 @@ public class BossFinal extends Entity {
         }
 
         if (onCutscene) {
-
             if (bossDefeated) {
                 if (actionLockCounter == 120) {
                     life = 1;
@@ -129,12 +127,14 @@ public class BossFinal extends Entity {
                     invincible = false;
                     gp.gameState = gp.playState;
                     onCutscene = false;
+                    gp.setDefaultSpawnPoint();
                 }
             } else if (actionLockCounter == 120) {
                 gp.player.life = 0;
                 gp.playSE(5);
                 gp.gameState = gp.gameOverState;
                 onCutscene = false;
+                gp.setDefaultSpawnPoint();
             }
         }
 
