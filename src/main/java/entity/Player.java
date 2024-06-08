@@ -8,9 +8,15 @@ import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.io.IOException;
+import java.util.List;
+
 import javax.imageio.ImageIO;
 import main.GamePanel;
 import main.KeyHandler;
+import object.OBJ_Door;
+import object.OBJ_Heart;
+import object.OBJ_Key;
+import object.OBJ_SpawnPoint;
 
 /**
  *
@@ -20,11 +26,10 @@ public class Player extends Entity {
     KeyHandler keyH;
     public final int screenX;
     public final int screenY;
-    public int hasKey = 0;
-    public int kills;
+    public int keys = 0;
 
-    public Player(GamePanel gp, KeyHandler keyH) {
-        super(gp);
+    public Player(GamePanel gp, KeyHandler keyH, int x, int y) {
+        super(gp, x, y);
         name = gp.user.getLogin();
         this.keyH = keyH;
 
@@ -40,8 +45,8 @@ public class Player extends Entity {
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
 
-        attackArea.width = gp.tileSize;
-        attackArea.height = gp.tileSize;
+        attackArea.width = (int) (gp.tileSize * 1.33);
+        attackArea.height = (int) (gp.tileSize * 1.33);
 
         entityHandleSpriteDrawing = false;
         setDefaultValues();
@@ -51,14 +56,8 @@ public class Player extends Entity {
     }
 
     public void setDefaultValues() {
-
-        worldX = gp.tileSize * 45;
-        worldY = gp.tileSize * 47;
         speed = 4;
         direction = "down";
-
-        // player status
-
         maxLife = 6;
         life = maxLife;
     }
@@ -146,8 +145,8 @@ public class Player extends Entity {
             }
 
             var previousSolidArea = new Rectangle(solidArea);
-            solidArea.width = 50;
-            solidArea.height = 50;
+            solidArea.width = 60;
+            solidArea.height = 60;
             solidArea.x += (previousSolidArea.width - solidArea.width) / 2;
             solidArea.y += (previousSolidArea.height - solidArea.height) / 2;
 
@@ -156,7 +155,7 @@ public class Player extends Entity {
             gp.cChecker.checkTile(this);
 
             // Check object collision
-            int objIndex = gp.cChecker.checkObject(this, true);
+            int objIndex = gp.cChecker.checkObject(this);
             pickUpObject(objIndex);
 
             solidArea = previousSolidArea;
@@ -199,7 +198,7 @@ public class Player extends Entity {
                     attackDelayCounter = 40;
                     spriteNum = 1;
                     if (direction.equals("left")) {
-                        spriteX = -18;
+                        spriteOffsetX = -18;
                     }
                 }
             }
@@ -235,7 +234,7 @@ public class Player extends Entity {
             damageMonster(monsterIndex);
 
             if (gp.boss.onFinish) {
-                int result = gp.cChecker.checkEntity(this, new Entity[] { gp.boss });
+                int result = gp.cChecker.checkEntity(this, List.of(gp.boss));
                 damageBoss(result);
             }
 
@@ -248,38 +247,55 @@ public class Player extends Entity {
             spriteCounter = 0;
             attackDelayCounter--;
         }
-        if (attackDelayCounter == 0) {
-            spriteX = 0;
+        if (attackDelayCounter == 0 || freezed) {
+            spriteOffsetX = 0;
         }
 
     }
 
     public void pickUpObject(int i) {
         if (i != 999) {
-            String objectName = gp.obj[i].name;
+            String objectName = gp.obj.get(i).name;
 
             switch (objectName) {
                 case "Key":
                     gp.playSE(1);
-                    hasKey++;
-                    gp.obj[i] = null;
+                    keys++;
+                    gp.obj.remove(i);
                     gp.ui.showMessage("Você encontrou uma chave", 1);
                     break;
+                case "Heart":
+                    gp.playSE(1);
+                    life += 2;
+                    gp.obj.remove(i);
+                    gp.ui.showMessage("Você recebeu 1 coração!", 1);
+                    break;
                 case "Door":
-                    if (hasKey > 0) {
+                    if (keys > 0) {
                         gp.playSE(3);
-                        gp.obj[i] = null;
-                        hasKey--;
+                        int group = ((OBJ_Door) gp.obj.get(i)).group;
+                        for (int j = 0; j < gp.obj.size(); j++) {
+                            if (gp.obj.get(j) instanceof OBJ_Door door && door.group == group) {
+                                gp.obj.remove(j);
+                                j--;
+                            }
+                        }
+                        keys--;
                         gp.ui.showMessage("Você abriu a porta", 1);
                     } else {
                         gp.ui.showMessage("Você precisa de uma chave", 1);
                     }
-                    System.out.println("Key:" + hasKey);
                     break;
                 case "Boots":
                     gp.playSE(2);
                     speed += 2;
-                    gp.obj[i] = null;
+                    gp.obj.remove(i);
+                    break;
+                case "SpawnPoint":
+                    gp.playSE(2);
+                    gp.ui.showMessage("Spawn Point salvo!", 1);
+                    gp.spawnPoint = (OBJ_SpawnPoint) gp.obj.get(i);
+                    gp.obj.remove(i);
                     break;
                 case "Chest":
                     gp.ui.gameFinished = true;
@@ -292,14 +308,14 @@ public class Player extends Entity {
 
     public boolean interactNPC(int i) {
         if (i != 999) {
-            if (gp.npc[i] instanceof BossFinal boss) {
+            if (gp.npc.get(i) instanceof BossFinal boss) {
                 if (boss.onFinish) {
                     return true;
                 }
                 boss.quizAfterDialog = true;
             }
             gp.gameState = gp.dialogueState;
-            gp.npc[i].speak();
+            gp.npc.get(i).speak();
             return true;
         }
         return false;
@@ -312,19 +328,41 @@ public class Player extends Entity {
                 this.damage(1);
                 gp.playSE(6);
                 invincible = true;
-                gp.monster[i].attackDelayCounter = 60;
+                gp.monster.get(i).attackDelayCounter = 60;
             }
         }
     }
 
     public void damageMonster(int i) {
         if (i != 999) {
-            if (gp.monster[i].invincible == false) {
+            Entity monster = gp.monster.get(i);
+            if (monster.invincible == false) {
                 gp.playSE(5);
-                gp.monster[i].damage(1);
-                gp.monster[i].invincible = true;
-                if (gp.monster[i].life <= 0) {
-                    gp.monster[i] = null;
+                monster.damage(1);
+                monster.invincible = true;
+                if (monster.life <= 0) {
+                    int group = monster.group;
+                    gp.monster.remove(i);
+                    for (Entity e : gp.monster) {
+                        if (e.group == group) {
+
+                            java.util.Random random = new java.util.Random();
+                            int drop = random.nextInt(100) + 1;
+                            if (drop <= 20) {
+                                var heart = new OBJ_Heart(gp, 0, 0);
+                                heart.worldX = monster.worldX + solidArea.x;
+                                heart.worldY = monster.worldY + solidArea.y;
+                                gp.obj.add(heart);
+                            }
+
+                            return;
+                        }
+                    }
+                    var key = new OBJ_Key(gp, 0, 0);
+                    key.worldX = monster.worldX + solidArea.x;
+                    key.worldY = monster.worldY + solidArea.y;
+                    gp.obj.add(key);
+
                 }
             }
         }
@@ -344,7 +382,8 @@ public class Player extends Entity {
         if (invincible == true) {
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
         }
-        g2.drawImage(sprite, (int) (screenX + spriteX * spriteScale), (int) (screenY + spriteY * spriteScale),
+        g2.drawImage(sprite, (int) (screenX + (spriteX + spriteOffsetX) * spriteScale),
+                (int) (screenY + (spriteY + spriteOffsetY) * spriteScale),
                 (int) (sprite.getWidth() * spriteScale),
                 (int) (sprite.getHeight() * spriteScale), null);
 
