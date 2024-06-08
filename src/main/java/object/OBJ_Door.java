@@ -14,8 +14,11 @@ import main.GamePanel;
  * @author keyex
  */
 public class OBJ_Door extends SuperObject {
-    public OBJ_Door(GamePanel gp) {
-        super(gp);
+    public int group;
+
+    public OBJ_Door(GamePanel gp, int x, int y, int group) {
+        super(gp, x, y);
+        this.group = group;
         name = "Door";
         try {
             image = ImageIO.read(getClass().getResourceAsStream("/images/door_iron.png"));
