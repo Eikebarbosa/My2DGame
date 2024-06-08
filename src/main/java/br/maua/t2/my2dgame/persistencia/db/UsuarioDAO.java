@@ -127,9 +127,9 @@ public class UsuarioDAO {
         var sql = "INSERT INTO Aluno (nomeAluno, senhaAluno, recorde) VALUES (?, ?, ?)";
         try (Connection conexao = new ConnectionFactory().obterConexao();
                 PreparedStatement ps = conexao.prepareStatement(sql)) {
-            ps.setString(2, user.getLogin());
-            ps.setString(3, user.getSenha());
-            ps.setInt(4, user.getRecorde());
+            ps.setString(1, user.getLogin());
+            ps.setString(2, user.getSenha());
+            ps.setInt(3, user.getRecorde());
             ps.executeUpdate();
         } catch (Exception ex) {
             throw new RuntimeException(ex);
