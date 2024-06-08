@@ -80,30 +80,20 @@ public class QuestionDAO {
     }
 
     public static List<Question> getQuestions() {
-        List<Question> list = new ArrayList<>();
-
-        for (var entry : getRawQuestions().entrySet()) {
-            list.add(new Question(entry.getKey(), entry.getValue()[0], entry.getValue()[1]));
-        }
-
-        return list;
-    }
-
-    public static Map<Integer, String[]> getRawQuestions() {
         Connection connection = new ConnectionFactory().obterConexao();
-        Map<Integer, String[]> map = new HashMap<>();
+        List<Question> questions = new ArrayList<>();
 
         try (Statement statement = connection.createStatement()) {
             ResultSet result = statement.executeQuery("SELECT * FROM Pergunta");
 
             while (result.next()) {
-                map.put(result.getInt("idPergunta"),
-                        new String[] { result.getString("textoPergunta"), result.getString("respostaCorreta") });
+                questions.add(new Question(result.getInt("idPergunta"), result.getString("textoPergunta"),
+                        result.getString("respostaCorreta")));
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
 
-        return map;
+        return questions;
     }
 }
