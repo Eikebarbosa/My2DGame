@@ -4,8 +4,6 @@
  */
 package entity;
 
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
 
@@ -18,12 +16,14 @@ import main.GamePanel;
  * @author keyex
  */
 public class SlimeMonster extends Entity {
-    public SlimeMonster(GamePanel gp) {
-        super(gp);
+    public SlimeMonster(GamePanel gp, int x, int y, int group) {
+        super(gp, x, y);
+        this.group = group;
         type = 2;
+        name = "Slime (lvl 1)";
         direction = "down";
         speed = 2;
-        maxLife = 2;
+        maxLife = 1;
         life = maxLife;
 
         spriteScale = 2.5f;
@@ -62,16 +62,16 @@ public class SlimeMonster extends Entity {
             int i = random.nextInt(100) + 1; // escolhe um numero de 1 a 100
 
             if (i <= 25) {
-                direction = "up";
+                setDirection("up");
             }
             if (i > 25 && i <= 50) {
-                direction = "down";
+                setDirection("down");
             }
             if (i > 50 && i <= 75) {
-                direction = "left";
+                setDirection("left");
             }
             if (i > 75 && i <= 100) {
-                direction = "right";
+                setDirection("right");
             }
 
             actionLockCounter = 0;
