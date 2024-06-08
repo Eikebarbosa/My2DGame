@@ -143,12 +143,4 @@ public class KeyHandler implements KeyListener {
         }
 
     }
-
-    public void gameOverState(int code) {
-        if (code == KeyEvent.VK_ENTER) {
-            gp.gameState = gp.playState;
-            gp.retry();
-        }
-    }
-
 }
