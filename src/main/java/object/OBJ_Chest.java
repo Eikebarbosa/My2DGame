@@ -14,8 +14,8 @@ import main.GamePanel;
  * @author keyex
  */
 public class OBJ_Chest extends SuperObject {
-    public OBJ_Chest(GamePanel gp) {
-        super(gp);
+    public OBJ_Chest(GamePanel gp, int x, int y) {
+        super(gp, x, y);
         name = "Chest";
         try {
             image = ImageIO.read(getClass().getResourceAsStream("/images/chest.png"));
