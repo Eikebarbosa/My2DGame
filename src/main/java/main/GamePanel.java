@@ -14,12 +14,11 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JPanel;
 
-import entity.Entity;
-import entity.Player;
+import object.OBJ_SpawnPoint;
 import object.SuperObject;
 import tile.TileManager;
 
@@ -64,9 +63,10 @@ public class GamePanel extends JPanel implements Runnable {
     // entity and object
     public Player player;
     public BossFinal boss;
-    public SuperObject obj[] = new SuperObject[10];
-    public Entity npc[] = new Entity[10];
-    public Entity monster[] = new Entity[20];
+    public List<SuperObject> obj = new ArrayList<>();
+    public List<Entity> npc = new ArrayList<>();
+    public List<Entity> monster = new ArrayList<>();
+    public OBJ_SpawnPoint spawnPoint;
 
     // game state
     public int gameState;
@@ -87,33 +87,35 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true);
+        setDefaultSpawnPoint();
+        // playMusic(0);
+    }
 
-        this.player = new Player(this, keyH);
+    public void setDefaultSpawnPoint() {
+        this.spawnPoint = new OBJ_SpawnPoint(this, 45, 47);
     }
 
     public void setupGame() {
+        obj.clear();
+        npc.clear();
+        monster.clear();
         aSetter.setObject();
         aSetter.setNPC();
         aSetter.setMonster();
-
-        // playMusic(0);
         gameState = playState;
+        this.player = new Player(this, keyH, spawnPoint.worldX / tileSize, spawnPoint.worldY / tileSize);
     }
 
     public void retry() {
         player.setDefaultPositions();
         player.restoreLife();
-        aSetter.setObject();
-        aSetter.setNPC();
-        aSetter.setMonster();
+        setupGame();
         ui.resetMessage();
     }
 
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
-        aSetter.setNPC();
-        aSetter.setMonster();
     }
 
     @Override
@@ -157,14 +159,14 @@ public class GamePanel extends JPanel implements Runnable {
             // player
             player.update();
             // npc
-            for (int i = 0; i < npc.length; i++) {
-                if (npc[i] != null) {
-                    npc[i].update();
+            for (int i = 0; i < npc.size(); i++) {
+                if (npc.get(i) != null) {
+                    npc.get(i).update();
                 }
             }
-            for (int i = 0; i < monster.length; i++) {
-                if (monster[i] != null) {
-                    monster[i].update();
+            for (int i = 0; i < monster.size(); i++) {
+                if (monster.get(i) != null) {
+                    monster.get(i).update();
                 }
             }
         }
@@ -190,22 +192,22 @@ public class GamePanel extends JPanel implements Runnable {
         tileM.draw(g2);
 
         // OBJECT
-        for (int i = 0; i < obj.length; i++) {
-            if (obj[i] != null) {
-                obj[i].draw(g2, this);
+        for (int i = 0; i < obj.size(); i++) {
+            if (obj.get(i) != null) {
+                obj.get(i).draw(g2, this);
             }
 
         }
         // NPC
-        for (int i = 0; i < npc.length; i++) {
-            if (npc[i] != null) {
-                npc[i].draw(g2);
+        for (int i = 0; i < npc.size(); i++) {
+            if (npc.get(i) != null) {
+                npc.get(i).draw(g2);
             }
         }
         // MONSTER
-        for (int i = 0; i < monster.length; i++) {
-            if (monster[i] != null) {
-                monster[i].draw(g2);
+        for (int i = 0; i < monster.size(); i++) {
+            if (monster.get(i) != null) {
+                monster.get(i).draw(g2);
             }
         }
 
@@ -242,18 +244,6 @@ public class GamePanel extends JPanel implements Runnable {
     public void playSE(int i) {
         se.setFile(i);
         se.play();
-    }
-
-    private static class npc {
-
-        public npc() {
-        }
-    }
-
-    private static class monster {
-
-        public monster() {
-        }
     }
 
 }
