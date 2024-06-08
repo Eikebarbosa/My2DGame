@@ -1,4 +1,4 @@
-package br.maua.t2.my2dgame.login.modelo;
+package br.maua.t2.my2dgame.persistencia.modelos;
 
 public class Question {
 

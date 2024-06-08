@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package br.maua.t2.my2dgame.login.telas;
+package br.maua.t2.my2dgame.telas;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -23,10 +23,10 @@ import javax.swing.BoxLayout;
 import javax.swing.JDialog;
 import javax.swing.table.DefaultTableModel;
 
-import br.maua.t2.my2dgame.login.db.QuestionDAO;
-import br.maua.t2.my2dgame.login.db.UsuarioDAO;
-import br.maua.t2.my2dgame.login.modelo.Question;
-import br.maua.t2.my2dgame.login.modelo.Usuario;
+import br.maua.t2.my2dgame.persistencia.db.QuestionDAO;
+import br.maua.t2.my2dgame.persistencia.db.UsuarioDAO;
+import br.maua.t2.my2dgame.persistencia.modelos.Question;
+import br.maua.t2.my2dgame.persistencia.modelos.Usuario;
 
 /**
  *

@@ -2,12 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package br.maua.t2.my2dgame.main;
+package br.maua.t2.my2dgame;
 
 import javax.swing.JFrame;
 
-import br.maua.t2.my2dgame.login.modelo.Usuario;
-import br.maua.t2.my2dgame.login.telas.LoginTela;
+import br.maua.t2.my2dgame.main.GamePanel;
+import br.maua.t2.my2dgame.persistencia.modelos.Usuario;
+import br.maua.t2.my2dgame.telas.LoginTela;
 
 /**
  *

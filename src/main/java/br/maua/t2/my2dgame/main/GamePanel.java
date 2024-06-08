@@ -16,9 +16,9 @@ import javax.swing.JPanel;
 import br.maua.t2.my2dgame.entity.BossFinal;
 import br.maua.t2.my2dgame.entity.Entity;
 import br.maua.t2.my2dgame.entity.Player;
-import br.maua.t2.my2dgame.login.modelo.Usuario;
 import br.maua.t2.my2dgame.object.OBJ_SpawnPoint;
 import br.maua.t2.my2dgame.object.SuperObject;
+import br.maua.t2.my2dgame.persistencia.modelos.Usuario;
 import br.maua.t2.my2dgame.tile.TileManager;
 
 /**

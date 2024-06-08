@@ -9,8 +9,8 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
-import br.maua.t2.my2dgame.login.db.UsuarioDAO;
 import br.maua.t2.my2dgame.main.GamePanel;
+import br.maua.t2.my2dgame.persistencia.db.UsuarioDAO;
 
 /**
  *

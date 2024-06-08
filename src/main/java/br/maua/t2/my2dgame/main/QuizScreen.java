@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import br.maua.t2.my2dgame.login.db.QuestionDAO;
-import br.maua.t2.my2dgame.login.modelo.Question;
+import br.maua.t2.my2dgame.persistencia.db.QuestionDAO;
+import br.maua.t2.my2dgame.persistencia.modelos.Question;
 
 public class QuizScreen {
     GamePanel gp;
