@@ -24,8 +24,10 @@ public class SuperObject {
     public int solidAreaDefaultX = 0;
     public int solidAreaDefaultY = 0;
 
-    public SuperObject(GamePanel gp) {
+    public SuperObject(GamePanel gp, int x, int y) {
         solidArea = new Rectangle(0, 0, gp.tileSize, gp.tileSize);
+        worldX = x * gp.tileSize;
+        worldY = y * gp.tileSize;
     }
 
     // Desenhando o objeto na tela
