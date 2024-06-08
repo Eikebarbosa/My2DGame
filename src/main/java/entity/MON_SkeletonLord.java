@@ -18,21 +18,22 @@ public class MON_SkeletonLord extends Entity {
     boolean evolved;
     int directionTimer;
 
-    public MON_SkeletonLord(GamePanel gp) {
-        this(gp, false);
+    public MON_SkeletonLord(GamePanel gp, int x, int y, int group) {
+        this(gp, x, y, group, false);
     }
 
-    public MON_SkeletonLord(GamePanel gp, boolean evolved) {
-        super(gp);
+    public MON_SkeletonLord(GamePanel gp, int x, int y, int group, boolean evolved) {
+        super(gp, x, y);
         this.gp = gp;
-        this.evolved = true;
+        this.group = group;
+        this.evolved = evolved;
         directionTimer = evolved ? 55 : 75;
 
-        name = evolved ? "Esqueleto (lvl 2)" : "Esqueleto (lvl 1)";
+        name = evolved ? "Esqueleto Evoluído (lvl 3)" : "Esqueleto (lvl 2)";
         type = 2;
         direction = "down";
         speed = evolved ? 5 : 3;
-        maxLife = evolved ? 6 : 4;
+        maxLife = evolved ? 4 : 2;
         life = maxLife;
 
         spriteScale = 3;
@@ -99,35 +100,52 @@ public class MON_SkeletonLord extends Entity {
     }
 
     public void setAction() {
-        if (attackDelayCounter > 0) {
+        if (attackDelayCounter > 0 && !freezed) {
             switch (direction) {
                 case "up" -> {
-                    spriteY = -32;
+                    spriteOffsetY = -32;
                 }
                 case "left" -> {
-                    spriteX = -32;
+                    spriteOffsetX = -32;
                 }
             }
         } else {
-            spriteX = 0;
-            spriteY = 0;
+            spriteOffsetX = 0;
+            spriteOffsetY = 0;
             actionLockCounter++;
+
+            if (collisionOn) {
+                switch (direction) {
+                    case "up":
+                        setDirection("down");
+                        break;
+                    case "down":
+                        setDirection("up");
+                        break;
+                    case "left":
+                        setDirection("right");
+                        break;
+                    case "right":
+                        setDirection("left");
+                        break;
+                }
+            }
 
             if (actionLockCounter == directionTimer) {
                 Random random = new Random();
                 int i = random.nextInt(100) + 1; // escolhe um numero de 1 a 100
 
                 if (i <= 25) {
-                    direction = "up";
+                    setDirection("up");
                 }
                 if (i > 25 && i <= 50) {
-                    direction = "down";
+                    setDirection("down");
                 }
                 if (i > 50 && i <= 75) {
-                    direction = "left";
+                    setDirection("left");
                 }
                 if (i > 75 && i <= 100) {
-                    direction = "right";
+                    setDirection("right");
                 }
 
                 actionLockCounter = 0;
