@@ -6,6 +6,7 @@ package br.maua.t2.my2dgame.entity;
 
 import java.io.IOException;
 import java.util.Random;
+
 import javax.imageio.ImageIO;
 
 import br.maua.t2.my2dgame.main.GamePanel;
@@ -37,11 +38,11 @@ public class NPC_OldMan extends Entity {
     public void getImage() {
         try {
             walkingSprites[0] = ImageIO.read(getClass().getResourceAsStream("/npc/gotinha1.png"));
-            walkingSprites[1] = ImageIO.read(getClass().getResourceAsStream("/npc/gotinha1.png"));
-            walkingSprites[2] = ImageIO.read(getClass().getResourceAsStream("/npc/gotinha1.png"));
-            walkingSprites[3] = ImageIO.read(getClass().getResourceAsStream("/npc/gotinha1.png"));
-            walkingSprites[4] = ImageIO.read(getClass().getResourceAsStream("/npc/gotinha1.png"));
-            walkingSprites[5] = ImageIO.read(getClass().getResourceAsStream("/npc/gotinha1.png"));
+            walkingSprites[1] = ImageIO.read(getClass().getResourceAsStream("/npc/gotinha2.png"));
+            walkingSprites[2] = ImageIO.read(getClass().getResourceAsStream("/npc/gotinha3.png"));
+            walkingSprites[3] = ImageIO.read(getClass().getResourceAsStream("/npc/gotinha4.png"));
+            walkingSprites[4] = ImageIO.read(getClass().getResourceAsStream("/npc/gotinha5.png"));
+            walkingSprites[5] = ImageIO.read(getClass().getResourceAsStream("/npc/gotinha6.png"));
             walkingSprites[6] = ImageIO.read(getClass().getResourceAsStream("/npc/gotinha1.png"));
             walkingSprites[7] = ImageIO.read(getClass().getResourceAsStream("/npc/gotinha1.png"));
 
