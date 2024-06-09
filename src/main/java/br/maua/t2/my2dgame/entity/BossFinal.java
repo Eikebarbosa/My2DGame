@@ -63,7 +63,7 @@ public class BossFinal extends Entity {
     public void setDialogue() {
 
         // Os dialogos do NPC
-        dialogues[0] = "Você ousa me desafiar? \nVOCÊ\nNÃO\nÉ\nPAREO";
+        dialogues[0] = "Você ousa me desafiar? \nVOCÊ...\nNÃO...\nÉ...\nPAREO!!";
         dialogues[1] = "NÃOOOOOOOOOOOOOOOOOOO";
         dialogues[2] = "BAHAHAHHAHAH!!!\nFALTA-TE CONHECIMENTO!";
 

@@ -53,8 +53,10 @@ public class NPC_OldMan extends Entity {
     public void setDialogue() {
 
         // Os dialogos do NPC
-        dialogues[0] = "Ah! Você veio ajudar? \nQue ótimo! Quanto mais ajuda, melhor. \nVocê precisa entrar lá e salvar o hospital! \nPara derrotar os inimigos no caminho, \npressione: ENTER";
-
+        dialogues[0] = "Ah, DOUTORA! VOCÊ FINALMENTE CHEGOU!! \nMaravilha! Quanto mais ajuda, melhor. \nVocê precisa entrar lá e salvar o hospital!\n\nENTER >>>";
+        dialogues[1] = "Mas cuidado, doutora! \nVocê irá se deparar com diversos inimigos, \nnão tenha medo \n\nENTER >>>";
+        dialogues[2] = "A sua seringa, que sempre está com você, deve ajudar. \n\nENTER >>>";
+        dialogues[3] = "Para responder o quiz: (abcd) ou (1234)\n\nBOA SORTE!!";
     }
 
     public void setAction() {
