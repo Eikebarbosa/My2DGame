@@ -27,7 +27,7 @@ public class Player extends Entity {
     KeyHandler keyH;
     public final int screenX;
     public final int screenY;
-    public int keys = 100;
+    public int keys = 0;
 
     public Player(GamePanel gp, KeyHandler keyH, int x, int y) {
         super(gp, x, y);
