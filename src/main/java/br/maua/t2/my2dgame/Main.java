@@ -7,6 +7,7 @@ package br.maua.t2.my2dgame;
 import javax.swing.JFrame;
 
 import br.maua.t2.my2dgame.main.GamePanel;
+import br.maua.t2.my2dgame.main.KeyInfoDialog;
 import br.maua.t2.my2dgame.persistencia.modelos.Usuario;
 import br.maua.t2.my2dgame.telas.LoginTela;
 
@@ -34,8 +35,8 @@ public class Main {
 
         window.setLocationRelativeTo(null);
         window.setVisible(true);
-
         gamePanel.setupGame();
+        new KeyInfoDialog();
         gamePanel.startGameThread();
     }
 
