@@ -94,7 +94,7 @@ public class AssetSetter {
 
         gp.monster.add(new SlimeMonster(gp, 28, 39, 1));
         gp.monster.add(new SlimeMonster(gp, 23, 43, 1));
-        gp.monster.add(new SlimeMonster(gp, 30, 43, 1));
+        gp.monster.add(new MON_SkeletonLord(gp, 30, 43, 1));
         gp.monster.add(new MON_SkeletonLord(gp, 22, 37, 1));
         gp.monster.add(new SlimeMonster(gp, 28, 41, 1));
 
@@ -105,7 +105,7 @@ public class AssetSetter {
         gp.monster.add(new SlimeMonster(gp, 23, 24, 3));
         gp.monster.add(new SlimeMonster(gp, 23, 26, 3));
         gp.monster.add(new MON_SkeletonLord(gp, 23, 28, 3));
-        gp.monster.add(new SlimeMonster(gp, 23, 30, 3));
+        gp.monster.add(new MON_SkeletonLord(gp, 23, 30, 3));
         gp.monster.add(new SlimeMonster(gp, 15, 25, 3));
         gp.monster.add(new SlimeMonster(gp, 17, 23, 3));
 
