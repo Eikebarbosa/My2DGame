@@ -49,6 +49,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public Usuario user;
     public int recorde;
+    public Entity dialogueEntity;
     TileManager tileM = new TileManager(this);
     public KeyHandler keyH = new KeyHandler(this);
     Sound music = new Sound();
@@ -87,7 +88,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.addKeyListener(keyH);
         this.setFocusable(true);
         setDefaultSpawnPoint();
-        // playMusic(0);
+        playMusic(0);
     }
 
     public void setDefaultSpawnPoint() {
@@ -103,7 +104,6 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setMonster();
         gameState = playState;
         this.player = new Player(this, keyH, spawnPoint.worldX / tileSize, spawnPoint.worldY / tileSize);
-        new KeyInfoDialog();
     }
 
     public void retry() {
@@ -245,6 +245,5 @@ public class GamePanel extends JPanel implements Runnable {
         se.setFile(i);
         se.play();
     }
-    
 
 }
