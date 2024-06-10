@@ -50,8 +50,8 @@ public class Entity {
     protected boolean entityHandleSpriteDrawing = true;
     public int attackDelayCounter;
     public int invincibleCounter = 0;
-    String dialogues[] = new String[20];
-    int dialogueIndex = 0;
+    public String dialogues[];
+    public int dialogueIndex = 0;
     public int type;// 0 = player, 1 = npc, 2 = monster
 
     // character status
@@ -150,8 +150,11 @@ public class Entity {
     }
 
     public void speak() {
-        if (dialogues[dialogueIndex] == null) {
+        gp.dialogueEntity = this;
+        if (dialogueIndex >= dialogues.length) {
             dialogueIndex = 0;
+            gp.gameState = gp.playState;
+            return;
         }
         gp.ui.currentDialogue = dialogues[dialogueIndex];
         dialogueIndex++;
