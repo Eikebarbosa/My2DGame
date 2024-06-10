@@ -26,7 +26,7 @@ public class Main {
         JFrame window = new JFrame();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
-        window.setTitle("DoctorAdventure 1.3.1");
+        window.setTitle("DoctorAdventure 1.3.7");
 
         GamePanel gamePanel = new GamePanel(user);
         window.add(gamePanel);
