@@ -53,10 +53,10 @@ public class NPC_OldMan extends Entity {
 
     public void setDialogue() {
         dialogues = new String[] {
-                "Ah, DOUTORA! VOCÊ FINALMENTE CHEGOU!! \nMaravilha! Quanto mais ajuda, melhor. \nVocê precisa entrar lá e salvar o hospital! \n\nPressione ENTER novamente.       ====>",
-                "Mas cuidado, doutora! \nVocê irá se deparar com diversos inimigos, \nnão tenha medo \n\nPressione ENTER novamente.        ====>",
-                "Para abrir a próxima porta, você deverá \nmatar todos inimigos presentes na sala  \n\nPressione ENTER novamente.        ====>",
-                "A sua seringa, que sempre está com você, \ndeve ajudar. BOA SORTE!. \n\nPressione ENTER novamente.           ====>",
+                "Ah, DOUTORA! VOCÊ FINALMENTE CHEGOU!! \nMaravilha! Quanto mais ajuda, melhor. \nVocê precisa entrar lá e salvar o hospital! \n\n",
+                "Mas cuidado, doutora! \nVocê irá se deparar com diversos inimigos, \nnão tenha medo \n\n",
+                "Para abrir a próxima porta, você deverá \nmatar todos inimigos presentes na sala  \n\n",
+                "A sua seringa, que sempre está com você, \ndeve ajudar. BOA SORTE!. \n\n",
                 "Para responder o quiz: (abcde) ou (12345)"
         };
     }
