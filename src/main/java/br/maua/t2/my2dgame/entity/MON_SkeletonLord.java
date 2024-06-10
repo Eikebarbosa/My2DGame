@@ -30,7 +30,7 @@ public class MON_SkeletonLord extends Entity {
         this.evolved = evolved;
         directionTimer = evolved ? 55 : 75;
 
-        name = evolved ? "Esqueleto Evoluído (lvl 3)" : "Esqueleto (lvl 2)";
+        name = evolved ? "Esqueleto (lvl 3)" : "Bacteriófago (lvl 2)";
         type = 2;
         direction = "down";
         speed = evolved ? 5 : 3;
@@ -46,55 +46,70 @@ public class MON_SkeletonLord extends Entity {
         attackArea.width = 48;
         attackArea.height = 48;
 
-        getImage();
-        getAttackImage();
+        if (evolved) {
+            getSkeletonImages();
+        } else {
+            getBacteriaImages();
+        }
         sprite = resolveImage();
     }
 
-    public void getImage() {
-        String phase = evolved ? "phase2_" : "";
+    public void getBacteriaImages() {
         try {
-            walkingSprites[0] = ImageIO
-                    .read(getClass().getResourceAsStream("/images/skeletonlord_" + phase + "up_1.png"));
-            walkingSprites[1] = ImageIO
-                    .read(getClass().getResourceAsStream("/images/skeletonlord_" + phase + "up_2.png"));
-            walkingSprites[2] = ImageIO
-                    .read(getClass().getResourceAsStream("/images/skeletonlord_" + phase + "down_1.png"));
-            walkingSprites[3] = ImageIO
-                    .read(getClass().getResourceAsStream("/images/skeletonlord_" + phase + "down_2.png"));
-            walkingSprites[4] = ImageIO
-                    .read(getClass().getResourceAsStream("/images/skeletonlord_" + phase + "left_1.png"));
-            walkingSprites[5] = ImageIO
-                    .read(getClass().getResourceAsStream("/images/skeletonlord_" + phase + "left_2.png"));
-            walkingSprites[6] = ImageIO
-                    .read(getClass().getResourceAsStream("/images/skeletonlord_" + phase + "right_1.png"));
-            walkingSprites[7] = ImageIO
-                    .read(getClass().getResourceAsStream("/images/skeletonlord_" + phase + "right_2.png"));
-            onFreezeSprite = Entity.redImage(walkingSprites[2]);
+            for (int i = 0; i < 8; i++) {
+                if (i % 2 == 0) {
+                    walkingSprites[i] = ImageIO
+                            .read(getClass().getResourceAsStream("/images/bacteria1.png"));
+                    attackSprites[i] = ImageIO
+                            .read(getClass().getResourceAsStream("/images/bacteria1.png"));
+                } else {
+                    walkingSprites[i] = ImageIO
+                            .read(getClass().getResourceAsStream("/images/bacteria2.png"));
+                    attackSprites[i] = ImageIO
+                            .read(getClass().getResourceAsStream("/images/bacteria2.png"));
+                }
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
+        onFreezeSprite = Entity.redImage(walkingSprites[2]);
     }
 
-    public void getAttackImage() {
-        String phase = evolved ? "phase2_" : "";
+    public void getSkeletonImages() {
         try {
+            walkingSprites[0] = ImageIO
+                    .read(getClass().getResourceAsStream("/images/skeletonlord_phase2_up_1.png"));
+            walkingSprites[1] = ImageIO
+                    .read(getClass().getResourceAsStream("/images/skeletonlord_phase2_up_2.png"));
+            walkingSprites[2] = ImageIO
+                    .read(getClass().getResourceAsStream("/images/skeletonlord_phase2_down_1.png"));
+            walkingSprites[3] = ImageIO
+                    .read(getClass().getResourceAsStream("/images/skeletonlord_phase2_down_2.png"));
+            walkingSprites[4] = ImageIO
+                    .read(getClass().getResourceAsStream("/images/skeletonlord_phase2_left_1.png"));
+            walkingSprites[5] = ImageIO
+                    .read(getClass().getResourceAsStream("/images/skeletonlord_phase2_left_2.png"));
+            walkingSprites[6] = ImageIO
+                    .read(getClass().getResourceAsStream("/images/skeletonlord_phase2_right_1.png"));
+            walkingSprites[7] = ImageIO
+                    .read(getClass().getResourceAsStream("/images/skeletonlord_phase2_right_2.png"));
+            onFreezeSprite = Entity.redImage(walkingSprites[2]);
             attackSprites[0] = ImageIO
-                    .read(getClass().getResourceAsStream("/images/skeletonlord_" + phase + "attack_up_1.png"));
+                    .read(getClass().getResourceAsStream("/images/skeletonlord_phase2_attack_up_1.png"));
             attackSprites[1] = ImageIO
-                    .read(getClass().getResourceAsStream("/images/skeletonlord_" + phase + "attack_up_2.png"));
+                    .read(getClass().getResourceAsStream("/images/skeletonlord_phase2_attack_up_2.png"));
             attackSprites[2] = ImageIO
-                    .read(getClass().getResourceAsStream("/images/skeletonlord_" + phase + "attack_down_1.png"));
+                    .read(getClass().getResourceAsStream("/images/skeletonlord_phase2_attack_down_1.png"));
             attackSprites[3] = ImageIO
-                    .read(getClass().getResourceAsStream("/images/skeletonlord_" + phase + "attack_down_2.png"));
+                    .read(getClass().getResourceAsStream("/images/skeletonlord_phase2_attack_down_2.png"));
             attackSprites[4] = ImageIO
-                    .read(getClass().getResourceAsStream("/images/skeletonlord_" + phase + "attack_left_1.png"));
+                    .read(getClass().getResourceAsStream("/images/skeletonlord_phase2_attack_left_1.png"));
             attackSprites[5] = ImageIO
-                    .read(getClass().getResourceAsStream("/images/skeletonlord_" + phase + "attack_left_2.png"));
+                    .read(getClass().getResourceAsStream("/images/skeletonlord_phase2_attack_left_2.png"));
             attackSprites[6] = ImageIO
-                    .read(getClass().getResourceAsStream("/images/skeletonlord_" + phase + "attack_right_1.png"));
+                    .read(getClass().getResourceAsStream("/images/skeletonlord_phase2_attack_right_1.png"));
             attackSprites[7] = ImageIO
-                    .read(getClass().getResourceAsStream("/images/skeletonlord_" + phase + "attack_right_2.png"));
+                    .read(getClass().getResourceAsStream("/images/skeletonlord_phase2_attack_right_2.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -102,12 +117,14 @@ public class MON_SkeletonLord extends Entity {
 
     public void setAction() {
         if (attackDelayCounter > 0 && !freezed) {
-            switch (direction) {
-                case "up" -> {
-                    spriteOffsetY = -32;
-                }
-                case "left" -> {
-                    spriteOffsetX = -32;
+            if (evolved) {
+                switch (direction) {
+                    case "up" -> {
+                        spriteOffsetY = -32;
+                    }
+                    case "left" -> {
+                        spriteOffsetX = -32;
+                    }
                 }
             }
         } else {
