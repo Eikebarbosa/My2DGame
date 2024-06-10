@@ -20,7 +20,7 @@ public class SlimeMonster extends Entity {
         super(gp, x, y);
         this.group = group;
         type = 2;
-        name = "Slime (lvl 1)";
+        name = "Bactéria (lvl 1)";
         direction = "down";
         speed = 2;
         maxLife = 1;
