@@ -40,7 +40,7 @@ public class BossFinal extends Entity {
         solidAreaDefaultY = solidArea.y;
 
         getImage();
-        setDialogue();
+        setDialogue(0);
         sprite = resolveImage();
     }
 
@@ -60,13 +60,17 @@ public class BossFinal extends Entity {
         }
     }
 
-    public void setDialogue() {
-
-        // Os dialogos do NPC
-        dialogues[0] = "Você ousa me desafiar? \nVOCÊ...\nNÃO...\nÉ...\nPAREO!!";
-        dialogues[1] = "NÃOOOOOOOOOOOOOOOOOOO";
-        dialogues[2] = "BAHAHAHHAHAH!!!\nFALTA-TE CONHECIMENTO!";
-
+    public void setDialogue(int stage) {
+        String[] dialogues = new String[] {
+                "Você ousa me desafiar? \nVOCÊ...\nNÃO...\nÉ...\nPAREO!!",
+                "NÃOOOOOOOOOOO!!! \nVOCÊ...\nME...\nDERROTOU...",
+                "BAHAHAHAHAH!!!\nFALTA-TE CONHECIMENTO!"
+        };
+        switch (stage) {
+            case 0 -> this.dialogues = new String[] { dialogues[0] };
+            case 1 -> this.dialogues = new String[] { dialogues[1] };
+            case 2 -> this.dialogues = new String[] { dialogues[2] };
+        }
     }
 
     public void setAction() {
@@ -99,10 +103,10 @@ public class BossFinal extends Entity {
             }
 
             if (correctAnswers >= (int) (gp.quizScreen.selectedAnswers.length * 0.60)) {
-                dialogueIndex = 1;
+                setDialogue(1);
                 bossDefeated = true;
             } else {
-                dialogueIndex = 2;
+                setDialogue(2);
             }
 
             speak();
@@ -163,9 +167,5 @@ public class BossFinal extends Entity {
 
             actionLockCounter = 0;
         }
-    }
-
-    public void speak() {
-        super.speak();
     }
 }
