@@ -1,6 +1,14 @@
 package br.maua.t2.my2dgame.telas;
 
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import br.maua.t2.my2dgame.persistencia.db.UsuarioDAO;
 import br.maua.t2.my2dgame.persistencia.modelos.Usuario;
@@ -10,6 +18,8 @@ import br.maua.t2.my2dgame.persistencia.modelos.Usuario;
  * @author Rodrigo Perri
  */
 public class CadastrarTela extends javax.swing.JFrame {
+
+    private JPanel interactivePanel = new JPanel();
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -33,7 +43,20 @@ public class CadastrarTela extends javax.swing.JFrame {
         } catch (Exception ex) {
             java.util.logging.Logger.getLogger(LoginTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        try {
+            var backgroundImage = ImageIO.read(getClass().getResourceAsStream("/images/telaLogin.png"));
+            setContentPane(new JPanel(new java.awt.BorderLayout()) {
+                @Override
+                public void paintComponent(java.awt.Graphics g) {
+                    g.drawImage(backgroundImage, 0, 0, getSize().width, getSize().height, null);
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         initComponents();
+        setMinimumSize(new Dimension(900, 700));
+        setMaximumSize(getMinimumSize());
         setLocationRelativeTo(null);
     }
 
@@ -50,7 +73,6 @@ public class CadastrarTela extends javax.swing.JFrame {
         senhaPasswordField = new javax.swing.JPasswordField();
         cancelarButton = new javax.swing.JButton();
         entrarButton = new javax.swing.JButton();
-        criarContaButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         senhaToggleButton = new javax.swing.JToggleButton();
 
@@ -93,8 +115,8 @@ public class CadastrarTela extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(interactivePanel);
+        interactivePanel.setLayout(layout);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
@@ -118,9 +140,6 @@ public class CadastrarTela extends javax.swing.JFrame {
                                                                         javax.swing.GroupLayout.PREFERRED_SIZE, 46,
                                                                         javax.swing.GroupLayout.PREFERRED_SIZE))
                                                         .addComponent(loginTextField)
-                                                        .addComponent(criarContaButton,
-                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                         .addGroup(layout.createSequentialGroup()
                                                                 .addComponent(cancelarButton,
                                                                         javax.swing.GroupLayout.PREFERRED_SIZE, 171,
@@ -153,10 +172,14 @@ public class CadastrarTela extends javax.swing.JFrame {
                                         javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(criarContaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap()));
 
+                                .addContainerGap()));
+        interactivePanel.setOpaque(false);
+
+        getContentPane().setLayout(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        c.insets = new Insets(0, 500, 0, 0);
+        getContentPane().add(interactivePanel, c);
         pack();
     }// </editor-fold>
 
@@ -206,7 +229,6 @@ public class CadastrarTela extends javax.swing.JFrame {
     // Variables declaration - do not modify
     private java.awt.Button button1;
     private javax.swing.JButton cancelarButton;
-    private javax.swing.JButton criarContaButton;
     private javax.swing.JButton entrarButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
